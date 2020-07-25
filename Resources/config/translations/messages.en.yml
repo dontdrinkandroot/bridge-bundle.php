@@ -1,0 +1,5 @@
+ddr:
+    flexdate:
+        year: Year
+        month: Month
+        day: Day
