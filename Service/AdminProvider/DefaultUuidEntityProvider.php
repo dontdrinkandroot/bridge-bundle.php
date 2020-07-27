@@ -2,12 +2,14 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\AdminProvider;
 
+use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
 use Dontdrinkandroot\CrudAdminBundle\Service\Id\IdProviderInterface;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\DefaultUuidEntity;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -27,7 +29,8 @@ class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInte
      */
     public function supportsRequest(Request $request): bool
     {
-        return is_a(RequestAttributes::getEntityClass($request), DefaultUuidEntity::class, true);
+        return is_a(RequestAttributes::getEntityClass($request), DefaultUuidEntity::class, true)
+            && Uuid::isValid(RequestAttributes::getId($request));
     }
 
     /**
