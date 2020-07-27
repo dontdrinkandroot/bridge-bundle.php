@@ -5,6 +5,7 @@ namespace Dontdrinkandroot\BridgeBundle\Service\AdminProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
+use Dontdrinkandroot\CrudAdminBundle\Service\Id\IdProviderInterface;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\DefaultUuidEntity;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @author Philip Washington Sorst <philip@sorst.net>
  */
-class DefaultUuidEntityProvider implements ItemProviderInterface
+class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInterface
 {
     private ManagerRegistry $managerRegistry;
 
@@ -24,7 +25,7 @@ class DefaultUuidEntityProvider implements ItemProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(Request $request): bool
+    public function supportsRequest(Request $request): bool
     {
         return is_a(RequestAttributes::getEntityClass($request), DefaultUuidEntity::class, true);
     }
@@ -41,5 +42,23 @@ class DefaultUuidEntityProvider implements ItemProviderInterface
         $persister = $entityManager->getUnitOfWork()->getEntityPersister($entityClass);
 
         return $persister->load(['uuid' => $id], null, null, [], null, 1);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsEntity(object $entity)
+    {
+        return is_a($entity, DefaultUuidEntity::class);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function provideId(object $entity)
+    {
+        assert($entity instanceof DefaultUuidEntity);
+
+        return $entity->getUuid()->toString();
     }
 }
