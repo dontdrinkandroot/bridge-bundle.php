@@ -11,9 +11,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * @author Philip Washington Sorst <philip@sorst.net>
  */
-class DdrBridgeBundleExtension extends Extension
+class DdrBridgeExtension extends Extension
 {
-
     /**
      * {@inheritdoc}
      */
@@ -27,7 +26,8 @@ class DdrBridgeBundleExtension extends Extension
 
         $bundles = $container->getParameter('kernel.bundles');
 
-        if (array_key_exists('DoctrineBundle', $bundles)) {
+        if (array_key_exists('DdrDoctrineBundle', $bundles) && array_key_exists('DdrCrudAdminBundle', $bundles)) {
+            $loader->load('ddr_crud_admin_ddr_doctrine.yaml');
         }
     }
 }

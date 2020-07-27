@@ -1,0 +1,8 @@
+services:
+
+    Dontdrinkandroot\BridgeBundle\Service\AdminProvider\DefaultUuidEntityProvider:
+        arguments:
+            - '@doctrine'
+        tags:
+            - name: ddr_crud_admin.item_provider
+              priority: 150
