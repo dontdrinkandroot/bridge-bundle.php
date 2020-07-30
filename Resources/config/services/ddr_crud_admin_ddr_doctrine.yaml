@@ -5,6 +5,6 @@ services:
             - '@doctrine'
         tags:
             - name: ddr_crud_admin.item_provider
-              priority: 150
+              priority: -150
             - name: ddr_crud_admin.id_provider
-              priority: 150
+              priority: -150
