@@ -27,9 +27,9 @@ class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInte
     /**
      * {@inheritdoc}
      */
-    public function supportsRequest(Request $request): bool
+    public function supports(string $entityClass, string $crudOperation, Request $request): bool
     {
-        return is_a(RequestAttributes::getEntityClass($request), DefaultUuidEntity::class, true)
+        return is_a($entityClass, DefaultUuidEntity::class, true)
             && Uuid::isValid(RequestAttributes::getId($request));
     }
 
