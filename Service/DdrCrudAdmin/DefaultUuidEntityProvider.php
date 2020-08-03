@@ -1,6 +1,6 @@
 <?php
 
-namespace Dontdrinkandroot\BridgeBundle\Service\AdminProvider;
+namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\ORM\EntityManagerInterface;
