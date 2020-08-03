@@ -23,12 +23,12 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             {% if routes.UPDATE is defined and is_granted('UPDATE', entity) %}
                                 <a class="dropdown-item" href="{{ updateRoute }}">
-                                    Edit
+                                    {{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
                                 </a>
                             {% endif %}
                             {% if routes.DELETE is defined and is_granted('DELETE', entity) %}
                                 <a class="dropdown-item" href="{{ deleteRoute }}">
-                                    Delete
+                                    {{ 'DELETE'|trans({}, 'DdrCrudAdmin') }}
                                 </a>
                             {% endif %}
                         </div>

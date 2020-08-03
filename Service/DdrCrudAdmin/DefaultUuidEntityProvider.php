@@ -2,15 +2,15 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
-use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
 use Dontdrinkandroot\CrudAdminBundle\Service\Id\IdProviderInterface;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\DefaultUuidEntity;
+use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Philip Washington Sorst <philip@sorst.net>
@@ -27,19 +27,22 @@ class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInte
     /**
      * {@inheritdoc}
      */
-    public function supports(string $entityClass, string $crudOperation, Request $request): bool
+    public function supports(CrudAdminContext $context): bool
     {
-        return is_a($entityClass, DefaultUuidEntity::class, true)
-            && Uuid::isValid(RequestAttributes::getId($request));
+        $uuid = RequestAttributes::getId($context->getRequest());
+        return ($context->getEntity() instanceof UuidEntityInterface)
+            || (is_a($context->getEntityClass(), DefaultUuidEntity::class, true)
+                && null !== $uuid
+                && Uuid::isValid($uuid));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function provideItem(Request $request): ?object
+    public function provideItem(CrudAdminContext $context): ?object
     {
-        $id = RequestAttributes::getId($request);
-        $entityClass = RequestAttributes::getEntityClass($request);
+        $id = RequestAttributes::getId($context->getRequest());
+        $entityClass = $context->getEntityClass();
         $entityManager = $this->managerRegistry->getManagerForClass($entityClass);
         assert($entityManager instanceof EntityManagerInterface);
         $persister = $entityManager->getUnitOfWork()->getEntityPersister($entityClass);
@@ -50,16 +53,9 @@ class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInte
     /**
      * {@inheritdoc}
      */
-    public function supportsEntity(object $entity)
+    public function provideId(CrudAdminContext $context)
     {
-        return is_a($entity, DefaultUuidEntity::class);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function provideId(object $entity)
-    {
+        $entity = $context->getEntity();
         assert($entity instanceof DefaultUuidEntity);
 
         return $entity->getUuid()->toString();

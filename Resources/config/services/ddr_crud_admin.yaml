@@ -1,0 +1,5 @@
+services:
+    Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\DontdrinkandrootTemplatesProvider:
+        tags:
+            - name: 'ddr_crud_admin.templates_provider'
+              priority: -200

@@ -1,6 +1,6 @@
 services:
 
-    Dontdrinkandroot\BridgeBundle\Service\AdminProvider\DefaultUuidEntityProvider:
+    Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\DefaultUuidEntityProvider:
         arguments:
             - '@doctrine'
         tags:

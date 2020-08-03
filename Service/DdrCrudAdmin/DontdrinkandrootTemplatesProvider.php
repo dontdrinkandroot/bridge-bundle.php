@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
 use Dontdrinkandroot\Crud\CrudOperation;
+use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
 use Dontdrinkandroot\CrudAdminBundle\Service\Template\TemplatesProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ class DontdrinkandrootTemplatesProvider implements TemplatesProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(string $entityClass, string $crudOperation, Request $request): bool
+    public function supports(CrudAdminContext $context): bool
     {
         return true;
     }
@@ -23,16 +24,19 @@ class DontdrinkandrootTemplatesProvider implements TemplatesProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function provideTemplates(Request $request): ?array
+    public function provideTemplates(CrudAdminContext $context): ?array
     {
-        $prefix = RequestAttributes::getTemplatesPath($request);
-        if (null === $prefix) {
-            $prefix = '@DdrBridge/DdrCrudAdmin/';
+        $prefix = '@DdrBridge/DdrCrudAdmin/';
+        if (RequestAttributes::entityClassMatches($context)) {
+            $requestAttributesPrefix = RequestAttributes::getTemplatesPath($context->getRequest());
+            if (null !== $requestAttributesPrefix) {
+                $prefix = $requestAttributesPrefix;
+            }
         }
 
         return [
-            CrudOperation::LIST => $prefix . 'list.html.twig',
-            CrudOperation::READ => $prefix . 'read.html.twig',
+            CrudOperation::LIST   => $prefix . 'list.html.twig',
+            CrudOperation::READ   => $prefix . 'read.html.twig',
             CrudOperation::CREATE => $prefix . 'update.html.twig',
             CrudOperation::UPDATE => $prefix . 'update.html.twig',
         ];

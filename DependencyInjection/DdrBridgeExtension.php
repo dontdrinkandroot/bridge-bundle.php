@@ -26,6 +26,10 @@ class DdrBridgeExtension extends Extension
 
         $bundles = $container->getParameter('kernel.bundles');
 
+        if (array_key_exists('DdrCrudAdminBundle', $bundles)) {
+            $loader->load('ddr_crud_admin.yaml');
+        }
+
         if (array_key_exists('DdrDoctrineBundle', $bundles) && array_key_exists('DdrCrudAdminBundle', $bundles)) {
             $loader->load('ddr_crud_admin_ddr_doctrine.yaml');
         }
