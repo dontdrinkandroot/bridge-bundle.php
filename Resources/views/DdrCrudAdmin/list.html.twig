@@ -18,20 +18,26 @@
 
 {% block ddr_crud_admin_content %}
 
-    {{ knp_pagination_render(entities) }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ knp_pagination_render(entities) }}
+        </div>
 
-    {% set filterFields = [] %}
-    {% for fieldDefinition in fieldDefinitions %}
-        {% if fieldDefinition.filterable %}
-            {% set filterFields = filterFields|merge({("entity." ~ fieldDefinition.propertyPath): fieldDefinition.label}) %}
-        {% endif %}
-    {% endfor %}
+        <div class="col-md-6">
+            {% set filterFields = [] %}
+            {% for fieldDefinition in fieldDefinitions %}
+                {% if fieldDefinition.filterable %}
+                    {% set filterFields = filterFields|merge({("entity." ~ fieldDefinition.propertyPath): fieldDefinition.label}) %}
+                {% endif %}
+            {% endfor %}
 
-    {% if filterFields is not empty %}
-        {{ knp_pagination_filter(entities, filterFields) }}
-    {% endif %}
+            {% if filterFields is not empty %}
+                {{ knp_pagination_filter(entities, filterFields) }}
+            {% endif %}
+        </div>
+    </div>
 
-    <table class="table table-sm table-bordered">
+    <table class="table table-sm table-hover">
         <thead>
         <tr class="text-nowrap">
             {% for fieldDefinition in fieldDefinitions %}
