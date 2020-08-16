@@ -1,5 +1,11 @@
 services:
+
     Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\DontdrinkandrootTemplatesProvider:
         tags:
             - name: 'ddr_crud_admin.templates_provider'
               priority: -200
+
+    Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\FontAwesome5BooleanRendererProvider:
+        tags:
+            - name: 'ddr_crud_admin.field_renderer_provider'
+              priority: -240
