@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @author Philip Washington Sorst <philip@sorst.net>
  */
-class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInterface
+class UuidEntityItemProvider implements ItemProviderInterface
 {
     private ManagerRegistry $managerRegistry;
 
@@ -30,10 +30,9 @@ class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInte
     public function supports(CrudAdminContext $context): bool
     {
         $uuid = RequestAttributes::getId($context->getRequest());
-        return ($context->getEntity() instanceof UuidEntityInterface)
-            || (is_a($context->getEntityClass(), DefaultUuidEntity::class, true)
-                && null !== $uuid
-                && Uuid::isValid($uuid));
+        return null !== $uuid
+            && Uuid::isValid($uuid)
+            && is_a($context->getEntityClass(), UuidEntityInterface::class, true);
     }
 
     /**
@@ -48,16 +47,5 @@ class DefaultUuidEntityProvider implements ItemProviderInterface, IdProviderInte
         $persister = $entityManager->getUnitOfWork()->getEntityPersister($entityClass);
 
         return $persister->load(['uuid' => $id], null, null, [], null, 1);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function provideId(CrudAdminContext $context)
-    {
-        $entity = $context->getEntity();
-        assert($entity instanceof DefaultUuidEntity);
-
-        return $entity->getUuid()->toString();
     }
 }
