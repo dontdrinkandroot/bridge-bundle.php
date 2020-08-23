@@ -20,20 +20,24 @@
 
     <div class="row">
         <div class="col-md-6">
-            {{ knp_pagination_render(entities) }}
+            {% block ddr_crud_admin_pagination %}
+                {{ knp_pagination_render(entities) }}
+            {% endblock ddr_crud_admin_pagination %}
         </div>
 
         <div class="col-md-6">
-            {% set filterFields = [] %}
-            {% for fieldDefinition in fieldDefinitions %}
-                {% if fieldDefinition.filterable %}
-                    {% set filterFields = filterFields|merge({("entity." ~ fieldDefinition.propertyPath): fieldDefinition.propertyPath|humanize|trans({}, translationDomain)}) %}
-                {% endif %}
-            {% endfor %}
+            {% block ddr_crud_admin_filter %}
+                {% set filterFields = [] %}
+                {% for fieldDefinition in fieldDefinitions %}
+                    {% if fieldDefinition.filterable %}
+                        {% set filterFields = filterFields|merge({("entity." ~ fieldDefinition.propertyPath): fieldDefinition.propertyPath|humanize|trans({}, translationDomain)}) %}
+                    {% endif %}
+                {% endfor %}
 
-            {% if filterFields is not empty %}
-                {{ knp_pagination_filter(entities, filterFields) }}
-            {% endif %}
+                {% if filterFields is not empty %}
+                    {{ knp_pagination_filter(entities, filterFields) }}
+                {% endif %}
+            {% endblock ddr_crud_admin_filter %}
         </div>
     </div>
 
@@ -73,22 +77,22 @@
                             {% block ddr_crud_admin_list_entity_actions_dropdown_menu_content %}
                                 {% set readRoute = entity|ddrCrudAdminPath('READ') %}
                                 {% if readRoute is not null %}
-                                    <a class="dropdown-item" href="{{ readRoute }}">
-                                        {{ 'READ'|trans({}, 'DdrCrudAdmin') }}
+                                    <a class="dropdown-item pl-3" href="{{ readRoute }}">
+                                        <span class="fas fa-fw fa-search mr-3"></span>{{ 'READ'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                                 {% set updateRoute = entity|ddrCrudAdminPath('UPDATE') %}
                                 {% if updateRoute is not null %}
-                                    <a class="dropdown-item" href="{{ updateRoute }}">
-                                        {{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
+                                    <a class="dropdown-item pl-3" href="{{ updateRoute }}">
+                                        <span class="fas fa-fw fa-pen mr-3"></span>{{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                                 {% set deleteRoute = entity|ddrCrudAdminPath('DELETE') %}
                                 {% if deleteRoute is not null %}
                                     <a href="{{ deleteRoute }}"
-                                       class="dropdown-item ddr-confirmation"
+                                       class="dropdown-item pl-3 ddr-confirmation text-danger"
                                        data-ddr-confirmation-text="{{ 'DeletionConfirmationText'|trans({}, 'DdrCrudAdmin') }}">
-                                        {{ 'DELETE'|trans({}, 'DdrCrudAdmin') }}
+                                        <span class="fas fa-fw fa-trash mr-3"></span>{{ 'DELETE'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                             {% endblock ddr_crud_admin_list_entity_actions_dropdown_menu_content %}
