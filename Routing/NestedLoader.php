@@ -67,24 +67,24 @@ class NestedLoader extends YamlFileLoader
 
     private function processConfig(RouteCollection $collection, string $path, array $config, $file)
     {
-        if (array_key_exists('name', $config)) {
+        if (null !== $name = $config['name'] ?? null) {
             $transformedConfig = $this->transformConfig($config, $path);
-            $this->validate($transformedConfig, $config['name'], $path);
+            $this->validate($transformedConfig, $name, $path);
 
             if (isset($config['resource'])) {
                 $this->parseImport($collection, $transformedConfig, $path, $file);
             } else {
-                $this->parseRoute($collection, $config['name'], $transformedConfig, $path);
+                $this->parseRoute($collection, $name, $transformedConfig, $path);
             }
         }
 
-        if (array_key_exists('children', $config)) {
+        if (null !== $children = $config['children'] ?? null) {
             $childCollection = new RouteCollection();
-            foreach ($config['children'] as $childPath => $childConfig) {
+            foreach ($children as $childPath => $childConfig) {
                 $this->processConfig($childCollection, $path . '/' . $childPath, $childConfig, $file);
             }
-            if (array_key_exists('name_prefix', $config)) {
-                $childCollection->addNamePrefix($config['name_prefix']);
+            if (null !== $namePrefix = $config['name_prefix'] ?? null) {
+                $childCollection->addNamePrefix($namePrefix);
             }
             $collection->addCollection($childCollection);
         }
@@ -93,14 +93,13 @@ class NestedLoader extends YamlFileLoader
     private function transformConfig(array $config, string $path): array
     {
         unset($config['name']);
-        if (array_key_exists('resource', $config)) {
+        if (isset($config['resource'])) {
             $config['prefix'] = $path;
         } else {
             $config['path'] = $path;
         }
-        if (array_key_exists('children', $config)) {
-            unset($config['children']);
-        }
+        unset($config['children']);
+
         return $config;
     }
 }
