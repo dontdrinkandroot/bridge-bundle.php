@@ -2,4 +2,9 @@ services:
 
     Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateFormType:
         tags:
-            - { name: form.type, alias: flexdate}
+            - { name: form.type, alias: flexdate }
+
+    Dontdrinkandroot\BridgeBundle\Routing\NestedLoader:
+        arguments:
+            - '@file_locator'
+        tags: [ routing.loader ]
