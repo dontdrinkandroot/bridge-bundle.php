@@ -6,9 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
-use Dontdrinkandroot\CrudAdminBundle\Service\Id\IdProviderInterface;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
-use Dontdrinkandroot\DoctrineBundle\Entity\DefaultUuidEntity;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -27,7 +25,7 @@ class UuidEntityItemProvider implements ItemProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(CrudAdminContext $context): bool
+    public function supportsItem(CrudAdminContext $context): bool
     {
         $uuid = RequestAttributes::getId($context->getRequest());
         return null !== $uuid

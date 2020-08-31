@@ -14,7 +14,7 @@ class UuidEntityIdProvider implements IdProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(CrudAdminContext $context)
+    public function supportsId(CrudAdminContext $context): bool
     {
         return ($context->getEntity() instanceof UuidEntityInterface);
     }
