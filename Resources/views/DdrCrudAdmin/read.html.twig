@@ -23,15 +23,15 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             {% block ddr_crud_admin_read_actions_dropdown_menu_content %}
                                 {% if routes.UPDATE is defined and is_granted('UPDATE', entity) %}
-                                    <a class="dropdown-item" href="{{ updateRoute }}">
-                                        {{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
+                                    <a class="dropdown-item pl-3" href="{{ updateRoute }}">
+                                        <span class="fas fa-fw fa-pen mr-3"></span>{{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                                 {% if routes.DELETE is defined and is_granted('DELETE', entity) %}
                                     <a href="{{ deleteRoute }}"
-                                       class="dropdown-item ddr-confirmation"
+                                       class="dropdown-item pl-3 ddr-confirmation text-danger"
                                        data-ddr-confirmation-text="{{ 'DeletionConfirmationText'|trans({}, 'DdrCrudAdmin') }}">
-                                        {{ 'DELETE'|trans({}, 'DdrCrudAdmin') }}
+                                        <span class="fas fa-fw fa-trash mr-3"></span>{{ 'DELETE'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                             {% endblock ddr_crud_admin_read_actions_dropdown_menu_content %}
