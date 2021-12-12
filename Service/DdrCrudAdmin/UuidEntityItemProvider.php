@@ -10,9 +10,6 @@ use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @author Philip Washington Sorst <philip@sorst.net>
- */
 class UuidEntityItemProvider implements ItemProviderInterface
 {
     private ManagerRegistry $managerRegistry;

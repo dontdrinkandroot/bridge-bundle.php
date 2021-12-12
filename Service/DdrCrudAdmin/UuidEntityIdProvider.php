@@ -6,9 +6,6 @@ use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Service\Id\IdProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
 
-/**
- * @author Philip Washington Sorst <philip@sorst.net>
- */
 class UuidEntityIdProvider implements IdProviderInterface
 {
     /**

@@ -2,14 +2,11 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
-use Dontdrinkandroot\Crud\CrudOperation;
+use Dontdrinkandroot\Common\CrudOperation;
 use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
 use Dontdrinkandroot\CrudAdminBundle\Service\Template\TemplatesProviderInterface;
 
-/**
- * @author Philip Washington Sorst <philip@sorst.net>
- */
 class DontdrinkandrootTemplatesProvider implements TemplatesProviderInterface
 {
     /**

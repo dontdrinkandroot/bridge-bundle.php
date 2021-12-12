@@ -5,9 +5,6 @@ namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer;
 use Dontdrinkandroot\CrudAdminBundle\Model\FieldDefinition;
 use Dontdrinkandroot\CrudAdminBundle\Service\FieldRenderer\FieldRendererProviderInterface;
 
-/**
- * @author Philip Washington Sorst <philip@sorst.net>
- */
 class FontAwesome5BooleanRendererProvider implements FieldRendererProviderInterface
 {
     /**
