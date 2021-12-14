@@ -11,15 +11,12 @@ use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Yaml\Yaml;
 use function is_array;
 
-/**
- * @author Philip Washington Sorst <philip@sorst.net>
- */
 class NestedLoader extends YamlFileLoader
 {
     /**
      * {@inheritdoc}
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, $type = null): bool
     {
         return 'ddr_nested' === $type;
     }
@@ -27,7 +24,7 @@ class NestedLoader extends YamlFileLoader
     /**
      * {@inheritdoc}
      */
-    public function load($file, $type = null)
+    public function load($file, $type = null): RouteCollection
     {
         $path = $this->locator->locate($file);
 
@@ -65,7 +62,7 @@ class NestedLoader extends YamlFileLoader
         return $collection;
     }
 
-    private function processConfig(RouteCollection $collection, string $path, array $config, $file)
+    private function processConfig(RouteCollection $collection, string $path, array $config, $file): void
     {
         if (null !== $name = $config['name'] ?? null) {
             $transformedConfig = $this->transformConfig($config, $path);
