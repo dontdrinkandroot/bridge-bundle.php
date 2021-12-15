@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
+use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Service\Id\IdProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
@@ -21,12 +22,8 @@ class UuidEntityIdProvider implements IdProviderInterface
      */
     public function provideId(CrudAdminContext $context)
     {
-        $entity = $context->getEntity();
-        assert(
-            $entity instanceof UuidEntityInterface,
-            sprintf('Expected a DefaultUuidEntity, but was a %s', get_class($entity))
-        );
+        $entity = Asserted::instanceOf( $context->getEntity(), UuidEntityInterface::class);
 
-        return $entity->getUuid()->toString();
+        return (string) $entity->getUuid();
     }
 }

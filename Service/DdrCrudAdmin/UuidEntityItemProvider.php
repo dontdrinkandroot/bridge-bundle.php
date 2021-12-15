@@ -4,11 +4,12 @@ namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 class UuidEntityItemProvider implements ItemProviderInterface
 {
@@ -37,8 +38,10 @@ class UuidEntityItemProvider implements ItemProviderInterface
     {
         $id = RequestAttributes::getId($context->getRequest());
         $entityClass = $context->getEntityClass();
-        $entityManager = $this->managerRegistry->getManagerForClass($entityClass);
-        assert($entityManager instanceof EntityManagerInterface);
+        $entityManager = Asserted::instanceOf(
+            $this->managerRegistry->getManagerForClass($entityClass),
+            EntityManagerInterface::class
+        );
         $persister = $entityManager->getUnitOfWork()->getEntityPersister($entityClass);
 
         return $persister->load(['uuid' => $id], null, null, [], null, 1);
