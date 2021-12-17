@@ -20,7 +20,7 @@
                         >
                             <span class="fas fa-fw fa-ellipsis-v"></span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-end">
                             {% block ddr_crud_admin_read_actions_dropdown_menu_content %}
                                 {% if routes.UPDATE is defined and is_granted('UPDATE', entity) %}
                                     <a class="dropdown-item ps-3" href="{{ updateRoute }}">
