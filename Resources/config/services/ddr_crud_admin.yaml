@@ -9,3 +9,8 @@ services:
         tags:
             - name: 'ddr_crud_admin.field_renderer_provider'
               priority: -240
+
+    Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\MillisecondsRendererProvider:
+        tags:
+            - name: 'ddr_crud_admin.field_renderer_provider'
+              priority: -240
