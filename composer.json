@@ -20,17 +20,17 @@
     },
     "require": {
         "php": "^8.1",
-        "dontdrinkandroot/api-platform-bundle": "dev-master",
-        "dontdrinkandroot/bootstrap-bundle": "dev-master",
         "dontdrinkandroot/common": "dev-master",
-        "dontdrinkandroot/crud-admin-bundle": "dev-master",
-        "dontdrinkandroot/doctrine-bundle": "dev-master",
         "symfony/config": "^4.4|^5.4",
         "symfony/dependency-injection": "^4.4|^5.4",
         "symfony/http-kernel": "^4.4|^5.4",
         "symfony/yaml": "^4.4|^5.4"
     },
     "require-dev": {
+        "dontdrinkandroot/api-platform-bundle": "dev-master",
+        "dontdrinkandroot/bootstrap-bundle": "dev-master",
+        "dontdrinkandroot/crud-admin-bundle": "dev-master",
+        "dontdrinkandroot/doctrine-bundle": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "liip/test-fixtures-bundle": "^1.0",
         "phpunit/phpunit": "^9.0",
