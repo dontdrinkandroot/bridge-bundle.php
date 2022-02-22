@@ -29,5 +29,9 @@ class DdrBridgeExtension extends Extension
         if (array_key_exists('DdrDoctrineBundle', $bundles) && array_key_exists('DdrCrudAdminBundle', $bundles)) {
             $loader->load('ddr_crud_admin_ddr_doctrine.yaml');
         }
+
+        if (array_key_exists('KnpMenuBundle', $bundles)) {
+            $loader->load('knp_menu.yaml');
+        }
     }
 }

@@ -1,0 +1,7 @@
+services:
+
+    Dontdrinkandroot\BridgeBundle\Menu\NavbarBuilder:
+        autowire: true
+        tags:
+            - { name: knp_menu.menu_builder, method: createLeft, alias: ddr_navbar_left }
+            - { name: knp_menu.menu_builder, method: createRight, alias: ddr_navbar_right }
