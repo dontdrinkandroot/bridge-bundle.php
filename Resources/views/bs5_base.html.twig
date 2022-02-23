@@ -14,7 +14,7 @@
 <body>
 {% block ddr_body %}
     {% block ddr_navbar %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
             <div class="container">
                 {% block ddr_navbar_brand %}
                     <a class="navbar-brand" href="#">dontdrinkandroot</a>
@@ -37,12 +37,16 @@
             </div>
         </nav>
     {% endblock ddr_navbar %}
-    {% block ddr_container %}
-        <div class="container">
-            {% block ddr_container_content %}
-            {% endblock ddr_container_content %}
-        </div>
-    {% endblock ddr_container %}
+    {% block ddr_main %}
+        <main class="container">
+            <div class="container">
+                {% block ddr_main_container_content %}
+                {% endblock ddr_main_container_content %}
+            </div>
+        </main>
+    {% endblock ddr_main %}
+    {% block ddr_footer %}
+    {% endblock ddr_footer %}
 {% endblock ddr_body %}
 </body>
 </html>
