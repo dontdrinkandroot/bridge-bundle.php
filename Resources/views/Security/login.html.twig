@@ -9,7 +9,7 @@
         <div class="col-md-2 col-lg-3 col-xl-4"></div>
         <div class="col-md-8 col-lg-6 col-xl-4">
             {% if error %}
-                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
             <form action="{{ path('ddr_bridge.login') }}" method="post">
