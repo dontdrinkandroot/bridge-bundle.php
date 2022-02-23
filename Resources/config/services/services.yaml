@@ -16,3 +16,13 @@ services:
     Dontdrinkandroot\BridgeBundle\Command\Encrypt\GenerateKeyCommand:
         autoconfigure: true
         autowire: true
+
+    Dontdrinkandroot\BridgeBundle\Controller\Security\LoginAction:
+        autoconfigure: true
+        autowire: true
+        tags: ['controller.service_arguments']
+
+    Dontdrinkandroot\BridgeBundle\Controller\Security\LogoutAction:
+        autoconfigure: true
+        autowire: true
+        tags: [ 'controller.service_arguments' ]

@@ -1,0 +1,41 @@
+{% extends '@DdrBridge/base.html.twig' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block ddr_navbar %}{% endblock ddr_navbar %}
+
+{% block ddr_container_content %}
+    <div class="row">
+        <div class="col-md-2 col-lg-3 col-xl-4"></div>
+        <div class="col-md-8 col-lg-6 col-xl-4">
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form action="{{ path('ddr_bridge.login') }}" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">{{ 'password'|trans({}, 'ddr_security') }}</label>
+                    <input type="password" id="password" name="_password" class="form-control" />
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="" id="rememberme" checked name="_remember_me" />
+                    <label class="form-check-label" for="rememberme">
+                        {{ 'remember_me'|trans({}, 'ddr_security') }}
+                    </label>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button type="submit" class="btn btn-primary">{{ 'login'|trans({}, 'ddr_security') }}</button>
+                <a href="#" class="btn btn-link">{{ 'forgot_password'|trans({}, 'ddr_security') }}</a>
+            </form>
+        </div>
+        <div class="col-md-2 col-lg-3 col-xl-4"></div>
+    </div>
+{% endblock ddr_container_content %}
