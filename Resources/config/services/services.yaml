@@ -8,3 +8,11 @@ services:
         arguments:
             - '@file_locator'
         tags: [ routing.loader ]
+
+    Dontdrinkandroot\BridgeBundle\Service\EncryptionService:
+        autoconfigure: true
+        autowire: true
+
+    Dontdrinkandroot\BridgeBundle\Command\Encrypt\GenerateKeyCommand:
+        autoconfigure: true
+        autowire: true

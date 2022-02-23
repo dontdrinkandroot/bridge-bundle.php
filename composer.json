@@ -19,7 +19,8 @@
         ]
     },
     "require": {
-        "php": "^8.1",
+        "php": ">=8.1",
+        "ext-sodium": "*",
         "dontdrinkandroot/common": "dev-master",
         "symfony/config": "^4.4|^5.4",
         "symfony/dependency-injection": "^4.4|^5.4",
