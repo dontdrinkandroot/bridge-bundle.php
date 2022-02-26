@@ -2,7 +2,6 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Menu;
 
-use Dontdrinkandroot\BootstrapBundle\Menu\Bs5DropdownTrait;
 use Dontdrinkandroot\BridgeBundle\Event\ConfigureNavbarLeftEvent;
 use Dontdrinkandroot\BridgeBundle\Event\ConfigureNavbarRightEvent;
 use Knp\Menu\FactoryInterface;

@@ -22,20 +22,21 @@
         "php": ">=8.1",
         "ext-sodium": "*",
         "dontdrinkandroot/common": "dev-master",
-        "symfony/config": "^4.4|^5.4",
-        "symfony/dependency-injection": "^4.4|^5.4",
-        "symfony/http-kernel": "^4.4|^5.4",
-        "symfony/yaml": "^4.4|^5.4"
+        "symfony/config": "^5.4",
+        "symfony/dependency-injection": "^5.4",
+        "symfony/http-kernel": "^5.4",
+        "symfony/yaml": "^5.4"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "dontdrinkandroot/api-platform-bundle": "dev-master",
         "dontdrinkandroot/bootstrap-bundle": "dev-master",
         "dontdrinkandroot/crud-admin-bundle": "dev-master",
         "dontdrinkandroot/doctrine-bundle": "dev-master",
-        "doctrine/doctrine-fixtures-bundle": "^3.0",
-        "liip/test-fixtures-bundle": "^1.0",
-        "phpunit/phpunit": "^9.0",
-        "symfony/phpunit-bridge": "^4.4"
+        "knplabs/knp-menu": "^3.3",
+        "liip/test-fixtures-bundle": "^2.2",
+        "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "^5.4"
     },
     "config": {
         "sort-packages": true

@@ -13,11 +13,8 @@ use Symfony\Component\Uid\Uuid;
 
 class UuidEntityItemProvider implements ItemProviderInterface
 {
-    private ManagerRegistry $managerRegistry;
-
-    public function __construct(ManagerRegistry $managerRegistry)
+    public function __construct(private ManagerRegistry $managerRegistry)
     {
-        $this->managerRegistry = $managerRegistry;
     }
 
     /**
@@ -42,8 +39,9 @@ class UuidEntityItemProvider implements ItemProviderInterface
             $this->managerRegistry->getManagerForClass($entityClass),
             EntityManagerInterface::class
         );
-        $persister = $entityManager->getUnitOfWork()->getEntityPersister($entityClass);
-
-        return $persister->load(['uuid' => $id], null, null, [], null, 1);
+        return $entityManager
+            ->getUnitOfWork()
+            ->getEntityPersister($entityClass)
+            ->load(['uuid' => $id], null, null, [], null, 1);
     }
 }
