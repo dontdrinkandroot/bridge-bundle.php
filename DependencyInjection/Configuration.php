@@ -5,17 +5,14 @@ namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * @author Philip Washington Sorst <philip@sorst.net>
- */
 class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('ddr_crud_admin');
+        $treeBuilder = new TreeBuilder('ddr_bridge');
         $rootNode = $treeBuilder->getRootNode();
 
         // @formatter:off
