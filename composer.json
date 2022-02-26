@@ -3,6 +3,8 @@
     "type": "symfony-bundle",
     "description": "Dontdrinkandroot specific bridges",
     "license": "Apache-2.0",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Philip Washington Sorst",
@@ -21,7 +23,7 @@
     "require": {
         "php": ">=8.1",
         "ext-sodium": "*",
-        "dontdrinkandroot/common": "dev-master",
+        "dontdrinkandroot/common": "^0.2",
         "symfony/config": "^5.4",
         "symfony/dependency-injection": "^5.4",
         "symfony/http-kernel": "^5.4",
@@ -29,10 +31,10 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
-        "dontdrinkandroot/api-platform-bundle": "dev-master",
-        "dontdrinkandroot/bootstrap-bundle": "dev-master",
-        "dontdrinkandroot/crud-admin-bundle": "dev-master",
-        "dontdrinkandroot/doctrine-bundle": "dev-master",
+        "dontdrinkandroot/api-platform-bundle": "^0.2",
+        "dontdrinkandroot/bootstrap-bundle": "^0.2",
+        "dontdrinkandroot/crud-admin-bundle": "^0.2",
+        "dontdrinkandroot/doctrine-bundle": "^0.3",
         "knplabs/knp-menu": "^3.3",
         "liip/test-fixtures-bundle": "^2.2",
         "phpunit/phpunit": "^9.5",
@@ -40,5 +42,10 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
