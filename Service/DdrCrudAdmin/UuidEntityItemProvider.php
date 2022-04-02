@@ -9,6 +9,7 @@ use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
 use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
+use InvalidArgumentException;
 use Symfony\Component\Uid\Uuid;
 
 class UuidEntityItemProvider implements ItemProviderInterface
@@ -22,10 +23,20 @@ class UuidEntityItemProvider implements ItemProviderInterface
      */
     public function supportsItem(CrudAdminContext $context): bool
     {
-        $uuid = RequestAttributes::getId($context->getRequest());
-        return null !== $uuid
-            && Uuid::isValid($uuid)
-            && is_a($context->getEntityClass(), UuidEntityInterface::class, true);
+        $encodedUuid = RequestAttributes::getId($context->getRequest());
+        if (
+            null === $encodedUuid
+            || !is_a($context->getEntityClass(), UuidEntityInterface::class, true)
+        ) {
+            return false;
+        }
+
+        try {
+            Uuid::fromBase58($encodedUuid);
+            return true;
+        } catch (InvalidArgumentException $e) {
+            return false;
+        }
     }
 
     /**
@@ -33,7 +44,8 @@ class UuidEntityItemProvider implements ItemProviderInterface
      */
     public function provideItem(CrudAdminContext $context): ?object
     {
-        $id = RequestAttributes::getId($context->getRequest());
+        $encodedUuid = RequestAttributes::getId($context->getRequest());
+        $uuid = Uuid::fromBase58($encodedUuid);
         $entityClass = $context->getEntityClass();
         $entityManager = Asserted::instanceOf(
             $this->managerRegistry->getManagerForClass($entityClass),
@@ -42,6 +54,6 @@ class UuidEntityItemProvider implements ItemProviderInterface
         return $entityManager
             ->getUnitOfWork()
             ->getEntityPersister($entityClass)
-            ->load(['uuid' => $id], null, null, [], null, 1);
+            ->load(['uuid' => $uuid], null, null, [], null, 1);
     }
 }

@@ -20,10 +20,10 @@ class UuidEntityIdProvider implements IdProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function provideId(CrudAdminContext $context)
+    public function provideId(CrudAdminContext $context): mixed
     {
         $entity = Asserted::instanceOf( $context->getEntity(), UuidEntityInterface::class);
 
-        return (string) $entity->getUuid();
+        return $entity->getUuid()->toBase58();
     }
 }
