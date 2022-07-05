@@ -2,9 +2,9 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\MappedSuperclass]
 class User implements UserInterface, PasswordAuthenticatedUserInterface

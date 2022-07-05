@@ -7,7 +7,7 @@
         xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="." />
+        <directory name="src" />
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>
@@ -16,7 +16,7 @@
     <issueHandlers>
         <ParamNameMismatch>
             <errorLevel type="suppress">
-                <file name="Routing/NestedLoader.php" />
+                <file name="src/Routing/NestedLoader.php" />
             </errorLevel>
         </ParamNameMismatch>
     </issueHandlers>

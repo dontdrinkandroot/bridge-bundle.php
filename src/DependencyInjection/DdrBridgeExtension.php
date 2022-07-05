@@ -14,12 +14,12 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/services'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
         $loader->load('services.yaml');
 
         $bundles = $container->getParameter('kernel.bundles');
@@ -32,13 +32,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
             $loader->load('ddr_crud_admin_ddr_doctrine.yaml');
         }
 
-        if (array_key_exists(
-            '
-        /**
-         * {@inheritdoc}
-         */KnpMenuBundle',
-            $bundles
-        )) {
+        if (array_key_exists('KnpMenuBundle', $bundles)) {
             $loader->load('knp_menu.yaml');
         }
     }

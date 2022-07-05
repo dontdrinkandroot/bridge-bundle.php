@@ -14,11 +14,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "Dontdrinkandroot\\BridgeBundle\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "Dontdrinkandroot\\BridgeBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dontdrinkandroot\\BridgeBundle\\Tests\\": "tests/"
+        }
     },
     "require": {
         "php": ">=8.1",

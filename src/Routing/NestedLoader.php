@@ -9,6 +9,7 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Yaml\Yaml;
+
 use function is_array;
 
 class NestedLoader extends YamlFileLoader
