@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dontdrinkandroot\BridgeBundle\Form\Type;
 
 use Dontdrinkandroot\Common\FlexDate;
@@ -21,9 +20,10 @@ class FlexDateFormType extends AbstractType
             ->add(
                 'year',
                 IntegerType::class,
-                ['label'    => false,
-                 'required' => false,
-                 'attr'     => ['class' => 'year', 'placeholder' => 'ddr.flex_date.year']
+                [
+                    'label'    => false,
+                    'required' => false,
+                    'attr'     => ['class' => 'year', 'placeholder' => 'ddr.flex_date.year']
                 ]
             )
             ->add(
@@ -64,7 +64,8 @@ class FlexDateFormType extends AbstractType
         );
     }
 
-    private function getMonthChoices()
+    /** @return array<int,int> */
+    private function getMonthChoices(): array
     {
         $choices = [];
         for ($i = 1; $i <= 12; $i++) {
@@ -74,7 +75,8 @@ class FlexDateFormType extends AbstractType
         return $choices;
     }
 
-    private function getDayChoices()
+    /** @return array<int,int> */
+    private function getDayChoices(): array
     {
         $choices = [];
         for ($i = 1; $i <= 31; $i++) {
