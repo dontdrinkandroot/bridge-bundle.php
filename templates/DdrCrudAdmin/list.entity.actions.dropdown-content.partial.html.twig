@@ -1,17 +1,17 @@
-{% set readRoute = entity|ddrCrudAdminPath('READ') %}
-{% if readRoute is not null %}
+{% set readRoute = 'READ'|ddrCrudPath(entity) %}
+{% if readRoute is not null  and is_granted('READ', entity)%}
     <a class="dropdown-item ps-3" href="{{ readRoute }}">
         <span class="fas fa-fw fa-search me-3"></span>{{ 'READ'|trans({}, 'DdrCrudAdmin') }}
     </a>
 {% endif %}
-{% set updateRoute = entity|ddrCrudAdminPath('UPDATE') %}
-{% if updateRoute is not null %}
+{% set updateRoute = 'UPDATE'|ddrCrudPath(entity) %}
+{% if updateRoute is not null  and is_granted('UPDATE', entity)%}
     <a class="dropdown-item ps-3" href="{{ updateRoute }}">
         <span class="fas fa-fw fa-pen me-3"></span>{{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
     </a>
 {% endif %}
-{% set deleteRoute = entity|ddrCrudAdminPath('DELETE') %}
-{% if deleteRoute is not null %}
+{% set deleteRoute = 'DELETE'|ddrCrudPath(entity) %}
+{% if deleteRoute is not null and is_granted('DELETE', entity)%}
     <a href="{{ deleteRoute }}"
        class="dropdown-item ps-3 ddr-confirmation text-danger"
        data-ddr-confirmation-text="{{ 'DeletionConfirmationText'|trans({}, 'DdrCrudAdmin') }}">
