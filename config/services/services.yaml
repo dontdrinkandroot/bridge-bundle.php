@@ -1,6 +1,6 @@
 services:
 
-    Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateFormType:
+    Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateType:
         tags:
             - { name: form.type, alias: flexdate }
 
