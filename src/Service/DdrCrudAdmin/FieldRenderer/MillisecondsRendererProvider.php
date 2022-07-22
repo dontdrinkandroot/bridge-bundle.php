@@ -14,7 +14,7 @@ class MillisecondsRendererProvider implements FieldRendererProviderInterface
      */
     public function supports(FieldDefinition $fieldDefinition, $value): bool
     {
-        return 'milliseconds' === $fieldDefinition->getType();
+        return 'milliseconds' === $fieldDefinition->type;
     }
 
     /**
