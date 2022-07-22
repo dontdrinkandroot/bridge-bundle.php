@@ -12,18 +12,16 @@ class UuidEntityIdProvider implements IdProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsId(CrudAdminContext $context): bool
+    public function supportsId(string $crudOperation, string $entityClass, object $entity): bool
     {
-        return ($context->getEntity() instanceof UuidEntityInterface);
+        return ($entity instanceof UuidEntityInterface);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function provideId(CrudAdminContext $context): mixed
+    public function provideId(string $crudOperation, string $entityClass, object $entity): mixed
     {
-        $entity = Asserted::instanceOf( $context->getEntity(), UuidEntityInterface::class);
-
-        return $entity->getUuid()->toBase58();
+        return Asserted::instanceOf( $entity, UuidEntityInterface::class)->getUuid()->toBase58();
     }
 }

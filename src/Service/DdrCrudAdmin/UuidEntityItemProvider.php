@@ -21,18 +21,17 @@ class UuidEntityItemProvider implements ItemProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsItem(CrudAdminContext $context): bool
+    public function supportsItem(string $crudOperation, string $entityClass, mixed $id): bool
     {
-        $encodedUuid = RequestAttributes::getId($context->getRequest());
         if (
-            null === $encodedUuid
-            || !is_a($context->getEntityClass(), UuidEntityInterface::class, true)
+            null === $id
+            || !is_a($entityClass, UuidEntityInterface::class, true)
         ) {
             return false;
         }
 
         try {
-            Uuid::fromBase58($encodedUuid);
+            Uuid::fromBase58($id);
             return true;
         } catch (InvalidArgumentException $e) {
             return false;
@@ -42,11 +41,9 @@ class UuidEntityItemProvider implements ItemProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function provideItem(CrudAdminContext $context): ?object
+    public function provideItem(string $crudOperation, string $entityClass, mixed $id): ?object
     {
-        $encodedUuid = RequestAttributes::getId($context->getRequest());
-        $uuid = Uuid::fromBase58($encodedUuid);
-        $entityClass = $context->getEntityClass();
+        $uuid = Uuid::fromBase58($id);
         $entityManager = Asserted::instanceOf(
             $this->managerRegistry->getManagerForClass($entityClass),
             EntityManagerInterface::class
