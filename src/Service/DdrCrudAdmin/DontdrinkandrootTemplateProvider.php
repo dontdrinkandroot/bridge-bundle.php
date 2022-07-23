@@ -14,7 +14,11 @@ class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
      */
     public function supportsTemplate(string $crudOperation, string $entityClass): bool
     {
-        return true;
+        return in_array(
+            $crudOperation,
+            [CrudOperation::LIST, CrudOperation::READ, CrudOperation::CREATE, CrudOperation::UPDATE],
+            true
+        );
     }
 
     /**
@@ -24,7 +28,7 @@ class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
     {
         $prefix = '@DdrBridge/DdrCrudAdmin/';
 
-        return match($crudOperation) {
+        return match ($crudOperation) {
             CrudOperation::LIST => $prefix . 'list.html.twig',
             CrudOperation::READ => $prefix . 'read.html.twig',
             CrudOperation::CREATE => $prefix . 'update.html.twig',
