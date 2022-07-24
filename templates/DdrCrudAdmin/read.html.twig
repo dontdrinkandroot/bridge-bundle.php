@@ -7,8 +7,8 @@
         <h1 class="ddr-content">{{ title }}</h1>
         <div class="ddr-actions">
             {% block ddr_crud_admin_read_actions %}
-                {% set updateRoute = entity|ddrCrudAdminPath('UPDATE') %}
-                {% set deleteRoute = entity|ddrCrudAdminPath('DELETE') %}
+                {% set updateRoute = 'UPDATE'|ddrCrudPath(entity) %}
+                {% set deleteRoute = 'DELETE'|ddrCrudPath(entity) %}
                 {% if (updateRoute is not null or deleteRoute is not null) %}
                     <div class="dropdown">
                         <button class="dropdown-toggle ddr-no-caret btn btn-link btn-lg ddr-btn-icon"
@@ -22,12 +22,12 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             {% block ddr_crud_admin_read_actions_dropdown_menu_content %}
-                                {% if routes.UPDATE is defined and is_granted('UPDATE', entity) %}
+                                {% if updateRoute is not null and is_granted('UPDATE', entity) %}
                                     <a class="dropdown-item ps-3" href="{{ updateRoute }}">
                                         <span class="fas fa-fw fa-pen me-3"></span>{{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
-                                {% if routes.DELETE is defined and is_granted('DELETE', entity) %}
+                                {% if deleteRoute is not null and is_granted('DELETE', entity) %}
                                     <a href="{{ deleteRoute }}"
                                        class="dropdown-item ps-3 ddr-confirmation text-danger"
                                        data-ddr-confirmation-text="{{ 'DeletionConfirmationText'|trans({}, 'DdrCrudAdmin') }}">
