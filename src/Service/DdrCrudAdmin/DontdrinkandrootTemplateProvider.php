@@ -3,8 +3,6 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
 use Dontdrinkandroot\Common\CrudOperation;
-use Dontdrinkandroot\CrudAdminBundle\Model\CrudAdminContext;
-use Dontdrinkandroot\CrudAdminBundle\Request\RequestAttributes;
 use Dontdrinkandroot\CrudAdminBundle\Service\Template\TemplateProviderInterface;
 
 class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
@@ -12,7 +10,7 @@ class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsTemplate(string $crudOperation, string $entityClass): bool
+    public function supportsTemplate(CrudOperation $crudOperation, string $entityClass): bool
     {
         return in_array(
             $crudOperation,
@@ -24,7 +22,7 @@ class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function provideTemplate(string $crudOperation, string $entityClass): string
+    public function provideTemplate(CrudOperation $crudOperation, string $entityClass): string
     {
         $prefix = '@DdrBridge/DdrCrudAdmin/';
 
