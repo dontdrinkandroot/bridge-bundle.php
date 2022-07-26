@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
+use Dontdrinkandroot\CrudAdminBundle\Exception\UnsupportedByProviderException;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
 use InvalidArgumentException;
@@ -20,33 +21,29 @@ class UuidEntityItemProvider implements ItemProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsItem(CrudOperation $crudOperation, string $entityClass, mixed $id): bool
+    public function provideItem(CrudOperation $crudOperation, string $entityClass, mixed $id): ?object
     {
         if (
             null === $id
             || !is_a($entityClass, UuidEntityInterface::class, true)
         ) {
-            return false;
+            throw new UnsupportedByProviderException($crudOperation, $entityClass);
         }
 
         try {
-            Uuid::fromBase58($id);
-            return true;
+            $uuid = Uuid::fromBase58($id);
         } catch (InvalidArgumentException $e) {
-            return false;
+            throw new UnsupportedByProviderException($crudOperation, $entityClass);
         }
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function provideItem(CrudOperation $crudOperation, string $entityClass, mixed $id): ?object
-    {
-        $uuid = Uuid::fromBase58($id);
-        $entityManager = Asserted::instanceOf(
+        $entityManager = Asserted::instanceOfOrNull(
             $this->managerRegistry->getManagerForClass($entityClass),
             EntityManagerInterface::class
         );
+        if (null === $entityManager) {
+            throw new UnsupportedByProviderException($crudOperation, $entityClass);
+        }
+
         return $entityManager
             ->getUnitOfWork()
             ->getEntityPersister($entityClass)

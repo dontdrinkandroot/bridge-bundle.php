@@ -1,10 +1,10 @@
 {% extends '@DdrCrudAdmin/base.html.twig' %}
 
-{% block ddr_crud_admin_title %}{{ title }}{% endblock ddr_crud_admin_title %}
+{% block ddr_crud_admin_title %}{{ 'LIST'|ddrCrudTitle(entityClass) }}{% endblock ddr_crud_admin_title %}
 
 {% block ddr_crud_admin_header %}
     <div class="ddr-page-header ddr-action-container">
-        <h1 class="ddr-content">{{ title }}</h1>
+        <h1 class="ddr-content">{{ 'LIST'|ddrCrudTitle(entityClass) }}</h1>
         <div class="ddr-actions">
             {% block ddr_crud_admin_read_actions %}
                 {% set updateRoute = 'UPDATE'|ddrCrudPath(entity) %}
