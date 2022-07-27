@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 /**
  * @template T of object
  */
-abstract class AbstractCrudVoter extends Voter
+abstract class CrudVoter extends Voter
 {
     /**
      * {@inheritdoc}
