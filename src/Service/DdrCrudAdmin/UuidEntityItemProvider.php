@@ -21,19 +21,19 @@ class UuidEntityItemProvider implements ItemProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function provideItem(CrudOperation $crudOperation, string $entityClass, mixed $id): ?object
+    public function provideItem(string $entityClass, CrudOperation $crudOperation, mixed $id): ?object
     {
         if (
             null === $id
             || !is_a($entityClass, UuidEntityInterface::class, true)
         ) {
-            throw new UnsupportedByProviderException($crudOperation, $entityClass);
+            throw new UnsupportedByProviderException($entityClass, $crudOperation);
         }
 
         try {
             $uuid = Uuid::fromBase58($id);
         } catch (InvalidArgumentException $e) {
-            throw new UnsupportedByProviderException($crudOperation, $entityClass);
+            throw new UnsupportedByProviderException($entityClass, $crudOperation);
         }
 
         $entityManager = Asserted::instanceOfOrNull(
@@ -41,7 +41,7 @@ class UuidEntityItemProvider implements ItemProviderInterface
             EntityManagerInterface::class
         );
         if (null === $entityManager) {
-            throw new UnsupportedByProviderException($crudOperation, $entityClass);
+            throw new UnsupportedByProviderException($entityClass, $crudOperation);
         }
 
         return $entityManager

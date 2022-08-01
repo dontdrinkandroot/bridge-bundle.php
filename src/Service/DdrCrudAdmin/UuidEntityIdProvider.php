@@ -14,10 +14,10 @@ class UuidEntityIdProvider implements IdProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function provideId(CrudOperation $crudOperation, string $entityClass, object $entity): mixed
+    public function provideId(string $entityClass, CrudOperation $crudOperation, object $entity): mixed
     {
         if (!($entity instanceof UuidEntityInterface)) {
-            throw new UnsupportedByProviderException($crudOperation, $entityClass, $entity);
+            throw new UnsupportedByProviderException($entityClass, $crudOperation, $entity);
         }
 
         return $entity->getUuid()->toBase58();

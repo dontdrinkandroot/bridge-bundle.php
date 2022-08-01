@@ -11,14 +11,14 @@ class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function provideTemplate(CrudOperation $crudOperation, string $entityClass): string
+    public function provideTemplate(string $entityClass, CrudOperation $crudOperation): string
     {
         if (!in_array(
             $crudOperation,
             [CrudOperation::LIST, CrudOperation::READ, CrudOperation::CREATE, CrudOperation::UPDATE],
             true
         )) {
-            throw new UnsupportedByProviderException($crudOperation, $entityClass);
+            throw new UnsupportedByProviderException($entityClass, $crudOperation);
         }
 
         $prefix = '@DdrBridge/DdrCrudAdmin/';
