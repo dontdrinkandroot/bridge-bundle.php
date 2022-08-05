@@ -12,7 +12,7 @@
         <div class="ddr-actions">
             {% set createRoute = ddrCrudAdminPath(entityClass, 'CREATE') %}
             {% if createRoute is not null and is_granted('CREATE', entityClass) %}
-                <a class="btn btn-primary btn-lg ddr-btn-icon" href="{{ createRoute }}">
+                <a class="btn btn-primary btn-lg ddr-btn-icon" href="{{ createRoute }}" title="{{ 'action.create'|trans({}, 'DdrCrudAdmin') }}">
                     <span class="fas fa-fw fa-plus"></span>
                 </a>
             {% endif %}
