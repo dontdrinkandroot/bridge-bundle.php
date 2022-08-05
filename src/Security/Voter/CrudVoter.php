@@ -41,7 +41,7 @@ abstract class CrudVoter extends Voter
      */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        return $this->voteOnCrudOperation(CrudOperation::from($attribute), $subject);
+        return $this->voteOnCrudOperation(CrudOperation::from($attribute), $subject, $token);
     }
 
     /**
@@ -50,58 +50,74 @@ abstract class CrudVoter extends Voter
     abstract protected function getEntityClass(): string;
 
     /**
-     * @param CrudOperation     $crudOperation
-     * @param T|class-string<T> $subject
+     * @param CrudOperation  $crudOperation
+     * @param string|T  $subject
+     * @param TokenInterface $token
      *
      * @return bool
      */
-    protected function voteOnCrudOperation(CrudOperation $crudOperation, string|object $subject): bool
-    {
+    protected function voteOnCrudOperation(
+        CrudOperation $crudOperation,
+        string|object $subject,
+        TokenInterface $token
+    ): bool {
         return match ($crudOperation) {
-            CrudOperation::LIST => $this->isListGranted(),
-            CrudOperation::CREATE => $this->isCreateGranted(),
-            CrudOperation::READ => $this->isReadGranted(Asserted::instanceOf($subject, $this->getEntityClass())),
-            CrudOperation::UPDATE => $this->isUpdateGranted(Asserted::instanceOf($subject, $this->getEntityClass())),
-            CrudOperation::DELETE => $this->isDeleteGranted(Asserted::instanceOf($subject, $this->getEntityClass())),
+            CrudOperation::LIST => $this->isListGranted($token),
+            CrudOperation::CREATE => $this->isCreateGranted($token),
+            CrudOperation::READ => $this->isReadGranted(
+                Asserted::instanceOf($subject, $this->getEntityClass()),
+                $token
+            ),
+            CrudOperation::UPDATE => $this->isUpdateGranted(
+                Asserted::instanceOf($subject, $this->getEntityClass()),
+                $token
+            ),
+            CrudOperation::DELETE => $this->isDeleteGranted(
+                Asserted::instanceOf($subject, $this->getEntityClass()),
+                $token
+            ),
         };
     }
 
-    protected function isListGranted(): bool
+    protected function isListGranted(TokenInterface $token): bool
     {
         return false;
     }
 
-    protected function isCreateGranted(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @param T $entity
-     *
-     * @return bool
-     */
-    protected function isReadGranted(object $entity): bool
+    protected function isCreateGranted(TokenInterface $token): bool
     {
         return false;
     }
 
     /**
-     * @param T $entity
+     * @param T         $entity
+     * @param TokenInterface $token
      *
      * @return bool
      */
-    protected function isUpdateGranted(object $entity): bool
+    protected function isReadGranted(object $entity, TokenInterface $token): bool
     {
         return false;
     }
 
     /**
-     * @param T $entity
+     * @param T         $entity
+     * @param TokenInterface $token
      *
      * @return bool
      */
-    protected function isDeleteGranted(object $entity): bool
+    protected function isUpdateGranted(object $entity, TokenInterface $token): bool
+    {
+        return false;
+    }
+
+    /**
+     * @param T         $entity
+     * @param TokenInterface $token
+     *
+     * @return bool
+     */
+    protected function isDeleteGranted(object $entity, TokenInterface $token): bool
     {
         return false;
     }
