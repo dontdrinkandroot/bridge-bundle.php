@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         #[ORM\Column(type: 'string', length: 320, unique: true)]
         public string $email,
 
-        #[ORM\Column(type: 'json')]
+        #[ORM\Column(type: Types::SIMPLE_ARRAY)]
         public array $roles = [],
     ) {
     }

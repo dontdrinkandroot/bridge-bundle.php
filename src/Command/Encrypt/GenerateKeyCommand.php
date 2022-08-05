@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class GenerateKeyCommand extends Command
 {
-    protected static $defaultName = 'ddr:encrypt:generate-key';
+    protected static $defaultName = 'ddr:bridge:encrypt:generate-key';
 
     public function __construct(private EncryptionService $encryptionService)
     {

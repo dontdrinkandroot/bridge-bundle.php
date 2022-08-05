@@ -22,6 +22,8 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
         $loader->load('services.yaml');
 
+        $phpLoader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
+
         $bundles = $container->getParameter('kernel.bundles');
 
         if (array_key_exists('DdrCrudAdminBundle', $bundles)) {
@@ -34,6 +36,16 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
         if (array_key_exists('KnpMenuBundle', $bundles)) {
             $loader->load('knp_menu.yaml');
+        }
+
+        $userConfig = $config['user'] ?? null;
+        if (null !== $userConfig) {
+            $container->setParameter(
+                'ddr.bridge_bundle.user.class',
+                $userConfig['class']
+            );
+
+            $phpLoader->load('user.php');
         }
     }
 

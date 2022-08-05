@@ -4,6 +4,7 @@ namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use TKS\ConnectOnlineBridgeBundle\User\Form\Type\ConnectOnlineUserType;
 
 class Configuration implements ConfigurationInterface
 {
@@ -17,6 +18,13 @@ class Configuration implements ConfigurationInterface
 
         // @formatter:off
         $rootNode->children()
+            ->arrayNode('user')
+                ->canBeDisabled()
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('class')->defaultValue('App\Entity\User')->end()
+                ->end()
+            ->end()
         ->end();
         // @formatter:on
 
