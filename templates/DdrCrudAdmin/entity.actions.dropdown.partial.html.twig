@@ -1,0 +1,14 @@
+<button class="dropdown-toggle ddr-no-caret btn btn-sm btn-link"
+        type="button"
+        id="dropdownMenuButton"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+>
+    <span class="fas fa-fw fa-ellipsis-v"></span>
+</button>
+<div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+    {% block ddr_crud_admin_list_entity_actions_dropdown_menu_content %}
+        {{ include('@DdrBridge/DdrCrudAdmin/list.entity.actions.dropdown-content.partial.html.twig') }}
+    {% endblock ddr_crud_admin_list_entity_actions_dropdown_menu_content %}
+</div>
