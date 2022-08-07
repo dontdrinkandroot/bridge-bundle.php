@@ -53,7 +53,7 @@
                         <div class="row">
                             {% for fieldDefinition in fieldDefinitions %}
                                 <div class="col">
-                                    <div><h4>{{ fieldDefinition.propertyPath|humanize|trans({}, translationDomain) }}</h4></div>
+                                    <div><h4>{{ fieldDefinition|ddrCrudAdminLabel|trans({}, translationDomain) }}</h4></div>
                                     <div>{{ entity|ddrCrudAdminFieldDefinitionValue(fieldDefinition) }}</div>
                                 </div>
                             {% endfor %}

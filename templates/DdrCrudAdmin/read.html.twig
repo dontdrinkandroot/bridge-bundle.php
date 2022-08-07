@@ -28,14 +28,14 @@
                             {% block ddr_crud_admin_read_actions_dropdown_menu_content %}
                                 {% if updateRoute is not null and is_granted('UPDATE', entity) %}
                                     <a class="dropdown-item ps-3" href="{{ updateRoute }}">
-                                        <span class="fas fa-fw fa-pen me-3"></span>{{ 'UPDATE'|trans({}, 'DdrCrudAdmin') }}
+                                        <span class="fas fa-fw fa-pen me-3"></span>{{ 'action.update'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                                 {% if deleteRoute is not null and is_granted('DELETE', entity) %}
                                     <a href="{{ deleteRoute }}"
                                        class="dropdown-item ps-3 ddr-confirmation text-danger"
                                        data-ddr-confirmation-text="{{ 'DeletionConfirmationText'|trans({}, 'DdrCrudAdmin') }}">
-                                        <span class="fas fa-fw fa-trash me-3"></span>{{ 'DELETE'|trans({}, 'DdrCrudAdmin') }}
+                                        <span class="fas fa-fw fa-trash me-3"></span>{{ 'action.delete'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                             {% endblock ddr_crud_admin_read_actions_dropdown_menu_content %}
@@ -51,7 +51,7 @@
 
     <dl>
         {% for fieldDefinition in fieldDefinitions %}
-            <dt>{{ fieldDefinition.propertyPath|humanize|trans({}, translationDomain) }}</dt>
+            <dt>{{ fieldDefinition|ddrCrudAdminLabel|trans({}, translationDomain) }}</dt>
             <dd>{{ entity|ddrCrudAdminFieldDefinitionValue(fieldDefinition) }}</dd>
         {% endfor %}
     </dl>
