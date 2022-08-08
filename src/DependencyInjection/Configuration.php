@@ -4,7 +4,6 @@ namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use TKS\ConnectOnlineBridgeBundle\User\Form\Type\ConnectOnlineUserType;
 
 class Configuration implements ConfigurationInterface
 {
@@ -23,6 +22,18 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('class')->defaultValue('App\Entity\User')->end()
+                    ->booleanNode('reset_password')->defaultFalse()->end()
+                ->end()
+            ->end()
+            ->arrayNode('mail')
+                ->children()
+                    ->arrayNode('address')
+                        ->isRequired()
+                        ->children()
+                            ->scalarNode('from')->isRequired()->end()
+                            ->scalarNode('reply_to')->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end()
         ->end();

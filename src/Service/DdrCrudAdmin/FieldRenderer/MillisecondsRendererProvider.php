@@ -12,7 +12,7 @@ class MillisecondsRendererProvider implements FieldRendererProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(FieldDefinition $fieldDefinition, $value): bool
+    public function supports(FieldDefinition $fieldDefinition, mixed $value): bool
     {
         return 'milliseconds' === $fieldDefinition->type;
     }
@@ -20,7 +20,7 @@ class MillisecondsRendererProvider implements FieldRendererProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function render(FieldDefinition $fieldDefinition, $value): string
+    public function render(FieldDefinition $fieldDefinition, mixed $value): string
     {
         return FieldRenderer::escapeHtml(DateUtils::fromMillis($value)->format('Y-m-d H:i:s'));
     }

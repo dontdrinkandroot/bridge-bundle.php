@@ -10,7 +10,6 @@ use Dontdrinkandroot\DoctrineBundle\Repository\TransactionalCrudRepository;
  */
 class UserRepository extends TransactionalCrudRepository
 {
-
     /**
      * @param string $email
      *

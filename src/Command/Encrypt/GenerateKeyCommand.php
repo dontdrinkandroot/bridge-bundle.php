@@ -11,7 +11,7 @@ class GenerateKeyCommand extends Command
 {
     protected static $defaultName = 'ddr:bridge:encrypt:generate-key';
 
-    public function __construct(private EncryptionService $encryptionService)
+    public function __construct(private readonly EncryptionService $encryptionService)
     {
         parent::__construct();
     }

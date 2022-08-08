@@ -17,7 +17,7 @@ class NestedLoader extends YamlFileLoader
     /**
      * {@inheritdoc}
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, string $type = null): bool
     {
         return 'ddr_nested' === $type;
     }

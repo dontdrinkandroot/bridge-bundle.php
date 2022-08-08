@@ -10,8 +10,10 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class NavbarBuilder
 {
-    public function __construct(private FactoryInterface $factory, private EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        private readonly FactoryInterface $factory,
+        private readonly EventDispatcherInterface $eventDispatcher
+    ) {
     }
 
     public function createLeft(): ItemInterface

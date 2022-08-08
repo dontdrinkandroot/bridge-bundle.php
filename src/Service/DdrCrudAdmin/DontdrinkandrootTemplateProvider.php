@@ -26,8 +26,7 @@ class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
         return match ($crudOperation) {
             CrudOperation::LIST => $prefix . 'list.html.twig',
             CrudOperation::READ => $prefix . 'read.html.twig',
-            CrudOperation::CREATE => $prefix . 'update.html.twig',
-            CrudOperation::UPDATE => $prefix . 'update.html.twig',
+            CrudOperation::CREATE, CrudOperation::UPDATE => $prefix . 'update.html.twig',
         };
     }
 }

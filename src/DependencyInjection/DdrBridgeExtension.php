@@ -3,11 +3,19 @@
 namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 
 use Dontdrinkandroot\BridgeBundle\Doctrine\Type\FlexDateType;
+use Dontdrinkandroot\BridgeBundle\Service\Mail\MailService;
+use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
+use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Twig\Environment;
 
 class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 {
@@ -30,7 +38,10 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
             $loader->load('ddr_crud_admin.yaml');
         }
 
-        if (array_key_exists('DdrDoctrineBundle', $bundles) && array_key_exists('DdrCrudAdminBundle', $bundles)) {
+        if (
+            array_key_exists('DdrDoctrineBundle', $bundles)
+            && array_key_exists('DdrCrudAdminBundle', $bundles)
+        ) {
             $loader->load('ddr_crud_admin_ddr_doctrine.yaml');
         }
 
@@ -40,12 +51,12 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
         $userConfig = $config['user'] ?? null;
         if (null !== $userConfig) {
-            $container->setParameter(
-                'ddr.bridge_bundle.user.class',
-                $userConfig['class']
-            );
+            $this->configureUser($userConfig, $container, $phpLoader);
+        }
 
-            $phpLoader->load('user.php');
+        $mailConfig = $config['mail'] ?? null;
+        if (null !== $mailConfig) {
+            $this->configureMail($mailConfig, $container);
         }
     }
 
@@ -68,6 +79,55 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
                     ],
                 ]
             );
+        }
+    }
+
+    /**
+     * @param array{address: array{from: string, reply_to: string|null}} $mailConfig
+     * @param ContainerBuilder                                           $container
+     *
+     * @return void
+     */
+    public function configureMail(array $mailConfig, ContainerBuilder $container): void
+    {
+        $addressConfig = $mailConfig['address'];
+        $addressFrom = $addressConfig['from'];
+        $addressReplyTo = $addressConfig['reply_to'] ?? $addressFrom;
+        $definitionAddressFrom = $container->setDefinition(
+            'ddr.bridge.mail.address.from',
+            (new Definition(Address::class, [$addressFrom]))
+                ->setFactory([Address::class, 'fromString'])
+        );
+        $definitionAddressReplyTo = $container->setDefinition(
+            'ddr.bridge.mail.address.reply_to',
+            (new Definition(Address::class, [$addressReplyTo]))
+                ->setFactory([Address::class, 'fromString'])
+        );
+        $container->setDefinition(
+            MailServiceInterface::class,
+            new Definition(MailService::class, [
+                new Reference(MailerInterface::class),
+                new Reference(Environment::class),
+                $definitionAddressFrom,
+                $definitionAddressReplyTo
+            ])
+        );
+    }
+
+    /**
+     * @param array{class: string, reset_password: bool} $userConfig
+     * @param ContainerBuilder                           $container
+     * @param Loader\PhpFileLoader                       $phpLoader
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function configureUser(array $userConfig, ContainerBuilder $container, Loader\PhpFileLoader $phpLoader): void
+    {
+        $container->setParameter('ddr.bridge_bundle.user.class', $userConfig['class']);
+        $phpLoader->load('user.php');
+        if ($userConfig['reset_password']) {
+            $phpLoader->load('reset_password.php');
         }
     }
 }
