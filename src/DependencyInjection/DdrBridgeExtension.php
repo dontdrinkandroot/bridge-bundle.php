@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 
+use Dontdrinkandroot\BridgeBundle\Command\Mail\SendMailCommand;
 use Dontdrinkandroot\BridgeBundle\Doctrine\Type\FlexDateType;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailService;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
@@ -103,7 +104,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
             (new Definition(Address::class, [$addressReplyTo]))
                 ->setFactory([Address::class, 'fromString'])
         );
-        $container->setDefinition(
+        $definitionMailService = $container->setDefinition(
             MailServiceInterface::class,
             new Definition(MailService::class, [
                 new Reference(MailerInterface::class),
@@ -112,6 +113,10 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
                 $definitionAddressReplyTo
             ])
         );
+        $container->setDefinition(
+            SendMailCommand::class,
+            new Definition(SendMailCommand::class, [$definitionMailService])
+        )->addTag('console.command');
     }
 
     /**
