@@ -17,7 +17,10 @@ class PasswordValidator extends ConstraintValidator
         }
 
         if (strlen($value) < 8) {
-            $this->context->buildViolation(Password::MESSAGE_TO_SHORT)->addViolation();
+            $this->context
+                ->buildViolation(Password::MESSAGE_TOO_SHORT)
+                ->setTranslationDomain('ddr_security')
+                ->addViolation();
         }
 
         $numConstraintsFulfilled = 0;
@@ -42,16 +45,18 @@ class PasswordValidator extends ConstraintValidator
         }
 
         if ($numConstraintsFulfilled < 3) {
-            $this->context->buildViolation(Password::MESSAGE_CHARACTER_REQUIREMENTS)->addViolation();
+            $this->context
+                ->buildViolation(Password::MESSAE_MISSING_CHARACTER_CLASS)
+                ->setTranslationDomain('ddr_security')
+                ->addViolation();
         }
     }
 
     /**
-     * Checks that the password contains a character that is not a digit, not an upper or lowercase letter
-     * and not a currency symbol.
+     * Checks that the password contains a character that is not a digit, not an upper or lowercase letter.
      */
     public static function hasSpecialCharacters(string $value): bool
     {
-        return 1 === preg_match('/[^\da-zA-Z[\x{20A0}-\x{20CF}]/u', $value);
+        return 1 === preg_match('/[^\da-zA-Z]/u', $value);
     }
 }

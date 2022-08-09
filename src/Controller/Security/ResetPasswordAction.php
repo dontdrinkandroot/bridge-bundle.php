@@ -14,17 +14,28 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ResetPasswordAction extends AbstractController
 {
-    public function __invoke(Request $request, ResetPasswordService $resetPasswordService): Response
+    public function __construct(
+        private readonly ResetPasswordService $resetPasswordService,
+        private readonly TranslatorInterface $translator
+    ) {
+    }
+
+    public function __invoke(Request $request): Response
     {
         $user = null;
         try {
-            $user = $resetPasswordService->parse($request);
+            $user = $this->resetPasswordService->parse($request);
         } catch (InvalidResetPasswordTokenException $e) {
-            $this->addFlash('error', 'Der Token zum Zurücksetzen des Passworts ist ungültig oder abgelaufen.');
+            $this->addFlash(
+                'error',
+                $this->translator->trans(id: 'reset_password.token_invalid', domain: 'ddr_security')
+            );
             return $this->redirectToRoute('ddr.bridge.security.reset_password');
         }
 
@@ -42,7 +53,7 @@ class ResetPasswordAction extends AbstractController
         if ($requestForm->isSubmitted() && $requestForm->isValid()) {
             $email = Asserted::string($requestForm->get('email')->getData());
             try {
-                $resetPasswordService->requestPasswordReset($email);
+                $this->resetPasswordService->requestPasswordReset($email);
                 $mailSent = true;
             } catch (TooManyResetPasswordRequestsException $e) {
                 $this->addFlash(
@@ -55,26 +66,32 @@ class ResetPasswordAction extends AbstractController
             }
         }
 
-        $resetForm = $this->createFormBuilder()
+        $resetForm = $this->createFormBuilder(options: [
+            'translation_domain' => 'ddr_security'
+        ])
             ->add('password', RepeatedType::class, [
-                'required' => true,
-                'type' => PasswordType::class,
-                'invalid_message' => 'Die Passwörter müssen übereinstimmen',
-                'first_options' => ['label' => 'Passwort'],
-                'second_options' => ['label' => 'Wiederholung'],
-                'constraints' => [
+                'required'           => true,
+                'type'               => PasswordType::class,
+                'invalid_message'    => 'repeated_field_mismatch',
+                'first_options'      => ['label' => 'reset_password.password'],
+                'second_options'     => ['label' => 'reset_password.password_repeat'],
+                'constraints'        => [
                     new NotBlank(),
                     new Password()
                 ]
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Passwort setzen'])
+            ->add(
+                'submit',
+                SubmitType::class,
+                ['label' => 'reset_password.set_password']
+            )
             ->getForm();
 
         $resetForm->handleRequest($request);
         if ($resetForm->isSubmitted() && $resetForm->isValid()) {
             $password = Asserted::string($resetForm->get('password')->getData());
-            $resetPasswordService->changePassword(Asserted::notNull($user), $password);
-            $this->addFlash('info', 'Das Passwort wurde erfolgreich zurückgesetzt.');
+            $this->resetPasswordService->changePassword(Asserted::notNull($user), $password);
+            $this->addFlash('success', $this->translator->trans(id: 'reset_password.success', domain: 'ddr_security'));
 
             return $this->redirectToRoute('ddr.bridge.security.login');
         }

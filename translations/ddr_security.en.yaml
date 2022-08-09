@@ -1,7 +1,20 @@
-password: 'Password'
-remember_me: 'Stay logged in on this device'
-forgot_password: 'Forgot password'
-login: 'Login'
+login:
+    email: 'Email'
+    submit: 'Login'
+    password: 'Password'
+    remember_me: 'Stay logged in on this device'
+    forgot_password: 'Forgot password'
 reset_password:
-    title: Reset password
-    request_mail: Request mail
+    title: 'Reset password'
+    request_mail: 'Request mail'
+    token_invalid: 'The password reset token is invalid or expired.'
+    password_mismatch: 'The passwords do not match.'
+    password: 'Password'
+    password_repeat: 'Repeat password'
+    set_password: 'Set password'
+    success: 'The password has been successfully reset.'
+    mail_sent: 'If the email address was known to our system, an email was sent with instructions on how to reset the password.'
+    mail_content: 'A link to reset the password has been requested. If you have not requested this yourself, you can ignore this mail. Otherwise, you can reset your password within the next hour via the following link:'
+password:
+    too_short: 'The password must be at least 8 characters long.'
+    missing_character_class: 'The password must meet at least three of the following requirements: At least one lowercase letter, At least one uppercase letter, At least one number, At least one special character.'
