@@ -41,6 +41,7 @@
         "knplabs/knp-menu": "^3.3",
         "liip/test-fixtures-bundle": "^2.2",
         "symfony/mailer": "^5.4",
+        "symfony/validator": "^5.4",
         "phpunit/phpunit": "^9.5",
         "symfony/phpunit-bridge": "^5.4"
     },
