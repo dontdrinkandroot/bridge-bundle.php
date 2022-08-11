@@ -25,7 +25,7 @@ class FlexDateType extends AbstractType
                 [
                     'label'    => false,
                     'required' => false,
-                    'attr'     => ['class' => 'year', 'placeholder' => 'ddr.flex_date.year']
+                    'attr'     => ['class' => 'year', 'placeholder' => 'ddr.flexdate.year']
                 ]
             )
             ->add(
@@ -35,7 +35,7 @@ class FlexDateType extends AbstractType
                     'label'       => false,
                     'required'    => false,
                     'choices'     => $this->getMonthChoices(),
-                    'placeholder' => 'ddr.flex_date.month',
+                    'placeholder' => 'ddr.flexdate.month',
                     'attr'        => ['class' => 'month']
                 ]
             )
@@ -46,7 +46,7 @@ class FlexDateType extends AbstractType
                     'label'       => false,
                     'required'    => false,
                     'choices'     => $this->getDayChoices(),
-                    'placeholder' => 'ddr.flex_date.day',
+                    'placeholder' => 'ddr.flexdate.day',
                     'attr'        => ['class' => 'day']
                 ]
             );
