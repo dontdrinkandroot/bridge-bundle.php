@@ -1,4 +1,5 @@
 logout: 'Abmelden'
+login: 'Anmelden'
 login:
     email: 'Email'
     submit: 'Anmelden'

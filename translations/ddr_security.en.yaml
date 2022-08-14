@@ -1,4 +1,5 @@
 logout: 'Logout'
+login: 'Login'
 login:
     email: 'Email'
     submit: 'Login'
