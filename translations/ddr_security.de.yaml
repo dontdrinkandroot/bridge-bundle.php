@@ -1,6 +1,7 @@
-logout: 'Abmelden'
-login: 'Anmelden'
+logout:
+  action: 'Abmelden'
 login:
+    action: 'Anmelden'
     email: 'Email'
     submit: 'Anmelden'
     password: 'Passwort'

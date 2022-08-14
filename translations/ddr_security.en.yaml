@@ -1,6 +1,7 @@
-logout: 'Logout'
-login: 'Login'
+logout:
+    action: 'Logout'
 login:
+    action: 'Login'
     email: 'Email'
     submit: 'Login'
     password: 'Password'
