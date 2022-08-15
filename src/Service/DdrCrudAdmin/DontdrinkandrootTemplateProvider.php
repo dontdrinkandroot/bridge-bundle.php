@@ -13,20 +13,13 @@ class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
      */
     public function provideTemplate(string $entityClass, CrudOperation $crudOperation): string
     {
-        if (!in_array(
-            $crudOperation,
-            [CrudOperation::LIST, CrudOperation::READ, CrudOperation::CREATE, CrudOperation::UPDATE],
-            true
-        )) {
-            throw new UnsupportedByProviderException($entityClass, $crudOperation);
-        }
-
         $prefix = '@DdrBridge/DdrCrudAdmin/';
 
         return match ($crudOperation) {
             CrudOperation::LIST => $prefix . 'list.html.twig',
             CrudOperation::READ => $prefix . 'read.html.twig',
             CrudOperation::CREATE, CrudOperation::UPDATE => $prefix . 'update.html.twig',
+            CrudOperation::DELETE => $prefix . 'delete.html.twig',
         };
     }
 }
