@@ -53,7 +53,7 @@ class DdrCrudAdminMenuBuilder
                 ->setExtra('icon', 'fas fa-fw fa-trash me-3');
         }
 
-        $this->eventDispatcher->dispatch(new ConfigureCrudAdminEntityItemActionsEvent($entityClass, $entity, $menu));
+        $this->eventDispatcher->dispatch(new ConfigureCrudAdminEntityItemActionsEvent($entityClass, $entity, $menu, $options));
 
         return $menu;
     }

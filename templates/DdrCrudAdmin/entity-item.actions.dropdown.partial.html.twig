@@ -1,11 +1,3 @@
-<button class="dropdown-toggle ddr-no-caret btn btn-sm btn-link"
-        type="button"
-        id="dropdownMenuButton"
-        data-bs-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
->
-    <span class="fas fa-fw fa-ellipsis-v"></span>
-</button>
+{% include '@DdrBootstrap/dropdown-toggle-ellipsis.partial.html.twig' with {'additionalClasses': 'btn-sm'}%}
 {% set menu = knp_menu_get('ddr_crud_admin_entity_item_actions', [], {entityClass: entityClass, entity: entity}) %}
 {{ knp_menu_render(menu,{},'ddr_bs5_dropdown_menu') }}
