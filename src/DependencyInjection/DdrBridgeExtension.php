@@ -36,7 +36,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         $bundles = $container->getParameter('kernel.bundles');
 
         if (array_key_exists('DdrCrudAdminBundle', $bundles)) {
-            $loader->load('ddr_crud_admin.yaml');
+            $phpLoader->load('ddr_crud_admin.php');
         }
 
         if (

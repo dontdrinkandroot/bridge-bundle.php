@@ -7,8 +7,5 @@
 >
     <span class="fas fa-fw fa-ellipsis-v"></span>
 </button>
-<div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-    {% block ddr_crud_admin_entity_item_actions_dropdown_menu_content %}
-        {{ include('@DdrBridge/DdrCrudAdmin/entity-item.actions.dropdown-content.partial.html.twig') }}
-    {% endblock ddr_crud_admin_entity_item_actions_dropdown_menu_content %}
-</div>
+{% set menu = knp_menu_get('ddr_crud_admin_entity_item_actions', [], {entityClass: entityClass, entity: entity}) %}
+{{ knp_menu_render(menu,{},'ddr_bs5_dropdown_menu') }}
