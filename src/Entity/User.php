@@ -21,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @param list<string> $roles
      */
     public function __construct(
-        #[ORM\Column(type: 'string', length: 320, unique: true)]
+        #[ORM\Column(type: 'string', length: 255, unique: true)]
         public string $email,
 
         #[ORM\Column(type: Types::SIMPLE_ARRAY)]

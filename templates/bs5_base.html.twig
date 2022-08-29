@@ -16,6 +16,7 @@
 </head>
 <body>
 {% block ddr_body %}
+
     {% block ddr_navbar %}
         <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
             <div class="container">
@@ -40,14 +41,17 @@
             </div>
         </nav>
     {% endblock ddr_navbar %}
+
     {% block ddr_main %}
         <main class="container">
             {% block ddr_main_container_content %}
             {% endblock ddr_main_container_content %}
         </main>
     {% endblock ddr_main %}
+
     {% block ddr_footer %}
     {% endblock ddr_footer %}
+
 {% endblock ddr_body %}
 </body>
 </html>
