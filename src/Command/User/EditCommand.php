@@ -11,6 +11,7 @@ use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -19,17 +20,19 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 /**
  * @template T of \Dontdrinkandroot\BridgeBundle\Entity\User
  */
-class UpdateCommand extends Command
+class EditCommand extends Command
 {
-    protected static $defaultName = 'ddr:bridge:user:update';
+    protected static $defaultName = 'ddr:bridge:user:edit';
 
     /**
      * @param UserRepository<T> $userRepository
+     * @param class-string<T>   $userClass
      */
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
-        private readonly TransactionManagerRegistry $transactionManagerRegistry
+        private readonly TransactionManagerRegistry $transactionManagerRegistry,
+        private readonly string $userClass
     ) {
         parent::__construct();
     }
@@ -51,7 +54,12 @@ class UpdateCommand extends Command
         $email = $questionHelper->ask($input, $output, new Question('Email: '));
         $user = $this->userRepository->findOneByEmail($email);
         if (null === $user) {
-            throw new RuntimeException('User not found');
+            $create = $questionHelper->ask($input, $output, new ConfirmationQuestion('User does not exist. Create?: '));
+            if (!$create) {
+                return 0;
+            }
+            $user = $this->userClass::fromEmail($email);
+            $this->userRepository->create($user, false);
         }
 
         $rolesQuestion = new Question(sprintf("Roles (%s): ", implode(',', $user->roles)), implode(',', $user->roles));
@@ -62,6 +70,8 @@ class UpdateCommand extends Command
         if (null !== $password && '' !== trim($password)) {
             $user->password = $this->userPasswordHasher->hashPassword($user, $password);
         }
+
+        $output->writeln('Updated.');
 
         return 0;
     }

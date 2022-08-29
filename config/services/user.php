@@ -2,7 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Config;
 
-use Dontdrinkandroot\BridgeBundle\Command\User\UpdateCommand;
+use Dontdrinkandroot\BridgeBundle\Command\User\EditCommand;
 use Dontdrinkandroot\BridgeBundle\Repository\User\UserRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -17,7 +17,8 @@ return function (ContainerConfigurator $configurator) {
         ->autowire()
         ->arg('$entityClass', param('ddr.bridge_bundle.user.class'));
 
-    $services->set(UpdateCommand::class, UpdateCommand::class)
+    $services->set(EditCommand::class, EditCommand::class)
         ->autoconfigure()
-        ->autowire();
+        ->autowire()
+        ->arg('$userClass', param('ddr.bridge_bundle.user.class'));
 };

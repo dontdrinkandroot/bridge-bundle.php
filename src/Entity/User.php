@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\MappedSuperclass]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Column(type: 'string', nullable: true)]
     public ?string $password = null;
@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         #[ORM\Column(type: 'string', length: 255, unique: true)]
         public string $email,
 
-        #[ORM\Column(type: Types::SIMPLE_ARRAY)]
+        #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
         public array $roles = [],
     ) {
     }
@@ -76,4 +76,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->getUserIdentifier();
     }
+
+    abstract public static function fromEmail(string $email): static;
 }
