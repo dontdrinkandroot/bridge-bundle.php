@@ -77,5 +77,5 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getUserIdentifier();
     }
 
-    abstract public static function fromEmail(string $email): static;
+    abstract public static function fromEmail(string $email): User;
 }
