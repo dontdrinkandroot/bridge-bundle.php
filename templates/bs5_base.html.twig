@@ -42,6 +42,18 @@
         </nav>
     {% endblock ddr_navbar %}
 
+    {% set ddr_subnav_content_block = block('ddr_subnav_content') %}
+    {% if ddr_subnav_content_block|trim is not empty %}
+        {% block ddr_subnav %}
+            <nav class="ddr-subnav">
+                <div class="container">
+                    {% block ddr_subnav_content %}
+                    {% endblock ddr_subnav_content %}
+                </div>
+            </nav>
+        {% endblock ddr_subnav %}
+    {% endif %}
+
     {% block ddr_main %}
         <main class="container">
             {% block ddr_main_container_content %}
