@@ -29,7 +29,7 @@ class DoctrineHealthProvider implements HealthProviderInterface
         $connections = $this->managerRegistry->getConnections();
         foreach ($connections as $name => $connection) {
             $connection = Asserted::instanceOf($connection, Connection::class);
-            $connection->executeQuery('SELECT 1');
+            $connection->executeQuery('SELECT 1')->fetchAllAssociative();
             $platform = Asserted::notNull($connection->getDatabasePlatform());
             $data[$name] = get_class($platform);
         }
