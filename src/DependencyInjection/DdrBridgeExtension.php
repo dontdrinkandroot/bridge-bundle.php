@@ -4,8 +4,10 @@ namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 
 use Dontdrinkandroot\BridgeBundle\Command\Mail\SendMailCommand;
 use Dontdrinkandroot\BridgeBundle\Doctrine\Type\FlexDateType;
+use Dontdrinkandroot\BridgeBundle\Service\Health\HealthProviderInterface;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailService;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
+use Dontdrinkandroot\CrudAdminBundle\Service\FieldRenderer\FieldRendererProviderInterface;
 use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,6 +22,8 @@ use Twig\Environment;
 
 class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 {
+    public const TAG_HEALTH_PROVIDER = 'ddr_bridge.health_provider';
+
     /**
      * {@inheritdoc}
      */
@@ -28,15 +32,23 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container
+            ->registerForAutoconfiguration(HealthProviderInterface::class)
+            ->addTag(self::TAG_HEALTH_PROVIDER);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
-        $loader->load('services.yaml');
 
         $phpLoader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
+        $phpLoader->load('services.php');
 
         $bundles = $container->getParameter('kernel.bundles');
 
         if (array_key_exists('DdrCrudAdminBundle', $bundles)) {
             $phpLoader->load('ddr_crud_admin.php');
+        }
+
+        if (array_key_exists('DdrDoctrineBundle', $bundles)) {
+            $phpLoader->load('doctrine.php');
         }
 
         if (
