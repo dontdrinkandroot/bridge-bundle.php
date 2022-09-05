@@ -13,9 +13,6 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     public ?string $password = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    public ?string $salt = null;
-
     /**
      * @param string       $email
      * @param list<string> $roles
@@ -58,7 +55,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getSalt(): ?string
     {
-        return $this->salt;
+        return null;
     }
 
     /**
