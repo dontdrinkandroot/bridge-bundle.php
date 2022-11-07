@@ -18,13 +18,28 @@
                     {% endif %}
 
                     <div class="mb-3">
-                        <label for="username" class="form-label">{{ 'login.email'|trans({}, 'ddr_security') }}</label>
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
+                        <label for="username" class="form-label">
+                            {{ 'login.email'|trans({}, 'ddr_security') }}
+                        </label>
+                        <input type="text"
+                               id="username"
+                               name="_username"
+                               value="{{ last_username }}"
+                               class="form-control"
+                               autocomplete="username"
+                        />
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label">{{ 'login.password'|trans({}, 'ddr_security') }}</label>
-                        <input type="password" id="password" name="_password" class="form-control" />
+                        <label for="password" class="form-label">
+                            {{ 'login.password'|trans({}, 'ddr_security') }}
+                        </label>
+                        <input type="password"
+                               id="password"
+                               name="_password"
+                               class="form-control"
+                               autocomplete="current-password"
+                        />
                     </div>
 
                     <div class="form-check">
@@ -42,7 +57,7 @@
                         {% block ddr_footer_content %}
                             <button type="submit" class="btn btn-primary">{{ 'login.submit'|trans({}, 'ddr_security') }}</button>
                             {% if pathPasswordReset is not null %}
-                            <a href="{{ pathPasswordReset }}" class="btn btn-link">{{ 'login.forgot_password'|trans({}, 'ddr_security') }}</a>
+                                <a href="{{ pathPasswordReset }}" class="btn btn-link">{{ 'login.forgot_password'|trans({}, 'ddr_security') }}</a>
                             {% endif %}
                         {% endblock ddr_footer_content %}
                     </div>
