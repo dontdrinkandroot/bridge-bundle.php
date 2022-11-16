@@ -14,7 +14,7 @@ class FontAwesome5BooleanRendererProvider implements FieldRendererProviderInterf
      */
     public function supports(FieldDefinition $fieldDefinition, mixed $value): bool
     {
-        return Types::BOOLEAN === $fieldDefinition->type;
+        return in_array($fieldDefinition->type, [Types::BOOLEAN, 'bool'], true);
     }
 
     /**
@@ -22,6 +22,8 @@ class FontAwesome5BooleanRendererProvider implements FieldRendererProviderInterf
      */
     public function render(FieldDefinition $fieldDefinition, mixed $value): string
     {
-        return Asserted::bool($value) ? '<span class="fas fa-fw fa-check"></span>' : '<span class="fas fa-fw fa-times"></span>';
+        return Asserted::bool($value)
+            ? '<span class="fas fa-fw fa-check"></span>'
+            : '<span class="fas fa-fw fa-times"></span>';
     }
 }
