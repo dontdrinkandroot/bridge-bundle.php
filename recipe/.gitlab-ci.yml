@@ -1,0 +1,12 @@
+include:
+    -   project: 'dontdrinkandroot/ci-templates'
+        ref: main
+        file: 'docker-symfony.yml'
+
+#test:phpunit:
+#    services:
+#        - postgres:14.5
+#    variables:
+#        POSTGRES_USER: 'user'
+#        POSTGRES_PASSWORD: 'password'
+#        POSTGRES_DB: 'database_test'

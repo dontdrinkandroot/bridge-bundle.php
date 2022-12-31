@@ -1,0 +1,2 @@
+#!/bin/bash
+bin/docker/dev/compose exec -u www-data web /var/www/bin/console "$@"
