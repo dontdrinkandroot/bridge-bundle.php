@@ -63,7 +63,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         }
 
         $userConfig = $config['user'] ?? null;
-        if (null !== $userConfig) {
+        if (null !== $userConfig && true === $userConfig['enabled']) {
             $this->configureUser($userConfig, $container, $phpLoader);
         }
 
@@ -97,7 +97,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
     /**
      * @param array{address: array{from: string, reply_to: string|null}} $mailConfig
-     * @param ContainerBuilder                                           $container
+     * @param ContainerBuilder $container
      *
      * @return void
      */
@@ -133,8 +133,8 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
     /**
      * @param array{class: string, reset_password: bool} $userConfig
-     * @param ContainerBuilder                           $container
-     * @param Loader\PhpFileLoader                       $phpLoader
+     * @param ContainerBuilder $container
+     * @param Loader\PhpFileLoader $phpLoader
      *
      * @return void
      * @throws Exception

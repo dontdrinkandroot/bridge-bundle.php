@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
         // @formatter:off
         $rootNode->children()
             ->arrayNode('user')
-                ->canBeDisabled()
+                ->canBeEnabled()
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('class')->defaultValue('App\Entity\User')->end()

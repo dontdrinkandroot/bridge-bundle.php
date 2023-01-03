@@ -36,14 +36,6 @@ return function (ContainerConfigurator $configurator) {
     $services->set(GenerateKeyCommand::class)
         ->args([service(EncryptionService::class)]);
 
-    $services->set(LoginAction::class)
-        ->autoconfigure()
-        ->autowire()
-        ->tag('controller.service_arguments');
-
-    $services->set(LogoutAction::class)
-        ->tag('controller.service_arguments');
-
     $services->set(HealthAction::class)
         ->args([tagged_iterator(DdrBridgeExtension::TAG_HEALTH_PROVIDER)])
         ->public();
