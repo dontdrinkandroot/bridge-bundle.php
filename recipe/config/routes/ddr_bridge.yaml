@@ -1,0 +1,8 @@
+ddr.bridge.health:
+    resource: '@DdrBridgeBundle/config/routes/health.yaml'
+
+#ddr.bridge.login_logout:
+#    resource: '@DdrBridgeBundle/config/routes/login_logout.yaml'
+
+#ddr.bridge.reset_password:
+#    resource: '@DdrBridgeBundle/config/routes/reset_password.yaml'
