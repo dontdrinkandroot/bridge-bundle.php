@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - {% block ddr_crud_admin_title %}{% endblock ddr_crud_admin_title %}
+{% endblock title %}
+
+{% block ddr_main_container_content %}
+    {% block ddr_crud_admin_header %}
+    {% endblock ddr_crud_admin_header %}
+    {% block ddr_crud_admin_content %}
+    {% endblock ddr_crud_admin_content %}
+{% endblock ddr_main_container_content %}
