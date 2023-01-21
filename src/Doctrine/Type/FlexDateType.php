@@ -17,7 +17,7 @@ class FlexDateType extends StringType
         $column['fixed'] = true;
         $column['length'] = 10;
         $column['nullable'] = true;
-        return $platform->getVarcharTypeDeclarationSQL($column);
+        return $platform->getStringTypeDeclarationSQL($column);
     }
 
     /**
