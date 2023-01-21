@@ -9,6 +9,8 @@ use Dontdrinkandroot\Common\FlexDate;
 
 class FlexDateType extends StringType
 {
+    public const NAME = 'ddr_flexdate';
+
     /**
      * {@inheritdoc}
      */
@@ -25,7 +27,7 @@ class FlexDateType extends StringType
      */
     public function getName(): string
     {
-        return 'ddr_flexdate';
+        return self::NAME;
     }
 
     /**
