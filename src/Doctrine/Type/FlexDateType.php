@@ -25,7 +25,7 @@ class FlexDateType extends StringType
      */
     public function getName(): string
     {
-        return 'flexdate';
+        return 'ddr_flexdate';
     }
 
     /**
@@ -55,5 +55,13 @@ class FlexDateType extends StringType
         }
 
         return FlexDate::fromString(Asserted::string($value));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 }
