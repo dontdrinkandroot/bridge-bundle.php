@@ -87,7 +87,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
                 [
                     'dbal' => [
                         'types' => [
-                            'flexdate' => FlexDateType::class,
+                            FlexDateType::NAME => FlexDateType::class,
                         ],
                     ],
                 ]
