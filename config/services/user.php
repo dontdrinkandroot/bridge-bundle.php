@@ -9,7 +9,6 @@ use Dontdrinkandroot\BridgeBundle\Repository\User\UserRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return function (ContainerConfigurator $configurator) {
     $services = $configurator->services();
@@ -22,7 +21,8 @@ return function (ContainerConfigurator $configurator) {
     $services->set(EditCommand::class, EditCommand::class)
         ->autoconfigure()
         ->autowire()
-        ->arg('$userClass', param('ddr.bridge_bundle.user.class'));
+        ->arg('$userClass', param('ddr.bridge_bundle.user.class'))
+        ->tag('console.command');
 
     $services->set(LoginAction::class)
         ->autoconfigure()

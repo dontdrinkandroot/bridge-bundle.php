@@ -2,10 +2,11 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Repository\User;
 
+use Dontdrinkandroot\BridgeBundle\Entity\User;
 use Dontdrinkandroot\DoctrineBundle\Repository\TransactionalCrudRepository;
 
 /**
- * @template T of \Dontdrinkandroot\BridgeBundle\Entity\User
+ * @template T of User
  * @extends TransactionalCrudRepository<T>
  */
 class UserRepository extends TransactionalCrudRepository

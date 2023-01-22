@@ -14,8 +14,6 @@ use Symfony\Component\Mime\Address;
 #[AsCommand(name: 'ddr:bridge:mail:send')]
 class SendMailCommand extends Command
 {
-    protected static $defaultName = 'ddr:bridge:mail:send';
-
     /** @psalm-suppress PropertyNotSetInConstructor */
     private SymfonyStyle $io;
 

@@ -2,28 +2,28 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Command\User;
 
+use Dontdrinkandroot\BridgeBundle\Entity\User;
 use Dontdrinkandroot\BridgeBundle\Repository\User\UserRepository;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\DoctrineBundle\Service\TransactionManager\TransactionManagerRegistry;
-use RuntimeException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
-
 /**
- * @template T of \Dontdrinkandroot\BridgeBundle\Entity\User
+ * @template T of User
  */
+#[AsCommand(
+    name: 'ddr:bridge:user:edit',
+    description: 'Edits a user',
+)]
 class EditCommand extends Command
 {
-    protected static $defaultName = 'ddr:bridge:user:edit';
-
     /**
      * @param UserRepository<T> $userRepository
      * @param class-string<T>   $userClass
