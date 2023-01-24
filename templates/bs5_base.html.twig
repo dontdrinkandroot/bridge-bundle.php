@@ -5,7 +5,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     {% endblock ddr_head_meta %}
+
     <title>{% block title %}{% endblock title %}</title>
+
     {% block ddr_stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -19,7 +21,7 @@
 
     {% block ddr_navbar %}
         <nav class="navbar {% block ddr_navbar_classes %}navbar-expand-lg navbar-light bg-white fixed-top{% endblock ddr_navbar_classes %}">
-            <div class="container">
+            <div class="{{ block('ddr_container_class') }}">
                 {% block ddr_navbar_brand %}
                     <a class="navbar-brand" href="#">dontdrinkandroot</a>
                 {% endblock ddr_navbar_brand %}
@@ -46,7 +48,7 @@
     {% if ddr_subnav_content_block|trim is not empty %}
         {% block ddr_subnav %}
             <nav class="ddr-subnav">
-                <div class="container">
+                <div class="{{ block('ddr_container_class') }}">
                     {% block ddr_subnav_content %}
                     {% endblock ddr_subnav_content %}
                 </div>
@@ -55,7 +57,7 @@
     {% endif %}
 
     {% block ddr_main %}
-        <main class="container">
+        <main class="{% block ddr_container_class %}container{% endblock ddr_container_class %}">
             {% block ddr_main_container_content %}
             {% endblock ddr_main_container_content %}
         </main>
