@@ -26,7 +26,7 @@ class LoginAction extends AbstractController
 
         try {
             $pathPasswordReset = $this->urlGenerator->generate('ddr.bridge.security.reset_password');
-        } catch (RouteNotFoundException $e) {
+        } catch (RouteNotFoundException) {
             $pathPasswordReset = null;
         }
 

@@ -50,11 +50,7 @@ abstract class CrudVoter extends Voter
     abstract protected function getEntityClass(): string;
 
     /**
-     * @param CrudOperation  $crudOperation
      * @param string|T  $subject
-     * @param TokenInterface $token
-     *
-     * @return bool
      */
     protected function voteOnCrudOperation(
         CrudOperation $crudOperation,
@@ -90,10 +86,7 @@ abstract class CrudVoter extends Voter
     }
 
     /**
-     * @param T         $entity
-     * @param TokenInterface $token
-     *
-     * @return bool
+     * @param T $entity
      */
     protected function isReadGranted(object $entity, TokenInterface $token): bool
     {
@@ -101,10 +94,7 @@ abstract class CrudVoter extends Voter
     }
 
     /**
-     * @param T         $entity
-     * @param TokenInterface $token
-     *
-     * @return bool
+     * @param T $entity
      */
     protected function isUpdateGranted(object $entity, TokenInterface $token): bool
     {
@@ -112,10 +102,7 @@ abstract class CrudVoter extends Voter
     }
 
     /**
-     * @param T         $entity
-     * @param TokenInterface $token
-     *
-     * @return bool
+     * @param T $entity
      */
     protected function isDeleteGranted(object $entity, TokenInterface $token): bool
     {

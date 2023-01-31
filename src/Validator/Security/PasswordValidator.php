@@ -12,7 +12,7 @@ class PasswordValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (null === $value || '' === $value) {
+        if (!is_string($value) || '' === $value) {
             return;
         }
 

@@ -43,7 +43,7 @@ class EditCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         return $this->transactionManagerRegistry->getDefault()->transactional(
-            fn() => $this->doExecute($input, $output)
+            fn(): int => $this->doExecute($input, $output)
         );
     }
 
@@ -59,15 +59,16 @@ class EditCommand extends Command
                 return 0;
             }
             $user = $this->userClass::fromEmail($email);
+            /** @psalm-suppress InvalidArgument */
             $this->userRepository->create($user, false);
         }
 
         $rolesQuestion = new Question(sprintf("Roles (%s): ", implode(',', $user->roles)), implode(',', $user->roles));
         $roles = $questionHelper->ask($input, $output, $rolesQuestion);
-        $user->roles = explode(',', $roles);
+        $user->roles = explode(',', (string)$roles);
 
         $password = $questionHelper->ask($input, $output, (new Question('Password: '))->setHidden(true));
-        if (null !== $password && '' !== trim($password)) {
+        if (null !== $password && '' !== trim((string)$password)) {
             $user->password = $this->userPasswordHasher->hashPassword($user, $password);
         }
 

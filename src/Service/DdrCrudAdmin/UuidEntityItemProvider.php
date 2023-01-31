@@ -14,7 +14,7 @@ use Symfony\Component\Uid\Uuid;
 
 class UuidEntityItemProvider implements ItemProviderInterface
 {
-    public function __construct(private ManagerRegistry $managerRegistry)
+    public function __construct(private readonly ManagerRegistry $managerRegistry)
     {
     }
 
@@ -32,7 +32,7 @@ class UuidEntityItemProvider implements ItemProviderInterface
 
         try {
             $uuid = Uuid::fromBase58($id);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             throw new UnsupportedByProviderException($entityClass, $crudOperation);
         }
 

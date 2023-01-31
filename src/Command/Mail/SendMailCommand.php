@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Mime\Address;
 
-#[AsCommand(name: 'ddr:bridge:mail:send')]
+#[AsCommand(name: 'ddr:bridge:mail:send', description: 'Send simple email message')]
 class SendMailCommand extends Command
 {
     /** @psalm-suppress PropertyNotSetInConstructor */
@@ -28,9 +28,7 @@ class SendMailCommand extends Command
      */
     protected function configure(): void
     {
-        $this
-            ->setDescription('Send simple email message')
-            ->addOption('to', null, InputOption::VALUE_REQUIRED, 'The to address of the message')
+        $this->addOption('to', null, InputOption::VALUE_REQUIRED, 'The to address of the message')
             ->addOption('subject', null, InputOption::VALUE_REQUIRED, 'The subject of the message')
             ->addOption('markdown', null, InputOption::VALUE_REQUIRED, 'The body of the message provided in markdown');
     }
@@ -57,7 +55,7 @@ class SendMailCommand extends Command
 
         $this->io->success('Email was successfully sent.');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
 

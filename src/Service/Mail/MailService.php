@@ -10,7 +10,7 @@ use Twig\Environment;
 
 class MailService implements MailServiceInterface
 {
-    private GithubFlavoredMarkdownConverter $commonmarkConverter;
+    private readonly GithubFlavoredMarkdownConverter $commonmarkConverter;
 
     public function __construct(
         private readonly MailerInterface $mailer,

@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestKernelTest extends WebTestCase
 {
-    public function testIsWorking()
+    public function testIsWorking(): void
     {
         self::bootKernel();
         $this->assertNotNull(self::$kernel);

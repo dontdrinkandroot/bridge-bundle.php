@@ -25,6 +25,6 @@ class GenerateKeyCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln(bin2hex($this->encryptionService->generateKey()));
-        return 0;
+        return Command::SUCCESS;
     }
 }

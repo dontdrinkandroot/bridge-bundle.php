@@ -31,7 +31,7 @@ class DoctrineHealthProvider implements HealthProviderInterface
             $connection = Asserted::instanceOf($connection, Connection::class);
             $connection->executeQuery('SELECT 1')->fetchAllAssociative();
             $platform = Asserted::notNull($connection->getDatabasePlatform());
-            $data[$name] = get_class($platform);
+            $data[$name] = $platform::class;
         }
 
         return $data;

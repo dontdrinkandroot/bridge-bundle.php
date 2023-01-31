@@ -14,7 +14,6 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     public ?string $password = null;
 
     /**
-     * @param string       $email
      * @param list<string> $roles
      */
     public function __construct(

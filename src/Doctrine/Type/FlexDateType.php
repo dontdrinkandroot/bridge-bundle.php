@@ -9,7 +9,7 @@ use Dontdrinkandroot\Common\FlexDate;
 
 class FlexDateType extends StringType
 {
-    public const NAME = 'ddr_flexdate';
+    final public const NAME = 'ddr_flexdate';
 
     /**
      * {@inheritdoc}

@@ -7,7 +7,6 @@ use Dontdrinkandroot\BridgeBundle\Doctrine\Type\FlexDateType;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HealthProviderInterface;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailService;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
-use Dontdrinkandroot\CrudAdminBundle\Service\FieldRenderer\FieldRendererProviderInterface;
 use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,7 +21,7 @@ use Twig\Environment;
 
 class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 {
-    public const TAG_HEALTH_PROVIDER = 'ddr_bridge.health_provider';
+    final public const TAG_HEALTH_PROVIDER = 'ddr_bridge.health_provider';
 
     /**
      * {@inheritdoc}
@@ -97,9 +96,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
     /**
      * @param array{address: array{from: string, reply_to: string|null}} $mailConfig
-     * @param ContainerBuilder $container
      *
-     * @return void
      */
     public function configureMail(array $mailConfig, ContainerBuilder $container): void
     {
@@ -133,10 +130,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
     /**
      * @param array{class: string, reset_password: bool} $userConfig
-     * @param ContainerBuilder $container
-     * @param Loader\PhpFileLoader $phpLoader
      *
-     * @return void
      * @throws Exception
      */
     public function configureUser(array $userConfig, ContainerBuilder $container, Loader\PhpFileLoader $phpLoader): void

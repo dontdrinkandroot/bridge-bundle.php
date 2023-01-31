@@ -6,7 +6,7 @@ use Dontdrinkandroot\BridgeBundle\Controller\Security\ResetPasswordAction;
 use Dontdrinkandroot\BridgeBundle\Service\Security\ResetPasswordService;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return function (ContainerConfigurator $configurator) {
+return function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set(ResetPasswordAction::class, ResetPasswordAction::class)

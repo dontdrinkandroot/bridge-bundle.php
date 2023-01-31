@@ -10,12 +10,11 @@ use Dontdrinkandroot\CrudAdminBundle\Service\Url\UrlResolver;
 use Knp\Menu\FactoryInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
-return function (ContainerConfigurator $configurator) {
+return function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set(DontdrinkandrootTemplateProvider::class, DontdrinkandrootTemplateProvider::class)

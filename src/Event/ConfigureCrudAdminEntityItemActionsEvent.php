@@ -13,8 +13,6 @@ class ConfigureCrudAdminEntityItemActionsEvent extends Event
     /**
      * @param class-string<T> $entityClass
      * @param T               $entity
-     * @param ItemInterface   $item
-     * @param array           $options
      */
     public function __construct(
         public readonly string $entityClass,
