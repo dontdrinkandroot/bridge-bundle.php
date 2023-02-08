@@ -1,0 +1,6 @@
+#!/bin/bash
+bin/console doctrine:schema:drop -f --full-database \
+&& bin/console doctrine:migrations:migrate -n --all-or-nothing \
+&& bin/console make:migration \
+&& bin/console doctrine:migrations:migrate -n --all-or-nothing \
+&& bin/console doctrine:fixtures:load -n
