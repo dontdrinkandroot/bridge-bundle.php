@@ -35,35 +35,33 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
             ->registerForAutoconfiguration(HealthProviderInterface::class)
             ->addTag(self::TAG_HEALTH_PROVIDER);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
-
-        $phpLoader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
-        $phpLoader->load('services.php');
+        $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
+        $loader->load('services.php');
 
         $bundles = $container->getParameter('kernel.bundles');
 
         if (array_key_exists('DdrCrudAdminBundle', $bundles)) {
-            $phpLoader->load('ddr_crud_admin.php');
+            $loader->load('ddr_crud_admin.php');
         }
 
         if (array_key_exists('DdrDoctrineBundle', $bundles)) {
-            $phpLoader->load('doctrine.php');
+            $loader->load('doctrine.php');
         }
 
         if (
             array_key_exists('DdrDoctrineBundle', $bundles)
             && array_key_exists('DdrCrudAdminBundle', $bundles)
         ) {
-            $loader->load('ddr_crud_admin_ddr_doctrine.yaml');
+            $loader->load('ddr_crud_admin_ddr_doctrine.php');
         }
 
         if (array_key_exists('KnpMenuBundle', $bundles)) {
-            $loader->load('knp_menu.yaml');
+            $loader->load('knp_menu.php');
         }
 
         $userConfig = $config['user'] ?? null;
         if (null !== $userConfig && true === $userConfig['enabled']) {
-            $this->configureUser($userConfig, $container, $phpLoader);
+            $this->configureUser($userConfig, $container, $loader);
         }
 
         $mailConfig = $config['mail'] ?? null;

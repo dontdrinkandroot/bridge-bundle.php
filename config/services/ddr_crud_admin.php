@@ -6,6 +6,7 @@ use Dontdrinkandroot\BridgeBundle\Menu\DdrCrudAdminMenuBuilder;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\DontdrinkandrootTemplateProvider;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\FontAwesome5BooleanRendererProvider;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\MillisecondsRendererProvider;
+use Dontdrinkandroot\CrudAdminBundle\DependencyInjection\DdrCrudAdminExtension;
 use Dontdrinkandroot\CrudAdminBundle\Service\Url\UrlResolver;
 use Knp\Menu\FactoryInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -18,13 +19,13 @@ return function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set(DontdrinkandrootTemplateProvider::class, DontdrinkandrootTemplateProvider::class)
-        ->tag('ddr_crud_admin.template_provider', ['priority' => -200]);
+        ->tag('ddr_crud_admin.template_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
 
     $services->set(FontAwesome5BooleanRendererProvider::class, FontAwesome5BooleanRendererProvider::class)
-        ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => -240]);
+        ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
 
     $services->set(MillisecondsRendererProvider::class, MillisecondsRendererProvider::class)
-        ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => -240]);
+        ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
 
     $services->set(DdrCrudAdminMenuBuilder::class, DdrCrudAdminMenuBuilder::class)
         ->args([
