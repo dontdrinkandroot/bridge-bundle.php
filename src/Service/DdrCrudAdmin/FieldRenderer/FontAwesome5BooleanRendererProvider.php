@@ -14,7 +14,7 @@ class FontAwesome5BooleanRendererProvider implements FieldRendererProviderInterf
      */
     public function supports(FieldDefinition $fieldDefinition, mixed $value): bool
     {
-        return in_array($fieldDefinition->type, [Types::BOOLEAN, 'bool'], true);
+        return in_array($fieldDefinition->displayType, [Types::BOOLEAN, 'bool'], true);
     }
 
     /**
