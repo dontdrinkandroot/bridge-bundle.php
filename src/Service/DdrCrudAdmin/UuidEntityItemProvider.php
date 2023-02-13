@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
+use Dontdrinkandroot\CrudAdminBundle\Exception\EntityNotFoundException;
 use Dontdrinkandroot\CrudAdminBundle\Exception\UnsupportedByProviderException;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityInterface;
@@ -27,13 +28,13 @@ class UuidEntityItemProvider implements ItemProviderInterface
             null === $id
             || !is_a($entityClass, UuidEntityInterface::class, true)
         ) {
-            throw new UnsupportedByProviderException($entityClass, $crudOperation);
+            return null;
         }
 
         try {
             $uuid = Uuid::fromBase58($id);
         } catch (InvalidArgumentException) {
-            throw new UnsupportedByProviderException($entityClass, $crudOperation);
+            return null;
         }
 
         $entityManager = Asserted::instanceOfOrNull(
@@ -41,12 +42,15 @@ class UuidEntityItemProvider implements ItemProviderInterface
             EntityManagerInterface::class
         );
         if (null === $entityManager) {
-            throw new UnsupportedByProviderException($entityClass, $crudOperation);
+            return null;
         }
 
-        return $entityManager
+        $entity = $entityManager
             ->getUnitOfWork()
             ->getEntityPersister($entityClass)
-            ->load(['uuid' => $uuid], null, null, [], null, 1);
+            ->load(['uuid' => $uuid], null, null, [], null, 1)
+        ?? throw new EntityNotFoundException($entityClass, $crudOperation, $id);
+
+        return $entity;
     }
 }

@@ -3,7 +3,6 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
 use Dontdrinkandroot\Common\CrudOperation;
-use Dontdrinkandroot\CrudAdminBundle\Exception\UnsupportedByProviderException;
 use Dontdrinkandroot\CrudAdminBundle\Service\Template\TemplateProviderInterface;
 
 class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
