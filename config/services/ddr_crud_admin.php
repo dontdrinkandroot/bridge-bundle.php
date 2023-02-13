@@ -19,7 +19,7 @@ return function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set(DontdrinkandrootTemplateProvider::class, DontdrinkandrootTemplateProvider::class)
-        ->tag('ddr_crud_admin.template_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
+        ->tag('ddr_crud_admin.template_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_MEDIUM]);
 
     $services->set(FontAwesome5BooleanRendererProvider::class, FontAwesome5BooleanRendererProvider::class)
         ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
