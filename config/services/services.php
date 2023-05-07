@@ -9,6 +9,9 @@ use Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateType;
 use Dontdrinkandroot\BridgeBundle\Routing\NestedLoader;
 use Dontdrinkandroot\BridgeBundle\Service\EncryptionService;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HttpHealthProvider;
+use Dontdrinkandroot\BridgeBundle\Service\Version\CachedVersionService;
+use Dontdrinkandroot\BridgeBundle\Service\Version\VersionServiceInterface;
+use Dontdrinkandroot\BridgeBundle\Twig\TwigExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -40,4 +43,19 @@ return function (ContainerConfigurator $configurator): void {
     $services->set(HttpHealthProvider::class)
         ->args([service(RequestStack::class)])
         ->tag(DdrBridgeExtension::TAG_HEALTH_PROVIDER);
+
+    $services
+        ->set(VersionServiceInterface::class, CachedVersionService::class)
+        ->args([
+            service('kernel'),
+            service('logger'),
+            service('cache.app'),
+        ]);
+
+    $services
+        ->set(TwigExtension::class, TwigExtension::class)
+        ->args([
+            service(VersionServiceInterface::class)
+        ])
+        ->tag('twig.extension');
 };
