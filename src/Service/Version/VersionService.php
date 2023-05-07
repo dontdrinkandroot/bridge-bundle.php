@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\Version;
 
+use Dontdrinkandroot\Common\Asserted;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Process;
