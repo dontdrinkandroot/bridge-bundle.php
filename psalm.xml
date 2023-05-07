@@ -16,8 +16,13 @@
     <issueHandlers>
         <ParamNameMismatch>
             <errorLevel type="suppress">
-                <file name="src/Routing/NestedLoader.php" />
+                <file name="src/Routing/NestedLoader.php"/>
             </errorLevel>
         </ParamNameMismatch>
+        <UndefinedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children"/>
+            </errorLevel>
+        </UndefinedMethod>
     </issueHandlers>
 </psalm>
