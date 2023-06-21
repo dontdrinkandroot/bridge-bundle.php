@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Config;
 
+use App\Service\CrudAdmin\InstantFieldRendererProvider;
 use Dontdrinkandroot\BridgeBundle\Menu\DdrCrudAdminMenuBuilder;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\DontdrinkandrootTemplateProvider;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\FontAwesome5BooleanRendererProvider;
@@ -25,6 +26,9 @@ return function (ContainerConfigurator $configurator): void {
         ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
 
     $services->set(MillisecondsRendererProvider::class, MillisecondsRendererProvider::class)
+        ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
+
+    $services->set(InstantFieldRendererProvider::class)
         ->tag('ddr_crud_admin.field_renderer_provider', ['priority' => DdrCrudAdminExtension::PRIORITY_HIGH]);
 
     $services->set(DdrCrudAdminMenuBuilder::class, DdrCrudAdminMenuBuilder::class)
