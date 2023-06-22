@@ -2,10 +2,10 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Config;
 
-use App\Service\CrudAdmin\InstantFieldRendererProvider;
 use Dontdrinkandroot\BridgeBundle\Menu\DdrCrudAdminMenuBuilder;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\DontdrinkandrootTemplateProvider;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\FontAwesome5BooleanRendererProvider;
+use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\InstantFieldRendererProvider;
 use Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin\FieldRenderer\MillisecondsRendererProvider;
 use Dontdrinkandroot\CrudAdminBundle\DependencyInjection\DdrCrudAdminExtension;
 use Dontdrinkandroot\CrudAdminBundle\Service\Url\UrlResolver;
