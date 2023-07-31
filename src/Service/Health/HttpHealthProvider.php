@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\Health;
 
+use Dontdrinkandroot\BridgeBundle\Model\Health\HealthStatus;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class HttpHealthProvider implements HealthProviderInterface
@@ -21,19 +22,19 @@ class HttpHealthProvider implements HealthProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getValue(): null|array
+    public function getStatus(): HealthStatus
     {
         $request = $this->requestStack->getMainRequest();
         if (null === $request) {
-            return null;
+            return new HealthStatus(false, ['error' => 'No request available']);
         }
 
-        return [
+        return new HealthStatus(true, [
             'base_uri' => $request->getSchemeAndHttpHost(),
             'host' => $request->getHost(),
             'port' => $request->getPort(),
             'scheme' => $request->getScheme(),
             'secure' => $request->isSecure()
-        ];
+        ]);
     }
 }

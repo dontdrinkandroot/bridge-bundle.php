@@ -2,9 +2,11 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\Health;
 
+use Dontdrinkandroot\BridgeBundle\Model\Health\HealthStatus;
+
 interface HealthProviderInterface
 {
     public function getKey(): string;
 
-    public function getValue(): null|object|array|float|int|bool;
+    public function getStatus(): HealthStatus;
 }

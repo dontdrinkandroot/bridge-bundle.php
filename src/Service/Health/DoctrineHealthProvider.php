@@ -3,7 +3,9 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\Health;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
+use Dontdrinkandroot\BridgeBundle\Model\Health\HealthStatus;
 use Dontdrinkandroot\Common\Asserted;
 
 class DoctrineHealthProvider implements HealthProviderInterface
@@ -23,17 +25,34 @@ class DoctrineHealthProvider implements HealthProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getValue(): array
+    public function getStatus(): HealthStatus
     {
-        $data = [];
+        $overallOk = true;
         $connections = $this->managerRegistry->getConnections();
+        $data = [];
         foreach ($connections as $name => $connection) {
-            $connection = Asserted::instanceOf($connection, Connection::class);
-            $connection->executeQuery('SELECT 1')->fetchAllAssociative();
-            $platform = Asserted::notNull($connection->getDatabasePlatform());
-            $data[$name] = $platform::class;
+            $connectionStatus = $this->getConnectionStatus($name, Asserted::instanceOf($connection, Connection::class));
+            $overallOk = $overallOk && $connectionStatus->ok;
+            $data[$name] = $connectionStatus->info;
         }
 
-        return $data;
+        return new HealthStatus($overallOk, $data);
+    }
+
+    public function getConnectionStatus(string $name, Connection $connection): HealthStatus
+    {
+        $platform = $connection->getDatabasePlatform();
+        try {
+            $connection = Asserted::instanceOf($connection, Connection::class);
+            $connection->executeQuery('SELECT 1')->fetchAllAssociative();
+            return new HealthStatus(true, [
+                'platform' => $platform::class
+            ]);
+        } catch (Exception $e) {
+            return new HealthStatus(false, [
+                'platform' => $platform::class,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }
