@@ -9,7 +9,7 @@ class HealthTest extends WebTestCase
     public function testHealthWorking(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/health');
+        $client->request('GET', '/_health');
         self::assertResponseIsSuccessful();
 
         $content = json_decode($client->getResponse()->getContent(), true);

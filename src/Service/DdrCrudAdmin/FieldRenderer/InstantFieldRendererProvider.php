@@ -23,6 +23,6 @@ class InstantFieldRendererProvider implements FieldRendererProviderInterface
      */
     public function render(FieldDefinition $fieldDefinition, mixed $value): string
     {
-        return Asserted::instanceOf($value, Instant::class)->toDateTime()->format('Y-m-d H:i:s');
+        return Asserted::instanceOf($value, Instant::class)->getDateTime()->format('Y-m-d H:i:s');
     }
 }

@@ -1,7 +1,0 @@
-ddr.bridge.security.login:
-    path: /login
-    controller: Dontdrinkandroot\BridgeBundle\Controller\Security\LoginAction
-
-ddr.bridge.security.logout:
-    path: /logout
-    controller: Dontdrinkandroot\BridgeBundle\Controller\Security\LogoutAction

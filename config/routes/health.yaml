@@ -1,3 +1,0 @@
-ddr.bridge.health:
-    path: /health
-    controller: Dontdrinkandroot\BridgeBundle\Controller\HealthAction
