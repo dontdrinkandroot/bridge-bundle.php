@@ -1,6 +1,6 @@
 <?php
 
-namespace Dontdrinkandroot\BridgeBundle\Config;
+namespace Dontdrinkandroot\BridgeBundle\Config\Routes;
 
 use Dontdrinkandroot\BridgeBundle\Controller\Security\LoginAction;
 use Dontdrinkandroot\BridgeBundle\Controller\Security\LogoutAction;
