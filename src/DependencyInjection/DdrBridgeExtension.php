@@ -4,6 +4,7 @@ namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 
 use Dontdrinkandroot\BridgeBundle\Command\Mail\SendMailCommand;
 use Dontdrinkandroot\BridgeBundle\Doctrine\Type\FlexDateType;
+use Dontdrinkandroot\BridgeBundle\Model\Container\Tag;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HealthProviderInterface;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailService;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
@@ -15,13 +16,11 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Twig\Environment;
 
 class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 {
-    final public const TAG_HEALTH_PROVIDER = 'ddr_bridge.health_provider';
 
     /**
      * {@inheritdoc}
@@ -33,7 +32,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
         $container
             ->registerForAutoconfiguration(HealthProviderInterface::class)
-            ->addTag(self::TAG_HEALTH_PROVIDER);
+            ->addTag(Tag::HEALTH_PROVIDER);
 
         $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
         $loader->load('services.php');

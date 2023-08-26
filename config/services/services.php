@@ -4,8 +4,9 @@ namespace Dontdrinkandroot\BridgeBundle\Config;
 
 use Dontdrinkandroot\BridgeBundle\Command\Encrypt\GenerateKeyCommand;
 use Dontdrinkandroot\BridgeBundle\Controller\HealthAction;
-use Dontdrinkandroot\BridgeBundle\DependencyInjection\DdrBridgeExtension;
 use Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateType;
+use Dontdrinkandroot\BridgeBundle\Model\Container\Tag;
+use Dontdrinkandroot\BridgeBundle\Request\ArgumentResolver\UidArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Routing\NestedLoader;
 use Dontdrinkandroot\BridgeBundle\Service\EncryptionService;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HttpHealthProvider;
@@ -37,25 +38,26 @@ return function (ContainerConfigurator $configurator): void {
         ->tag('console.command');
 
     $services->set(HealthAction::class)
-        ->args([tagged_iterator(DdrBridgeExtension::TAG_HEALTH_PROVIDER)])
+        ->args([tagged_iterator(Tag::HEALTH_PROVIDER)])
         ->public();
 
     $services->set(HttpHealthProvider::class)
         ->args([service(RequestStack::class)])
-        ->tag(DdrBridgeExtension::TAG_HEALTH_PROVIDER);
+        ->tag(Tag::HEALTH_PROVIDER);
 
-    $services
-        ->set(VersionServiceInterface::class, CachedVersionService::class)
+    $services->set(VersionServiceInterface::class, CachedVersionService::class)
         ->args([
             service('kernel'),
             service('logger'),
             service('cache.app'),
         ]);
 
-    $services
-        ->set(TwigExtension::class, TwigExtension::class)
+    $services->set(TwigExtension::class, TwigExtension::class)
         ->args([
             service(VersionServiceInterface::class)
         ])
         ->tag('twig.extension');
+
+    $services->set(UidArgumentValueResolver::class)
+        ->tag(Tag::CONTROLLER_ARGUMENT_VALUE_RESOLVER, ['priority' => 101]);
 };
