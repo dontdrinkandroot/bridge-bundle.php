@@ -22,7 +22,7 @@ class TestKernel extends Kernel
      */
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir() . '/ddr_crud_admin_bundle/cache/';
+        return sys_get_temp_dir() . '/ddr_bridge_bundle/cache/';
     }
 
     /**
@@ -30,6 +30,6 @@ class TestKernel extends Kernel
      */
     public function getLogDir(): string
     {
-        return sys_get_temp_dir() . '/ddr_crud_admin_bundle/logs/';
+        return sys_get_temp_dir() . '/ddr_bridge_bundle/logs/';
     }
 }

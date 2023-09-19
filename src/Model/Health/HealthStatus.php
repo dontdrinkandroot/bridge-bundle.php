@@ -8,7 +8,7 @@ class HealthStatus implements JsonSerializable
 {
     /**
      * @param bool $ok
-     * @param array<string,int|string|float|null|array> $info
+     * @param array<string,mixed> $info
      */
     public function __construct(public bool $ok, public array $info = [])
     {
