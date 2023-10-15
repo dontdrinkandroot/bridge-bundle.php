@@ -6,6 +6,7 @@ use Dontdrinkandroot\BridgeBundle\Command\Encrypt\GenerateKeyCommand;
 use Dontdrinkandroot\BridgeBundle\Controller\HealthAction;
 use Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateType;
 use Dontdrinkandroot\BridgeBundle\Model\Container\Tag;
+use Dontdrinkandroot\BridgeBundle\Request\ArgumentResolver\IdEntityArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Request\ArgumentResolver\UidArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Request\ArgumentResolver\UuidEntityArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Routing\NestedLoader;
@@ -60,6 +61,12 @@ return function (ContainerConfigurator $configurator): void {
         ->tag('twig.extension');
 
     $services->set(UidArgumentValueResolver::class)
+        ->tag(Tag::CONTROLLER_ARGUMENT_VALUE_RESOLVER, ['priority' => 101]);
+
+    $services->set(IdEntityArgumentValueResolver::class)
+        ->args([
+            service('doctrine'),
+        ])
         ->tag(Tag::CONTROLLER_ARGUMENT_VALUE_RESOLVER, ['priority' => 101]);
 
     $services->set(UuidEntityArgumentValueResolver::class)
