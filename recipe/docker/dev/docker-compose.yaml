@@ -3,7 +3,7 @@ version: '3'
 services:
 
     web:
-        image: 'dontdrinkandroot/php:8-1-alpine-symfony-dev'
+        image: 'dontdrinkandroot/php:8-2-alpine-symfony-dev'
         ports:
             - "8000:80"
 #        depends_on:
