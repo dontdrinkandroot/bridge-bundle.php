@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Do not generate keys in test environment
+if ( [ -z $SYMFONY_ENV ] || [ $SYMFONY_ENV != "test" ] ); then
+
+    # Generate private key if not exists
+    if [ ! -f var/oauth/private.pem ]; then
+        echo Generating private key for JWT
+        openssl genrsa -out var/oauth/private.pem -aes256 4096
+    fi
+
+    # Generate public key if not exists
+    if [ ! -f var/oauth/public.pem ]; then
+        echo Generating private key for JWT
+        openssl rsa -pubout -in var/oauth/private.pem -out var/oauth/public.pem
+    fi
+
+fi

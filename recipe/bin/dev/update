@@ -1,0 +1,6 @@
+#!/bin/sh
+git pull \
+&& yarn install \
+&& yarn encore dev \
+&& composer update dontdrinkandroot/* --prefer-source \
+&& bin/dev/composer-update-patch-only
