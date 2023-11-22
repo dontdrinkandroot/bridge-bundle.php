@@ -6,7 +6,7 @@ $updatePackages = array_map(
     array_filter(
         json_decode(shell_exec('composer outdated -p --format=json'), true, 512, JSON_THROW_ON_ERROR)['installed'],
         fn(array $package): bool => $package['latest-status'] === 'semver-safe-update'
-            && preg_match('/^\d+\.\d+\.\d+$/', $package['latest'])
+            && preg_match('/^v?\d+\.\d+\.\d+$/', $package['latest'])
     )
 );
 
