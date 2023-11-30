@@ -3,9 +3,9 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\Version;
 
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class CachedVersionService extends VersionService
 {
@@ -22,7 +22,7 @@ class CachedVersionService extends VersionService
      */
     public function getVersion(): string
     {
-        return $this->cache->get('ddr.version', function (CacheItem $cacheItem): string {
+        return $this->cache->get('ddr.version', function (ItemInterface $cacheItem): string {
             $cacheItem->expiresAfter(60 * 60);
 
             return parent::getVersion();

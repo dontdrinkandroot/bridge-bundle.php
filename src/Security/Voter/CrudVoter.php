@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * @template T of object
+ * @extends Voter<'LIST'|'CREATE'|'READ'|'UPDATE'|'DELETE',T>
  */
 abstract class CrudVoter extends Voter
 {

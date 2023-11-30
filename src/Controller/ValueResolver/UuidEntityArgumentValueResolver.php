@@ -1,19 +1,17 @@
 <?php
 
-namespace Dontdrinkandroot\BridgeBundle\Request\ArgumentResolver;
+namespace Dontdrinkandroot\BridgeBundle\Controller\ValueResolver;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Uid\Uuid;
 
-class UuidEntityArgumentValueResolver implements ArgumentValueResolverInterface
+class UuidEntityArgumentValueResolver implements ValueResolverInterface
 {
     public function __construct(
         private readonly ManagerRegistry $managerRegistry
@@ -23,22 +21,17 @@ class UuidEntityArgumentValueResolver implements ArgumentValueResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
-        /** @var class-string|null $type */
-        $type = $argument->getType();
-
-        return !$argument->isVariadic()
-            && (is_a($type, UuidInterface::class, true))
-            && $request->attributes->has('uuid')
-            && null !== $this->managerRegistry->getManagerForClass($type);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
+        if (
+            !$request->attributes->has('uuid')
+            || null === ($type = $argument->getType())
+            || !is_a($type, UuidInterface::class, true)
+            || null === ($manager = $this->managerRegistry->getManagerForClass($type))
+        ) {
+            return [];
+        }
+
         $uuidString = $request->attributes->get('uuid');
         $uuid = Uuid::fromString($uuidString);
 
@@ -53,10 +46,10 @@ class UuidEntityArgumentValueResolver implements ArgumentValueResolverInterface
             ->getQuery()
             ->getOneOrNullResult();
 
-        if (null === $entity && !$argument->isNullable()) {
-            throw new NotFoundHttpException();
+        if (null === $entity) {
+            return [];
         }
 
-        yield $entity;
+        return [$entity];
     }
 }

@@ -23,40 +23,40 @@
         }
     },
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "ext-sodium": "*",
-        "dontdrinkandroot/common": "^0.2",
-        "symfony/config": "^5.4",
-        "symfony/dependency-injection": "^5.4",
-        "symfony/http-kernel": "^5.4",
-        "symfony/process": "^5.4",
-        "symfony/yaml": "^5.4"
+        "dontdrinkandroot/common": "^0.2.2",
+        "symfony/config": "^6.4",
+        "symfony/dependency-injection": "^6.4",
+        "symfony/http-kernel": "^6.4",
+        "symfony/process": "^6.4",
+        "symfony/yaml": "^6.4"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
-        "dontdrinkandroot/api-platform-bundle": "^0.2",
-        "dontdrinkandroot/bootstrap-bundle": "^0.2",
-        "dontdrinkandroot/crud-admin-bundle": "^0.2",
-        "dontdrinkandroot/doctrine-bundle": "^0.3",
-        "knplabs/knp-menu": "^3.3",
-        "league/commonmark": "^2.3",
-        "liip/test-fixtures-bundle": "^2.2",
-        "phpunit/phpunit": "^9.5",
-        "symfony/browser-kit": "^5.4",
-        "symfony/mailer": "^5.4",
-        "symfony/phpunit-bridge": "^5.4",
-        "symfony/validator": "^5.4"
+        "dontdrinkandroot/api-platform-bundle": "^0.4",
+        "dontdrinkandroot/bootstrap-bundle": "^0.4",
+        "dontdrinkandroot/crud-admin-bundle": "^0.4",
+        "dontdrinkandroot/doctrine-bundle": "^0.4",
+        "knplabs/knp-menu": "^3.4",
+        "league/commonmark": "^2.4",
+        "liip/test-fixtures-bundle": "^2.6",
+        "phpunit/phpunit": "^9.6",
+        "symfony/browser-kit": "^6.4",
+        "symfony/mailer": "^6.4",
+        "symfony/phpunit-bridge": "^6.4",
+        "symfony/validator": "^6.4"
     },
     "config": {
         "sort-packages": true
     },
     "extra": {
         "symfony": {
-            "require": "5.4.*",
+            "require": "6.4.*",
             "allow-contrib": true
         },
         "branch-alias": {
-            "dev-master": "0.2.x-dev"
+            "dev-master": "0.4.x-dev"
         }
     }
 }

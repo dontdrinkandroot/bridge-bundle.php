@@ -25,7 +25,7 @@ class NestedLoader extends YamlFileLoader
     /**
      * {@inheritdoc}
      */
-    public function load($file, $type = null): RouteCollection
+    public function load(mixed $file, string $type = null): RouteCollection
     {
         $path = $this->locator->locate($file);
 
@@ -63,7 +63,7 @@ class NestedLoader extends YamlFileLoader
         return $collection;
     }
 
-    private function processConfig(RouteCollection $collection, string $path, array $config, $file): void
+    private function processConfig(RouteCollection $collection, string $path, array $config, mixed $file): void
     {
         if (null !== $name = $config['name'] ?? null) {
             $transformedConfig = $this->transformConfig($config, $path);

@@ -13,7 +13,9 @@ class HealthTest extends WebTestCase
         $client->request('GET', '/_health');
         self::assertResponseIsSuccessful();
 
-        $content = json_decode($client->getResponse()->getContent(), true);
+        $content = $client->getResponse()->getContent();
+        self::assertIsString($content);
+        $decodedContent = json_decode($content, true);
         self::assertEquals([
             'ok' => true,
             'services' => [
@@ -34,6 +36,6 @@ class HealthTest extends WebTestCase
                     ]
                 ]
             ]
-        ], $content);
+        ], $decodedContent);
     }
 }

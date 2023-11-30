@@ -8,6 +8,7 @@ use Dontdrinkandroot\BridgeBundle\Model\Container\Tag;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HealthProviderInterface;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailService;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
+use Dontdrinkandroot\Common\Asserted;
 use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -38,7 +39,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
         $loader->load('services.php');
 
-        $bundles = $container->getParameter('kernel.bundles');
+        $bundles = Asserted::array($container->getParameter('kernel.bundles'));
 
         if (array_key_exists('DdrCrudAdminBundle', $bundles)) {
             $loader->load('ddr_crud_admin.php');
