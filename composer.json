@@ -38,7 +38,7 @@
         "dontdrinkandroot/bootstrap-bundle": "^0.4",
         "dontdrinkandroot/crud-admin-bundle": "^0.4",
         "dontdrinkandroot/doctrine-bundle": "^0.4",
-        "knplabs/knp-menu": "^3.4",
+        "knplabs/knp-menu-bundle": "^3.2",
         "league/commonmark": "^2.4",
         "liip/test-fixtures-bundle": "^2.6",
         "phpunit/phpunit": "^9.6",
