@@ -9,8 +9,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class AbstractNavbarEventSubscriber implements EventSubscriberInterface
 {
-    use Bootstrap5DropdownTrait;
-
     /**
      * {@inheritdoc}
      */
