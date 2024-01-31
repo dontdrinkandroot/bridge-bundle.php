@@ -12,4 +12,6 @@ return function (ContainerConfigurator $configurator): void {
         ->autoconfigure();
 
     $services->load('Dontdrinkandroot\BridgeBundle\Tests\TestApp\Controller\\', '../Controller');
+    $services->load('Dontdrinkandroot\BridgeBundle\Tests\TestApp\DataFixtures\\', '../DataFixtures');
+    $services->load('Dontdrinkandroot\BridgeBundle\Tests\TestApp\Security\\', '../Security');
 };
