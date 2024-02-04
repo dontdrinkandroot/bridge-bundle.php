@@ -7,16 +7,16 @@ use Symfony\Component\Mime\Address;
 interface MailServiceInterface
 {
     /**
-     * @param list<Address> $to
-     * @param string        $subject
-     * @param string        $markdown
-     * @param list<Address> $cc
-     * @param list<Address> $bcc
+     * @param Address|Address[] $to
+     * @param string $subject
+     * @param string $markdown
+     * @param Address[] $cc
+     * @param Address[] $bcc
      *
      * @return void
      */
     public function sendMailMarkdown(
-        array $to,
+        Address|array $to,
         string $subject,
         string $markdown,
         array $cc = [],
@@ -24,17 +24,17 @@ interface MailServiceInterface
     ): void;
 
     /**
-     * @param list<Address> $to
-     * @param string        $subject
-     * @param string        $template
-     * @param array         $templateParameters
-     * @param list<Address> $cc
-     * @param list<Address> $bcc
+     * @param Address|Address[] $to
+     * @param string $subject
+     * @param string $template
+     * @param array $templateParameters
+     * @param Address[] $cc
+     * @param Address[] $bcc
      *
      * @return void
      */
     public function sendMailMarkdownTemplate(
-        array $to,
+        Address|array $to,
         string $subject,
         string $template,
         array $templateParameters = [],

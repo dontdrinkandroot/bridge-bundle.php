@@ -95,7 +95,6 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
     /**
      * @param array{address: array{from: string, reply_to: string|null}} $mailConfig
-     *
      */
     public function configureMail(array $mailConfig, ContainerBuilder $container): void
     {
@@ -105,15 +104,15 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         $definitionAddressFrom = $container->setDefinition(
             'ddr.bridge.mail.address.from',
             (new Definition(Address::class, [$addressFrom]))
-                ->setFactory([Address::class, 'fromString'])
+                ->setFactory([Address::class, 'create'])
         );
         $definitionAddressReplyTo = $container->setDefinition(
             'ddr.bridge.mail.address.reply_to',
             (new Definition(Address::class, [$addressReplyTo]))
-                ->setFactory([Address::class, 'fromString'])
+                ->setFactory([Address::class, 'create'])
         );
         $definitionMailService = $container->setDefinition(
-            MailServiceInterface::class,
+            MailService::class,
             new Definition(MailService::class, [
                 new Reference(MailerInterface::class),
                 new Reference(Environment::class),
@@ -121,6 +120,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
                 $definitionAddressReplyTo
             ])
         );
+        $container->setAlias(MailServiceInterface::class, MailService::class);
         $container->setDefinition(
             SendMailCommand::class,
             new Definition(SendMailCommand::class, [$definitionMailService])

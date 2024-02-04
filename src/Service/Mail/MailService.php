@@ -19,7 +19,7 @@ class MailService implements MailServiceInterface
         private readonly Address $addressReplyTo
     ) {
         $this->commonmarkConverter = new GithubFlavoredMarkdownConverter([
-            'html_input'         => 'strip',
+            'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
     }
@@ -28,16 +28,18 @@ class MailService implements MailServiceInterface
      * {@inheritdoc}
      */
     public function sendMailMarkdown(
-        array $to,
+        Address|array $to,
         string $subject,
         string $markdown,
         array $cc = [],
         array $bcc = []
     ): void {
+        $actualTo = is_array($to) ? $to : [$to];
+
         $message = new Email();
         $message->from($this->addressFrom);
         $message->replyTo($this->addressReplyTo);
-        $message->to(...$to);
+        $message->to(...$actualTo);
         $message->subject($subject);
         if (count($cc) > 0) {
             $message->cc(...$cc);
@@ -55,7 +57,7 @@ class MailService implements MailServiceInterface
      * {@inheritdoc}
      */
     public function sendMailMarkdownTemplate(
-        array $to,
+        Address|array $to,
         string $subject,
         string $template,
         array $templateParameters = [],
