@@ -16,7 +16,7 @@ class MailService implements MailServiceInterface
         private readonly MailerInterface $mailer,
         private readonly Environment $twig,
         private readonly Address $addressFrom,
-        private readonly Address $addressReplyTo
+        private readonly ?Address $addressReplyTo
     ) {
         $this->commonmarkConverter = new GithubFlavoredMarkdownConverter([
             'html_input' => 'strip',
@@ -38,7 +38,9 @@ class MailService implements MailServiceInterface
 
         $message = new Email();
         $message->from($this->addressFrom);
-        $message->replyTo($this->addressReplyTo);
+        if (null !== $this->addressReplyTo) {
+            $message->replyTo($this->addressReplyTo);
+        }
         $message->to(...$actualTo);
         $message->subject($subject);
         if (count($cc) > 0) {
