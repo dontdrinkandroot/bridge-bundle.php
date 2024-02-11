@@ -1,0 +1,68 @@
+<ul class="list-group mb-3" id="{{ collection.vars.id }}">
+    {% for element in collection %}
+        <li class="list-group-item element">
+            {{ form_widget(element) }}
+            {{ form_errors(element) }}
+        </li>
+    {% endfor %}
+</ul>
+
+<script type="text/javascript">
+    const collectionHolder = document.getElementById('{{ collection.vars.id }}-new');
+    let index = {{ collection|length > 0 ? collection|last.vars.name + 1 : 0 }};
+    const prototype = '{{ form_widget(collection.vars.prototype) }}';
+    const allowAdd = {{ collection.vars.allow_add }};
+    const allowDelete = {{ collection.vars.allow_delete }};
+    const existingElements = document.getElementById('{{ collection.vars.id }}')
+    console.log({index, prototype, allowAdd, allowDelete, existingElements});
+
+    function createDeleteButton(parent) {
+        const deleteButton = document.createElement('button');
+        deleteButton.setAttribute('type', 'button');
+        deleteButton.classList.add('btn', 'btn-danger');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', e => {
+            e.preventDefault();
+            parent.remove();
+        });
+        parent.appendChild(deleteButton);
+    }
+
+    function addElement() {
+        const newForm = prototype.replace(/__name__/g, index);
+        index++;
+        const li = document.createElement('li');
+        li.classList.add('list-group-item', 'element');
+        li.innerHTML = newForm;
+
+        if (allowDelete) {
+            createDeleteButton(li);
+        }
+
+        const addLi = existingElements.querySelector('li.add');
+        addLi.parentNode.insertBefore(li, addLi);
+    }
+
+    function createAddButton() {
+        const addButton = document.createElement('button');
+        addButton.setAttribute('type', 'button');
+        addButton.classList.add('btn', 'btn-outline-secondary');
+        addButton.textContent = 'Add';
+        addButton.addEventListener('click', addElement);
+        return addButton;
+    }
+
+    if (allowAdd) {
+        const addButton = createAddButton();
+        const addLi = document.createElement('li');
+        addLi.classList.add('list-group-item', 'add', 'd-flex', 'flex-column');
+        addLi.appendChild(addButton);
+        existingElements.appendChild(addLi);
+    }
+
+    if (allowDelete) {
+        existingElements.querySelectorAll('li.element').forEach(li => {
+            createDeleteButton(li);
+        });
+    }
+</script>
