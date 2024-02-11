@@ -7,14 +7,18 @@
     {% endfor %}
 </ul>
 
+{% if collection.vars.prototype is defined %}
+    {% set prototype = form_widget(collection.vars.prototype) %}
+{% else %}
+    {% set prototype = '' %}
+{% endif %}
+
 <script type="text/javascript">
     const collectionHolder = document.getElementById('{{ collection.vars.id }}-new');
     let index = {{ collection|length > 0 ? collection|last.vars.name + 1 : 0 }};
-    const prototype = '{{ form_widget(collection.vars.prototype) }}';
     const allowAdd = {{ collection.vars.allow_add }};
     const allowDelete = {{ collection.vars.allow_delete }};
     const existingElements = document.getElementById('{{ collection.vars.id }}')
-    console.log({index, prototype, allowAdd, allowDelete, existingElements});
 
     function createDeleteButton(parent) {
         const deleteButton = document.createElement('button');
@@ -29,6 +33,7 @@
     }
 
     function addElement() {
+        const prototype = '{{ prototype|raw }}';
         const newForm = prototype.replace(/__name__/g, index);
         index++;
         const li = document.createElement('li');
