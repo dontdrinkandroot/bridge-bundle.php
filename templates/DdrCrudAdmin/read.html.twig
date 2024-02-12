@@ -8,7 +8,11 @@
 
 {% block ddr_crud_admin_header %}
     <div class="ddr-page-header ddr-action-container">
-        <h1 class="ddr-content">{{ title }}</h1>
+        <div class="ddr-content">
+            {% block ddr_crud_admin_header_content %}
+                <h1>{{ title }}</h1>
+            {% endblock ddr_crud_admin_header_content %}
+        </div>
         <div class="ddr-actions">
             {% block ddr_crud_admin_primary_actions %}
                 {% set updateRoute = ddrCrudAdminPath(entity, 'UPDATE') %}
