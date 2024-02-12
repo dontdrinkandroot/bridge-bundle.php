@@ -16,8 +16,8 @@
 <script type="text/javascript">
     const collectionHolder = document.getElementById('{{ collection.vars.id }}-new');
     let index = {{ collection|length > 0 ? collection|last.vars.name + 1 : 0 }};
-    const allowAdd = {{ collection.vars.allow_add }};
-    const allowDelete = {{ collection.vars.allow_delete }};
+    const allowAdd = {{ true == collection.vars.allow_add ? 'true' : 'false' }};
+    const allowDelete = {{ true == collection.vars.allow_delete ? 'true' : 'false' }};
     const existingElements = document.getElementById('{{ collection.vars.id }}')
 
     function createDeleteButton(parent) {
