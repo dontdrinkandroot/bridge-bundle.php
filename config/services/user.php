@@ -4,7 +4,6 @@ namespace Dontdrinkandroot\BridgeBundle\Config;
 
 use Dontdrinkandroot\BridgeBundle\Command\User\EditCommand;
 use Dontdrinkandroot\BridgeBundle\Controller\Security\LoginAction;
-use Dontdrinkandroot\BridgeBundle\Controller\Security\LogoutAction;
 use Dontdrinkandroot\BridgeBundle\Repository\User\UserRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -27,8 +26,5 @@ return function (ContainerConfigurator $configurator): void {
     $services->set(LoginAction::class)
         ->autoconfigure()
         ->autowire()
-        ->tag('controller.service_arguments');
-
-    $services->set(LogoutAction::class)
         ->tag('controller.service_arguments');
 };
