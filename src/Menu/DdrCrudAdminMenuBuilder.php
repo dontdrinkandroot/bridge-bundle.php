@@ -35,14 +35,14 @@ class DdrCrudAdminMenuBuilder
             $readUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::READ, $entity);
             $menu->addChild('action.read', ['uri' => $readUrl])
                 ->setExtra('translation_domain', 'DdrCrudAdmin')
-                ->setExtra('icon', 'fas fa-fw fa-search me-3');
+                ->setExtra('icon', 'bi bi-fw bi-search me-2');
         }
 
         if ($this->authorizationChecker->isGranted(CrudOperation::UPDATE->value, $entity)) {
             $updateUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::UPDATE, $entity);
             $menu->addChild('action.update', ['uri' => $updateUrl])
                 ->setExtra('translation_domain', 'DdrCrudAdmin')
-                ->setExtra('icon', 'fas fa-fw fa-pen me-3');
+                ->setExtra('icon', 'bi bi-fw bi-pencil me-2');
         }
 
         if ($this->authorizationChecker->isGranted(CrudOperation::DELETE->value, $entity)) {
@@ -50,7 +50,7 @@ class DdrCrudAdminMenuBuilder
             $menu->addChild('action.delete', ['uri' => $deleteUrl])
                 ->setAttribute('class', 'text-danger')
                 ->setExtra('translation_domain', 'DdrCrudAdmin')
-                ->setExtra('icon', 'fas fa-fw fa-trash me-3');
+                ->setExtra('icon', 'bi bi-fw bi-trash me-2');
         }
 
         $this->eventDispatcher->dispatch(new ConfigureCrudAdminEntityItemActionsEvent($entityClass, $entity, $menu, $options));

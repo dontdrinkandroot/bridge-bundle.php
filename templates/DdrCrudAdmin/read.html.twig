@@ -7,7 +7,7 @@
 {% block ddr_crud_admin_title %}{{ title }}{% endblock ddr_crud_admin_title %}
 
 {% block ddr_crud_admin_header %}
-    <div class="ddr-page-header ddr-action-container">
+    <div class="ddr-page-header ddr-actions-container">
         <div class="ddr-content">
             {% block ddr_crud_admin_header_content %}
                 <h1>{{ title }}</h1>
@@ -26,20 +26,20 @@
                                 aria-haspopup="true"
                                 aria-expanded="false"
                         >
-                            <span class="fas fa-fw fa-ellipsis-v"></span>
+                            <span class="bi bi-fw bi-three-dots-vertical"></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             {% block ddr_crud_admin_read_actions_dropdown_menu_content %}
                                 {% if updateRoute is not null and is_granted('UPDATE', entity) %}
                                     <a class="dropdown-item ps-3" href="{{ updateRoute }}">
-                                        <span class="fas fa-fw fa-pen me-3"></span>{{ 'action.update'|trans({}, 'DdrCrudAdmin') }}
+                                        <span class="bi bi-fw bi-pencil me-2"></span>{{ 'action.update'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                                 {% if deleteRoute is not null and is_granted('DELETE', entity) %}
                                     <a href="{{ deleteRoute }}"
                                        class="dropdown-item ps-3 ddr-confirmation text-danger"
                                        data-ddr-confirmation-text="{{ 'DeletionConfirmationText'|trans({}, 'DdrCrudAdmin') }}">
-                                        <span class="fas fa-fw fa-trash me-3"></span>{{ 'action.delete'|trans({}, 'DdrCrudAdmin') }}
+                                        <span class="bi bi-fw bi-trash me-2"></span>{{ 'action.delete'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
                             {% endblock ddr_crud_admin_read_actions_dropdown_menu_content %}

@@ -7,13 +7,13 @@
 {% block ddr_crud_admin_title %}{{ title }}{% endblock ddr_crud_admin_title %}
 
 {% block ddr_crud_admin_header %}
-    <div class="ddr-page-header ddr-action-container">
+    <div class="ddr-page-header ddr-actions-container">
         <h1 class="ddr-content">{{ title }}</h1>
         <div class="ddr-actions">
             {% set createRoute = ddrCrudAdminPath(entityClass, 'CREATE') %}
             {% if createRoute is not null and is_granted('CREATE', entityClass) %}
                 <a class="btn btn-primary btn-lg ddr-btn-icon" href="{{ createRoute }}" title="{{ 'action.create'|trans({}, 'DdrCrudAdmin') }}">
-                    <span class="fas fa-fw fa-plus"></span>
+                    <span class="bi bi-plus bi-fw"></span>
                 </a>
             {% endif %}
         </div>
@@ -47,7 +47,7 @@
 
     <ul class="list-group">
         {% for entity in entities %}
-            <li class="list-group-item d-flex">
+            <li class="list-group-item ddr-actions-container">
                 <div class="ddr-content">
                     {% block ddr_crud_admin_entity_item_content %}
                         <div class="row">

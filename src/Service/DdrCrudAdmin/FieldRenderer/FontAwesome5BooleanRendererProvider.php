@@ -6,24 +6,21 @@ use Doctrine\DBAL\Types\Types;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\CrudAdminBundle\Model\FieldDefinition;
 use Dontdrinkandroot\CrudAdminBundle\Service\FieldRenderer\FieldRendererProviderInterface;
+use Override;
 
 class FontAwesome5BooleanRendererProvider implements FieldRendererProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function supports(FieldDefinition $fieldDefinition, mixed $value): bool
     {
         return in_array($fieldDefinition->displayType, [Types::BOOLEAN, 'bool'], true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function render(FieldDefinition $fieldDefinition, mixed $value): string
     {
         return Asserted::bool($value)
-            ? '<span class="fas fa-fw fa-check"></span>'
-            : '<span class="fas fa-fw fa-times"></span>';
+            ? '<span class="bi bi-fw bi-check"></span>'
+            : '<span class="bi bi-fw bi-x"></span>';
     }
 }
