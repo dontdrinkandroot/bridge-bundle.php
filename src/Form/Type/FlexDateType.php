@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Form\Type;
 
 use Dontdrinkandroot\Common\FlexDate;
+use Override;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -11,9 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FlexDateType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -21,45 +20,45 @@ class FlexDateType extends AbstractType
                 'year',
                 IntegerType::class,
                 [
-                    'label'    => false,
+                    'label' => false,
                     'required' => false,
-                    'attr'     => ['class' => 'year', 'placeholder' => 'ddr.flexdate.year']
+                    'attr' => ['class' => 'year', 'placeholder' => 'ddr.flexdate.year'],
                 ]
             )
             ->add(
                 'month',
                 ChoiceType::class,
                 [
-                    'label'       => false,
-                    'required'    => false,
-                    'choices'     => $this->getMonthChoices(),
+                    'label' => false,
+                    'required' => false,
+                    'choices' => $this->getMonthChoices(),
                     'placeholder' => 'ddr.flexdate.month',
-                    'attr'        => ['class' => 'month']
+                    'attr' => ['class' => 'month'],
+                    'choice_translation_domain' => false
                 ]
             )
             ->add(
                 'day',
                 ChoiceType::class,
                 [
-                    'label'       => false,
-                    'required'    => false,
-                    'choices'     => $this->getDayChoices(),
+                    'label' => false,
+                    'required' => false,
+                    'choices' => $this->getDayChoices(),
                     'placeholder' => 'ddr.flexdate.day',
-                    'attr'        => ['class' => 'day']
+                    'attr' => ['class' => 'day'],
+                    'choice_translation_domain' => false
                 ]
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
             [
                 'data_class' => FlexDate::class,
-                'attr'       => ['class' => 'flexdate']
+                'attr' => ['class' => 'flexdate']
             ]
         );
     }

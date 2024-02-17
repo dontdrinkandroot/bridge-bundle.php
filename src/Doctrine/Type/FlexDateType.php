@@ -6,14 +6,13 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\FlexDate;
+use Override;
 
 class FlexDateType extends StringType
 {
     final public const NAME = 'ddr_flexdate';
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         $column['fixed'] = true;
@@ -22,17 +21,13 @@ class FlexDateType extends StringType
         return $platform->getStringTypeDeclarationSQL($column);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getName(): string
     {
         return self::NAME;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (null === $value) {
@@ -47,9 +42,7 @@ class FlexDateType extends StringType
         return (string)$flexDate;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function convertToPHPValue($value, AbstractPlatform $platform): FlexDate
     {
         if (null === $value) {
@@ -59,9 +52,7 @@ class FlexDateType extends StringType
         return FlexDate::fromString(Asserted::string($value));
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
