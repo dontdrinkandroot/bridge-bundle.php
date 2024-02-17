@@ -38,7 +38,7 @@
                                 {% if deleteRoute is not null and is_granted('DELETE', entity) %}
                                     <a href="{{ deleteRoute }}"
                                        class="dropdown-item ps-3 ddr-confirmation text-danger"
-                                       data-ddr-confirmation-text="{{ 'DeletionConfirmationText'|trans({}, 'DdrCrudAdmin') }}">
+                                       data-ddr-confirmation-text="{{ 'delete.confirmation_text'|trans({}, 'DdrCrudAdmin') }}">
                                         <span class="bi bi-fw bi-trash me-2"></span>{{ 'action.delete'|trans({}, 'DdrCrudAdmin') }}
                                     </a>
                                 {% endif %}
