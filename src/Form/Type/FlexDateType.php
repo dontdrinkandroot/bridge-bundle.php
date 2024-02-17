@@ -22,7 +22,7 @@ class FlexDateType extends AbstractType
                 [
                     'label' => false,
                     'required' => false,
-                    'attr' => ['class' => 'year', 'placeholder' => 'ddr.flexdate.year'],
+                    'attr' => ['class' => 'year', 'placeholder' => 'year'],
                 ]
             )
             ->add(
@@ -32,7 +32,7 @@ class FlexDateType extends AbstractType
                     'label' => false,
                     'required' => false,
                     'choices' => $this->getMonthChoices(),
-                    'placeholder' => 'ddr.flexdate.month',
+                    'placeholder' => 'month',
                     'attr' => ['class' => 'month'],
                     'choice_translation_domain' => false
                 ]
@@ -44,7 +44,7 @@ class FlexDateType extends AbstractType
                     'label' => false,
                     'required' => false,
                     'choices' => $this->getDayChoices(),
-                    'placeholder' => 'ddr.flexdate.day',
+                    'placeholder' => 'day',
                     'attr' => ['class' => 'day'],
                     'choice_translation_domain' => false
                 ]
@@ -55,12 +55,9 @@ class FlexDateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
-        $resolver->setDefaults(
-            [
-                'data_class' => FlexDate::class,
-                'attr' => ['class' => 'flexdate']
-            ]
-        );
+        $resolver->setDefault('translation_domain', 'FlexDate');
+        $resolver->setDefault('data_class', FlexDate::class);
+        $resolver->setDefault('attr', ['class' => 'flexdate']);
     }
 
     /** @return array<int,int> */
