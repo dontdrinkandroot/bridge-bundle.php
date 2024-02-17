@@ -35,7 +35,6 @@
                 {% for fieldDefinition in fieldDefinitions %}
                     {% if fieldDefinition.filterable %}
                         {% set filterFields = filterFields|merge({("entity." ~ fieldDefinition.propertyPath): fieldDefinition.propertyPath|ddrCrudAdminLabel|trans({}, translationDomain)}) %}
-                        {{ dump(filterFields) }}
                     {% endif %}
                 {% endfor %}
 
