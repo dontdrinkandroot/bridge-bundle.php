@@ -9,6 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
  * @template T of object
  * @extends AbstractConfigureCrudAdminActionsEvent<T>
  */
-class ConfigureCrudAdminEntityItemActionsEvent extends AbstractConfigureCrudAdminActionsEvent
+class ConfigureCrudAdminEntityActionsEvent extends AbstractConfigureCrudAdminActionsEvent
 {
 }

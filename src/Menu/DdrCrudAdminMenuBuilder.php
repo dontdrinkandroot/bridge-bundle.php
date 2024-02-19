@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Menu;
 
+use Dontdrinkandroot\BridgeBundle\Event\ConfigureCrudAdminEntityActionsEvent;
 use Dontdrinkandroot\BridgeBundle\Event\ConfigureCrudAdminEntityItemActionsEvent;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
@@ -54,6 +55,32 @@ class DdrCrudAdminMenuBuilder
         }
 
         $this->eventDispatcher->dispatch(new ConfigureCrudAdminEntityItemActionsEvent($entityClass, $entity, $menu, $options));
+
+        return $menu;
+    }
+
+    public function createEntityDetailActions(array $options): ItemInterface {
+        $menu = $this->factory->createItem('root');
+        /** @var class-string<T> $entityClass */
+        $entityClass = $options['entityClass'];
+        $entity = Asserted::instanceOf($options['entity'], $entityClass);
+
+        if ($this->authorizationChecker->isGranted(CrudOperation::UPDATE->value, $entity)) {
+            $updateUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::UPDATE, $entity);
+            $menu->addChild('action.update', ['uri' => $updateUrl])
+                ->setExtra('translation_domain', 'DdrCrudAdmin')
+                ->setExtra('icon', 'bi bi-fw bi-pencil me-2');
+        }
+
+        if ($this->authorizationChecker->isGranted(CrudOperation::DELETE->value, $entity)) {
+            $deleteUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::DELETE, $entity);
+            $menu->addChild('action.delete', ['uri' => $deleteUrl])
+                ->setAttribute('class', 'text-danger')
+                ->setExtra('translation_domain', 'DdrCrudAdmin')
+                ->setExtra('icon', 'bi bi-fw bi-trash me-2');
+        }
+
+        $this->eventDispatcher->dispatch(new ConfigureCrudAdminEntityActionsEvent($entityClass, $entity, $menu, $options));
 
         return $menu;
     }
