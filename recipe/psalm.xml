@@ -16,12 +16,6 @@
     <issueHandlers>
         <PropertyNotSetInConstructor>
             <errorLevel type="suppress">
-                <referencedProperty
-                        name="Dontdrinkandroot\DoctrineBundle\Entity\UpdatedTimestampEntityTrait::$updated" />
-                <referencedProperty
-                        name="Dontdrinkandroot\DoctrineBundle\Entity\CreatedTimestampEntityTrait::$created" />
-                <referencedProperty name="Dontdrinkandroot\DoctrineBundle\Entity\GeneratedIdEntityTrait::$id" />
-                <referencedProperty name="Dontdrinkandroot\DoctrineBundle\Entity\UuidEntityTrait::$uuid" />
                 <referencedProperty name="Doctrine\Common\DataFixtures\AbstractFixture::$referenceRepository" />
                 <referencedProperty name="Symfony\Bundle\FrameworkBundle\Controller\AbstractController::$container" />
                 <referencedProperty name="Symfony\Component\Validator\Constraint::$groups" />

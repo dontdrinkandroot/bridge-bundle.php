@@ -1,4 +1,4 @@
-FROM dontdrinkandroot/php:8-2-alpine-symfony-prod
+FROM dontdrinkandroot/php:8-3-alpine-symfony-prod
 
 # Change Workdir to Project
 WORKDIR /var/www/
