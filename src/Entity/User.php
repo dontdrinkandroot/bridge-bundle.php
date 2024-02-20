@@ -4,11 +4,13 @@ namespace Dontdrinkandroot\BridgeBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Override;
+use Stringable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\MappedSuperclass]
-abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
+abstract class User implements UserInterface, PasswordAuthenticatedUserInterface, Stringable
 {
     #[ORM\Column(type: 'string', nullable: true)]
     public ?string $password = null;
@@ -25,52 +27,34 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getUserIdentifier(): string
     {
         return $this->email;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getRoles(): array
     {
         return $this->roles;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function eraseCredentials(): void
     {
         /* Noop */
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getUsername(): string
+    #[Override]
+    public function __toString(): string
     {
-        return $this->getUserIdentifier();
+        return $this->email;
     }
 
     abstract public static function fromEmail(string $email): User;

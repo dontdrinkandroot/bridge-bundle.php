@@ -2,8 +2,8 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Menu;
 
-use Dontdrinkandroot\BridgeBundle\Event\ConfigureCrudAdminEntityActionsEvent;
-use Dontdrinkandroot\BridgeBundle\Event\ConfigureCrudAdminEntityItemActionsEvent;
+use Dontdrinkandroot\BridgeBundle\Event\CrudAdmin\ConfigureReadActionsEvent;
+use Dontdrinkandroot\BridgeBundle\Event\CrudAdmin\ConfigureItemActionsEvent;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
 use Dontdrinkandroot\CrudAdminBundle\Service\Url\UrlResolver;
@@ -54,12 +54,15 @@ class DdrCrudAdminMenuBuilder
                 ->setExtra('icon', 'bi bi-fw bi-trash me-2');
         }
 
-        $this->eventDispatcher->dispatch(new ConfigureCrudAdminEntityItemActionsEvent($entityClass, $entity, $menu, $options));
+        $this->eventDispatcher->dispatch(
+            new ConfigureItemActionsEvent($entityClass, $entity, $menu, $options)
+        );
 
         return $menu;
     }
 
-    public function createEntityDetailActions(array $options): ItemInterface {
+    public function createEntityDetailActions(array $options): ItemInterface
+    {
         $menu = $this->factory->createItem('root');
         /** @var class-string<T> $entityClass */
         $entityClass = $options['entityClass'];
@@ -80,7 +83,9 @@ class DdrCrudAdminMenuBuilder
                 ->setExtra('icon', 'bi bi-fw bi-trash me-2');
         }
 
-        $this->eventDispatcher->dispatch(new ConfigureCrudAdminEntityActionsEvent($entityClass, $entity, $menu, $options));
+        $this->eventDispatcher->dispatch(
+            new ConfigureReadActionsEvent($entityClass, $entity, $menu, $options)
+        );
 
         return $menu;
     }

@@ -21,3 +21,8 @@ reset_password:
 password:
     too_short: 'The password must be at least 8 characters long.'
     missing_character_class: 'The password must meet at least three of the following requirements: At least one lowercase letter, At least one uppercase letter, At least one number, At least one special character.'
+action:
+    login: 'Login'
+    logout: 'Logout'
+    impersonate: 'Impersonate'
+    end_impersonation: 'End impersonation'

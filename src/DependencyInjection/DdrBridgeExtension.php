@@ -4,12 +4,14 @@ namespace Dontdrinkandroot\BridgeBundle\DependencyInjection;
 
 use Dontdrinkandroot\BridgeBundle\Command\Mail\SendMailCommand;
 use Dontdrinkandroot\BridgeBundle\Doctrine\Type\FlexDateType;
-use Dontdrinkandroot\BridgeBundle\Model\Container\Tag;
+use Dontdrinkandroot\BridgeBundle\Model\Container\ParamName;
+use Dontdrinkandroot\BridgeBundle\Model\Container\TagName;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HealthProviderInterface;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailService;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
 use Dontdrinkandroot\Common\Asserted;
 use Exception;
+use Override;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -24,9 +26,7 @@ use Twig\Environment;
 class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 {
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
@@ -34,7 +34,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
 
         $container
             ->registerForAutoconfiguration(HealthProviderInterface::class)
-            ->addTag(Tag::HEALTH_PROVIDER);
+            ->addTag(TagName::HEALTH_PROVIDER);
 
         $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config/services'));
         $loader->load('services.php');
@@ -61,7 +61,9 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         }
 
         $userConfig = $config['user'] ?? null;
-        if (null !== $userConfig && true === $userConfig['enabled']) {
+        $userEnabled = null !== $userConfig && true === $userConfig['enabled'];
+        $container->setParameter(ParamName::USER_ENABLED, $userEnabled);
+        if ($userEnabled) {
             $this->configureUser($userConfig, $container, $loader);
         }
 
@@ -137,7 +139,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
      */
     public function configureUser(array $userConfig, ContainerBuilder $container, Loader\PhpFileLoader $phpLoader): void
     {
-        $container->setParameter('ddr.bridge_bundle.user.class', $userConfig['class']);
+        $container->setParameter(ParamName::USER_CLASS, $userConfig['class']);
         $phpLoader->load('user.php');
         if ($userConfig['reset_password']) {
             $phpLoader->load('reset_password.php');

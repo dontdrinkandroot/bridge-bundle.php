@@ -1,6 +1,6 @@
 <?php
 
-namespace Dontdrinkandroot\BridgeBundle\Event;
+namespace Dontdrinkandroot\BridgeBundle\Event\CrudAdmin;
 
 use Knp\Menu\ItemInterface;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -8,7 +8,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 /**
  * @template T of object
  */
-class AbstractConfigureCrudAdminActionsEvent extends Event
+class AbstractConfigureActionsEvent extends Event
 {
     /**
      * @param class-string<T> $entityClass

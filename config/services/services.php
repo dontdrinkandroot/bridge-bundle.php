@@ -7,7 +7,7 @@ use Dontdrinkandroot\BridgeBundle\Controller\HealthAction;
 use Dontdrinkandroot\BridgeBundle\Controller\ValueResolver\IdEntityArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Controller\ValueResolver\UuidEntityArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateType;
-use Dontdrinkandroot\BridgeBundle\Model\Container\Tag;
+use Dontdrinkandroot\BridgeBundle\Model\Container\TagName;
 use Dontdrinkandroot\BridgeBundle\Routing\NestedLoader;
 use Dontdrinkandroot\BridgeBundle\Service\EncryptionService;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HttpHealthProvider;
@@ -39,12 +39,12 @@ return function (ContainerConfigurator $configurator): void {
         ->tag('console.command');
 
     $services->set(HealthAction::class)
-        ->args([tagged_iterator(Tag::HEALTH_PROVIDER)])
+        ->args([tagged_iterator(TagName::HEALTH_PROVIDER)])
         ->public();
 
     $services->set(HttpHealthProvider::class)
         ->args([service(RequestStack::class)])
-        ->tag(Tag::HEALTH_PROVIDER);
+        ->tag(TagName::HEALTH_PROVIDER);
 
     $services->set(VersionServiceInterface::class, CachedVersionService::class)
         ->args([
@@ -63,11 +63,11 @@ return function (ContainerConfigurator $configurator): void {
         ->args([
             service('doctrine'),
         ])
-        ->tag(Tag::CONTROLLER_ARGUMENT_VALUE_RESOLVER, ['priority' => 101]);
+        ->tag(TagName::CONTROLLER_ARGUMENT_VALUE_RESOLVER, ['priority' => 101]);
 
     $services->set(UuidEntityArgumentValueResolver::class)
         ->args([
             service('doctrine'),
         ])
-        ->tag(Tag::CONTROLLER_ARGUMENT_VALUE_RESOLVER, ['priority' => 101]);
+        ->tag(TagName::CONTROLLER_ARGUMENT_VALUE_RESOLVER, ['priority' => 101]);
 };

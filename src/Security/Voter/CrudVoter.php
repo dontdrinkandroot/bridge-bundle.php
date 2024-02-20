@@ -4,6 +4,7 @@ namespace Dontdrinkandroot\BridgeBundle\Security\Voter;
 
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
+use Override;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -13,33 +14,25 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 abstract class CrudVoter extends Voter
 {
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     protected function supports(string $attribute, $subject): bool
     {
         return is_a($subject, $this->getEntityClass(), true) && $this->supportsAttribute($attribute);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function supportsAttribute(string $attribute): bool
     {
         return null !== CrudOperation::tryFrom($attribute);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function supportsType(string $subjectType): bool
     {
         return 'string' === $subjectType || is_a($subjectType, $this->getEntityClass(), true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         return $this->voteOnCrudOperation(CrudOperation::from($attribute), $subject, $token);

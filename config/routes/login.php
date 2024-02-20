@@ -3,11 +3,11 @@
 namespace Dontdrinkandroot\BridgeBundle\Config\Routes;
 
 use Dontdrinkandroot\BridgeBundle\Controller\Security\LoginAction;
-use Dontdrinkandroot\BridgeBundle\Model\Route;
+use Dontdrinkandroot\BridgeBundle\Model\Container\RouteName;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return function (RoutingConfigurator $routes) {
-    $routes->add(Route::SECURITY_LOGIN, '/login')
+    $routes->add(RouteName::SECURITY_LOGIN, '/login')
         ->controller(LoginAction::class)
         ->methods(['GET', 'POST']);
 };
