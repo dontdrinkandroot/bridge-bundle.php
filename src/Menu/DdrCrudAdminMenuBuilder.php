@@ -3,8 +3,8 @@
 namespace Dontdrinkandroot\BridgeBundle\Menu;
 
 use Dontdrinkandroot\BootstrapBundle\Model\ItemExtra;
-use Dontdrinkandroot\BridgeBundle\Event\CrudAdmin\ConfigureReadActionsEvent;
 use Dontdrinkandroot\BridgeBundle\Event\CrudAdmin\ConfigureItemActionsEvent;
+use Dontdrinkandroot\BridgeBundle\Event\CrudAdmin\ConfigureReadActionsEvent;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
 use Dontdrinkandroot\CrudAdminBundle\Service\Url\UrlResolver;
@@ -64,7 +64,10 @@ class DdrCrudAdminMenuBuilder
             new ConfigureItemActionsEvent($entityClass, $entity, $menu, $options)
         );
 
-        if (!$menu->getChild('action.more')->hasChildren()) {
+        if (
+            null !== ($moreItem = $menu->getChild('action.more'))
+            && !$moreItem->hasChildren()
+        ) {
             $menu->removeChild('action.more');
         }
 
@@ -104,7 +107,10 @@ class DdrCrudAdminMenuBuilder
 
         $this->eventDispatcher->dispatch(new ConfigureReadActionsEvent($entityClass, $entity, $menu, $options));
 
-        if (!$menu->getChild('action.more')->hasChildren()) {
+        if (
+            null !== ($moreItem = $menu->getChild('action.more'))
+            && !$moreItem->hasChildren()
+        ) {
             $menu->removeChild('action.more');
         }
 
