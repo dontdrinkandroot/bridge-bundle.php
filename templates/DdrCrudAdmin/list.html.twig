@@ -70,18 +70,9 @@
                     <td>{{ entity|ddrCrudAdminFieldDefinitionValue(fieldDefinition) }}</td>
                 {% endfor %}
                 {% block ddr_crud_admin_entity_item_actions %}
-                    <td class="dropdown ddr-minimal-column">
-                        <a class="dropdown-toggle ddr-no-caret"
-                           type="button"
-                           id="dropdownMenuButton"
-                           data-bs-toggle="dropdown"
-                           aria-haspopup="true"
-                           aria-expanded="false"
-                        >
-                            <span class="bi bi-fw bi-three-dots-vertical"></span>
-                        </a>
+                    <td class="ddr-minimal-column">
                         {% set menu = knp_menu_get('ddr_crud_admin_entity_item_actions', [], {entityClass: entityClass, entity: entity}) %}
-                        {{ knp_menu_render(menu,{},'ddr_bootstrap5_dropdown_menu') }}
+                        {{ knp_menu_render(menu,{},'ddr_bootstrap5_button_list') }}
                     </td>
                 {% endblock ddr_crud_admin_entity_item_actions %}
             </tr>

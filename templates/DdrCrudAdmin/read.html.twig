@@ -15,9 +15,8 @@
         </div>
         <div class="ddr-actions">
             {% block ddr_crud_admin_header_actions %}
-                {% include '@DdrBootstrap/dropdown-toggle-icon.partial.html.twig' with {'additionalClasses': 'btn-lg'}%}
                 {% set menu = knp_menu_get('ddr_crud_admin_entity_detail_actions', [], {entityClass: entityClass, entity: entity}) %}
-                {{ knp_menu_render(menu,{},'ddr_bootstrap5_dropdown_menu') }}
+                {{ knp_menu_render(menu,{},'ddr_bootstrap5_button_list') }}
             {% endblock ddr_crud_admin_header_actions %}
         </div>
     </div>

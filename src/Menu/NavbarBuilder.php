@@ -51,13 +51,13 @@ class NavbarBuilder
         if (null === $user) {
             $item
                 ->addChild('action.login', ['label' => 'login.action', 'route' => RouteName::SECURITY_LOGIN])
-                ->setExtra('translation_domain', 'ddr_security');
+                ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'ddr_security');
             return; // Early return
         }
 
         $userMenu = $item
             ->addChild('User', ['label' => $user->getUserIdentifier()])
-            ->setExtra('translation_domain', false);
+            ->setExtra(ItemExtra::TRANSLATION_DOMAIN, false);
 
         if ($security->isGranted('IS_IMPERSONATOR')) {
             $userMenu->setExtra(ItemExtra::ICON, 'bi bi-fw bi-incognito me-2 text-danger');
@@ -74,6 +74,6 @@ class NavbarBuilder
 
         $userMenu
             ->addChild('action.logout', ['label' => 'logout.action', 'route' => RouteName::SECURITY_LOGOUT])
-            ->setExtra('translation_domain', 'ddr_security');
+            ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'ddr_security');
     }
 }

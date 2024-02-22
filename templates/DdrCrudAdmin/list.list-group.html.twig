@@ -70,7 +70,8 @@
                     </div>
                     <div class="ddr-actions">
                         {% block ddr_crud_admin_entity_item_actions %}
-                            {{ include('@DdrBridge/DdrCrudAdmin/entity-item.actions.dropdown.partial.html.twig') }}
+                            {% set menu = knp_menu_get('ddr_crud_admin_entity_item_actions', [], {entityClass: entityClass, entity: entity}) %}
+                            {{ knp_menu_render(menu,{},'ddr_bootstrap5_button_list') }}
                         {% endblock ddr_crud_admin_entity_item_actions %}
                     </div>
                 </li>
