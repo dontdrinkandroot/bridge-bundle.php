@@ -34,7 +34,7 @@ class DdrCrudAdminMenuBuilder
         $entity = Asserted::instanceOf($options['entity'], $entityClass);
 
         $moreDropdown = $menu->addChild('action.more', ['label' => ''])
-            ->setAttribute('class', 'btn-lg ddr-btn-icon')
+            ->setAttribute('class', 'btn-sm ddr-btn-icon ddr-no-caret')
             ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
             ->setExtra('icon', 'bi bi-fw bi-three-dots-vertical');
 
@@ -80,7 +80,7 @@ class DdrCrudAdminMenuBuilder
         $entity = Asserted::instanceOf($options['entity'], $entityClass);
 
         $moreDropdown = $menu->addChild('action.more', ['label' => ''])
-            ->setAttribute('class', 'btn-lg ddr-btn-icon')
+            ->setAttribute('class', 'btn-lg ddr-btn-icon ddr-no-caret')
             ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
             ->setExtra('icon', 'bi bi-fw bi-three-dots-vertical');
 
