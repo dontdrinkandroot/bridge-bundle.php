@@ -82,19 +82,19 @@ class DdrCrudAdminMenuBuilder
         $entityClass = $options['entityClass'];
         $entity = Asserted::instanceOf($options['entity'], $entityClass);
 
+        if ($this->authorizationChecker->isGranted(CrudOperation::UPDATE->value, $entity)) {
+            $updateUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::UPDATE, $entity);
+            $menu->addChild('action.update', ['uri' => $updateUrl])
+                ->setAttribute('class', 'btn-primary ddr-btn-icon btn-lg')
+                ->setExtra(ItemExtra::LABEL_AS_TITLE_ONLY, true)
+                ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
+                ->setExtra(ItemExtra::ICON, 'bi bi-fw bi-pencil');
+        }
+
         $moreDropdown = $menu->addChild('action.more', ['label' => ''])
             ->setAttribute('class', 'btn-lg ddr-btn-icon ddr-no-caret')
             ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
-            ->setExtra('icon', 'bi bi-fw bi-three-dots-vertical');
-
-        if ($this->authorizationChecker->isGranted(CrudOperation::UPDATE->value, $entity)) {
-            $updateUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::UPDATE, $entity);
-            $menu->addChild('action.update', ['uri' => $updateUrl, 'label' => ''])
-                ->setAttribute('class', 'btn-primary ddr-btn-icon btn-lg')
-                ->setAttribute('title', 'action.update')
-                ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
-                ->setExtra('icon', 'bi bi-fw bi-pencil');
-        }
+            ->setExtra(ItemExtra::ICON, 'bi bi-fw bi-three-dots-vertical');
 
         if ($this->authorizationChecker->isGranted(CrudOperation::DELETE->value, $entity)) {
             $deleteUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::DELETE, $entity);
@@ -102,7 +102,7 @@ class DdrCrudAdminMenuBuilder
                 ->setAttribute('title', 'action.delete')
                 ->setAttribute('class', 'text-danger')
                 ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
-                ->setExtra('icon', 'bi bi-fw bi-trash me-2');
+                ->setExtra(ItemExtra::ICON, 'bi bi-fw bi-trash me-2');
         }
 
         $this->eventDispatcher->dispatch(new ConfigureReadActionsEvent($entityClass, $entity, $menu, $options));
