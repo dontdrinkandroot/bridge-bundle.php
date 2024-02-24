@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Event\CrudAdmin;
 
+use Dontdrinkandroot\Common\Asserted;
 use Knp\Menu\ItemInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -20,5 +21,15 @@ class AbstractConfigureActionsEvent extends Event
         public readonly ItemInterface $item,
         public readonly array $options
     ) {
+    }
+
+    public function getMoreDropdown(): ?ItemInterface
+    {
+        return $this->item->getChild('action.more');
+    }
+
+    public function fetchMoreDropdown(): ItemInterface
+    {
+        return Asserted::notNull($this->getMoreDropdown(), 'More dropdown not found');
     }
 }

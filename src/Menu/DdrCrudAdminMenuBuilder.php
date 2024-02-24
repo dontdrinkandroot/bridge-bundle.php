@@ -5,6 +5,7 @@ namespace Dontdrinkandroot\BridgeBundle\Menu;
 use Dontdrinkandroot\BootstrapBundle\Model\ItemExtra;
 use Dontdrinkandroot\BridgeBundle\Event\CrudAdmin\ConfigureItemActionsEvent;
 use Dontdrinkandroot\BridgeBundle\Event\CrudAdmin\ConfigureReadActionsEvent;
+use Dontdrinkandroot\BridgeBundle\Model\DdrCrudAdmin\Action;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
 use Dontdrinkandroot\CrudAdminBundle\Service\Url\UrlResolver;
@@ -18,6 +19,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class DdrCrudAdminMenuBuilder
 {
+
     public function __construct(
         protected readonly FactoryInterface $factory,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
@@ -33,28 +35,28 @@ class DdrCrudAdminMenuBuilder
         $entityClass = $options['entityClass'];
         $entity = Asserted::instanceOf($options['entity'], $entityClass);
 
-        $moreDropdown = $menu->addChild('action.more', ['label' => ''])
+        $moreDropdown = $menu->addChild(Action::MORE, ['label' => ''])
             ->setAttribute('class', 'btn-sm ddr-btn-icon ddr-no-caret')
             ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
             ->setExtra('icon', 'bi bi-fw bi-three-dots-vertical');
 
         if ($this->authorizationChecker->isGranted(CrudOperation::READ->value, $entity)) {
             $readUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::READ, $entity);
-            $moreDropdown->addChild('action.read', ['uri' => $readUrl])
+            $moreDropdown->addChild(Action::READ, ['uri' => $readUrl])
                 ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
                 ->setExtra('icon', 'bi bi-fw bi-search me-2');
         }
 
         if ($this->authorizationChecker->isGranted(CrudOperation::UPDATE->value, $entity)) {
             $updateUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::UPDATE, $entity);
-            $moreDropdown->addChild('action.update', ['uri' => $updateUrl])
+            $moreDropdown->addChild(Action::UPDATE, ['uri' => $updateUrl])
                 ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
                 ->setExtra('icon', 'bi bi-fw bi-pencil me-2');
         }
 
         if ($this->authorizationChecker->isGranted(CrudOperation::DELETE->value, $entity)) {
             $deleteUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::DELETE, $entity);
-            $moreDropdown->addChild('action.delete', ['uri' => $deleteUrl])
+            $moreDropdown->addChild(Action::DELETE, ['uri' => $deleteUrl])
                 ->setAttribute('class', 'text-danger')
                 ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
                 ->setExtra('icon', 'bi bi-fw bi-trash me-2');
@@ -65,10 +67,10 @@ class DdrCrudAdminMenuBuilder
         );
 
         if (
-            null !== ($moreItem = $menu->getChild('action.more'))
+            null !== ($moreItem = $menu->getChild(Action::MORE))
             && !$moreItem->hasChildren()
         ) {
-            $menu->removeChild('action.more');
+            $menu->removeChild(Action::MORE);
         }
 
         return $menu;
@@ -84,22 +86,22 @@ class DdrCrudAdminMenuBuilder
 
         if ($this->authorizationChecker->isGranted(CrudOperation::UPDATE->value, $entity)) {
             $updateUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::UPDATE, $entity);
-            $menu->addChild('action.update', ['uri' => $updateUrl])
+            $menu->addChild(Action::UPDATE, ['uri' => $updateUrl])
                 ->setAttribute('class', 'btn-primary ddr-btn-icon btn-lg')
                 ->setExtra(ItemExtra::LABEL_AS_TITLE_ONLY, true)
                 ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
                 ->setExtra(ItemExtra::ICON, 'bi bi-fw bi-pencil');
         }
 
-        $moreDropdown = $menu->addChild('action.more', ['label' => ''])
+        $moreDropdown = $menu->addChild(Action::MORE, ['label' => ''])
             ->setAttribute('class', 'btn-lg ddr-btn-icon ddr-no-caret')
             ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
             ->setExtra(ItemExtra::ICON, 'bi bi-fw bi-three-dots-vertical');
 
         if ($this->authorizationChecker->isGranted(CrudOperation::DELETE->value, $entity)) {
             $deleteUrl = $this->urlResolver->resolveUrl($entityClass, CrudOperation::DELETE, $entity);
-            $moreDropdown->addChild('action.delete', ['uri' => $deleteUrl])
-                ->setAttribute('title', 'action.delete')
+            $moreDropdown->addChild(Action::DELETE, ['uri' => $deleteUrl])
+                ->setAttribute('title', Action::DELETE)
                 ->setAttribute('class', 'text-danger')
                 ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
                 ->setExtra(ItemExtra::ICON, 'bi bi-fw bi-trash me-2');
@@ -108,10 +110,10 @@ class DdrCrudAdminMenuBuilder
         $this->eventDispatcher->dispatch(new ConfigureReadActionsEvent($entityClass, $entity, $menu, $options));
 
         if (
-            null !== ($moreItem = $menu->getChild('action.more'))
+            null !== ($moreItem = $menu->getChild(Action::MORE))
             && !$moreItem->hasChildren()
         ) {
-            $menu->removeChild('action.more');
+            $menu->removeChild(Action::MORE);
         }
 
         return $menu;
