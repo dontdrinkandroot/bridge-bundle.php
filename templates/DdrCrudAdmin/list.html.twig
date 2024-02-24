@@ -65,7 +65,7 @@
         </thead>
         <tbody>
         {% for entity in entities %}
-            <tr>
+            <tr class="align-middle">
                 {% for fieldDefinition in fieldDefinitions %}
                     <td>{{ entity|ddrCrudAdminFieldDefinitionValue(fieldDefinition) }}</td>
                 {% endfor %}
