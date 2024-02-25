@@ -89,7 +89,7 @@ class DdrCrudAdminMenuBuilder
                 ->setAttribute('class', 'btn-primary ddr-btn-icon btn-lg')
                 ->setExtra(ItemExtra::LABEL_AS_TITLE_ONLY, true)
                 ->setExtra(ItemExtra::TRANSLATION_DOMAIN, 'DdrCrudAdmin')
-                ->setExtra(ItemExtra::ICON, BootstrapIcon::PENCIL->toClassString());
+                ->setExtra(ItemExtra::ICON, BootstrapIcon::PENCIL->toClassString(true));
         }
 
         $moreDropdown = $this->createMoreDropdown($menu, ['btn-lg']);
