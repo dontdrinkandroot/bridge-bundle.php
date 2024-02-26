@@ -30,7 +30,8 @@
             {% endblock ddr_crud_admin_pagination %}
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 d-flex">
+
             {% block ddr_crud_admin_filter %}
                 {% set filterFields = [] %}
                 {% for fieldDefinition in fieldDefinitions %}
@@ -40,9 +41,17 @@
                 {% endfor %}
 
                 {% if filterFields is not empty %}
-                    {{ knp_pagination_filter(entities, filterFields, options = {translationDomain: translationDomain}) }}
+                    <div class="flex-fill">
+                        {{ knp_pagination_filter(
+                            entities,
+                            filterFields,
+                            options = {translationDomain: translationDomain}) }}
+                    </div>
                 {% endif %}
+
             {% endblock ddr_crud_admin_filter %}
+
+            {% include '@DdrBridge/DdrCrudAdmin/sortable.dropdown.partial.html.twig' %}
         </div>
     </div>
 

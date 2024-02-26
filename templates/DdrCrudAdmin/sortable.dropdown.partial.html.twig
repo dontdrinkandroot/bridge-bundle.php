@@ -1,0 +1,30 @@
+{% set hasSortable = false %}
+{% for fieldDefinition in fieldDefinitions %}
+    {% if fieldDefinition.sortable %}
+        {% set hasSortable = true %}
+    {% endif %}
+{% endfor %}
+
+{% if hasSortable %}
+    <div class="dropdown ms-2">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+            {{ 'sort'|trans({}, 'DdrCrudAdmin') }}
+        </button>
+        <ul class="dropdown-menu">
+            {% for fieldDefinition in fieldDefinitions %}
+                {% if fieldDefinition.sortable %}
+                    <li>
+                        {{ knp_pagination_sortable(
+                            entities,
+                            fieldDefinition|ddrCrudAdminLabel,
+                            'entity.'~fieldDefinition.propertyPath,
+                            options = {translationDomain: translationDomain, class: 'dropdown-item'},
+                            template = '@DdrBootstrap/KnpPaginator/bootstrap5_sortable_dropdown_item.html.twig'
+                        ) }}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
