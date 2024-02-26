@@ -6,7 +6,7 @@
 {% endfor %}
 
 {% if hasSortable %}
-    <div class="dropdown ms-2">
+    <div class="dropdown ms-2 mb-3">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
             {{ 'sort'|trans({}, 'DdrCrudAdmin') }}
@@ -18,7 +18,7 @@
                         {{ knp_pagination_sortable(
                             entities,
                             fieldDefinition|ddrCrudAdminLabel,
-                            'entity.'~fieldDefinition.propertyPath,
+                            fieldDefinition.propertyPath,
                             options = {translationDomain: translationDomain, class: 'dropdown-item'},
                             template = '@DdrBootstrap/KnpPaginator/bootstrap5_sortable_dropdown_item.html.twig'
                         ) }}
