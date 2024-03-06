@@ -3,30 +3,34 @@
 namespace Dontdrinkandroot\BridgeBundle\Tests\TestApp\Controller;
 
 use Dontdrinkandroot\BridgeBundle\Tests\TestApp\Entity\ExampleEntity;
+use Dontdrinkandroot\BridgeBundle\Tests\TestApp\Form\Type\ExampleEntityType;
 use Dontdrinkandroot\Common\CrudOperation;
-use Dontdrinkandroot\CrudAdminBundle\Controller\CrudController;
-use Dontdrinkandroot\CrudAdminBundle\Service\Template\TemplateProviderInterface;
+use Dontdrinkandroot\CrudAdminBundle\Controller\ConfigurableCrudController;
+use Override;
 
 /**
- * @extends CrudController<ExampleEntity>
+ * @extends ConfigurableCrudController<ExampleEntity>
  */
-class ExampleEntityController extends CrudController implements TemplateProviderInterface
+class ExampleEntityController extends ConfigurableCrudController
 {
-    public function __construct()
+    #[Override]
+    public function getEntityClass(): string
     {
-        parent::__construct(ExampleEntity::class);
+        return ExampleEntity::class;
     }
 
-    #[\Override]
-    public function provideTemplate(string $entityClass, CrudOperation $crudOperation): ?string
+    #[Override]
+    protected function getTemplate(CrudOperation $crudOperation): ?string
     {
-        if ($entityClass !== $this->getEntityClass()) {
-            return null;
-        }
-
         return match ($crudOperation) {
             CrudOperation::LIST => '@DdrBridge/DdrCrudAdmin/list.list-group.html.twig',
             default => null
         };
+    }
+
+    #[Override]
+    protected function getFormType(): ?string
+    {
+        return ExampleEntityType::class;
     }
 }

@@ -41,11 +41,11 @@ class FlexDateValidationTest extends WebTestCase
         self::assertCount(2, $validationErrors);
 
         $validationError = $validationErrors->get(0);
-        self::assertEquals('', $validationError->getPropertyPath());
+        self::assertEquals('year', $validationError->getPropertyPath());
         self::assertEquals('The year is not set.', $validationError->getMessage());
 
         $validationError = $validationErrors->get(1);
-        self::assertEquals('', $validationError->getPropertyPath());
+        self::assertEquals('month', $validationError->getPropertyPath());
         self::assertEquals('The month is not set.', $validationError->getMessage());
 
         $flexDate->setMonth(1);
@@ -53,7 +53,7 @@ class FlexDateValidationTest extends WebTestCase
         self::assertCount(1, $validationErrors);
 
         $validationError = $validationErrors->get(0);
-        self::assertEquals('', $validationError->getPropertyPath());
+        self::assertEquals('year', $validationError->getPropertyPath());
         self::assertEquals('The year is not set.', $validationError->getMessage());
     }
 

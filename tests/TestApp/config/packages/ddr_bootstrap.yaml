@@ -1,0 +1,8 @@
+twig:
+    form_themes: [ '@DdrBootstrap/Form/bootstrap5_horizontal_layout.html.twig' ]
+
+knp_paginator:
+    template:
+        pagination: '@DdrBootstrap/KnpPaginator/bootstrap5_pagination.html.twig'
+        sortable: '@KnpPaginator/Pagination/bootstrap_v5_bi_sortable_link.html.twig'
+        filtration: '@DdrBootstrap/KnpPaginator/bootstrap5_filtration_all.html.twig'
