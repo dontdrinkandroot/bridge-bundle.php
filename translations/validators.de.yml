@@ -1,6 +1,6 @@
 ddr:
     flexdate:
-        yearnotset: Das Jahr ist nicht gesetzt
-        monthnotset: Der Monat ist nicht gesetzt
-        dateinvalid: Das angegebene Datum existiert nicht
+        yearnotset: Das Jahr ist nicht gesetzt.
+        monthnotset: Der Monat ist nicht gesetzt.
+        dateinvalid: Das angegebene Datum existiert nicht.
 repeated_field_mismatch: 'Die Felder stimmen nicht überein.'

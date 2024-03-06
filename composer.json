@@ -26,11 +26,11 @@
         "php": ">=8.3",
         "ext-sodium": "*",
         "dontdrinkandroot/common": "^0.2.2",
-        "symfony/config": "^6.4",
-        "symfony/dependency-injection": "^6.4",
-        "symfony/http-kernel": "^6.4",
-        "symfony/process": "^6.4",
-        "symfony/yaml": "^6.4"
+        "symfony/config": "^6",
+        "symfony/dependency-injection": "^6",
+        "symfony/http-kernel": "^6",
+        "symfony/process": "^6",
+        "symfony/yaml": "^6"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
@@ -42,10 +42,11 @@
         "league/commonmark": "^2.4",
         "liip/test-fixtures-bundle": "^2.6",
         "phpunit/phpunit": "^9.6",
-        "symfony/browser-kit": "^6.4",
-        "symfony/mailer": "^6.4",
-        "symfony/phpunit-bridge": "^6.4",
-        "symfony/validator": "^6.4"
+        "symfony/browser-kit": "^6",
+        "symfony/expression-language": "^6",
+        "symfony/mailer": "^6",
+        "symfony/phpunit-bridge": "^6",
+        "symfony/validator": "^6"
     },
     "config": {
         "sort-packages": true

@@ -22,7 +22,7 @@ class FlexDateType extends AbstractType
                 [
                     'label' => false,
                     'required' => false,
-                    'attr' => ['class' => 'year', 'placeholder' => 'year'],
+                    'attr' => ['class' => 'year', 'placeholder' => 'year', 'min' => 0],
                 ]
             )
             ->add(
