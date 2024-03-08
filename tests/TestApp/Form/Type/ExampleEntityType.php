@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Valid;
 class ExampleEntityType extends AbstractType
 {
     #[Override]
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('flexDate', FlexDateType::class, [
