@@ -1,6 +1,6 @@
 <?php
 
-namespace Acceptance;
+namespace Dontdrinkandroot\BridgeBundle\Tests\Acceptance;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

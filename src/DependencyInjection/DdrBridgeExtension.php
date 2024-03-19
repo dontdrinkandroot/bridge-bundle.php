@@ -63,6 +63,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         $userConfig = $config['user'] ?? null;
         $userEnabled = null !== $userConfig && true === $userConfig['enabled'];
         $container->setParameter(ParamName::USER_ENABLED, $userEnabled);
+        $container->setParameter(ParamName::USER_LOGIN_LINK_ENABLED, false);
         if ($userEnabled) {
             $this->configureUser($userConfig, $container, $loader);
         }

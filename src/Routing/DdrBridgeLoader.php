@@ -3,8 +3,8 @@
 namespace Dontdrinkandroot\BridgeBundle\Routing;
 
 use Dontdrinkandroot\BridgeBundle\Controller\HealthAction;
-use Dontdrinkandroot\BridgeBundle\Controller\Security\LoginLink\CheckAction;
 use Dontdrinkandroot\BridgeBundle\Controller\Security\LoginAction;
+use Dontdrinkandroot\BridgeBundle\Controller\Security\LoginLink\CheckAction;
 use Dontdrinkandroot\BridgeBundle\Controller\Security\LoginLink\RequestAction;
 use Dontdrinkandroot\BridgeBundle\Model\Container\RouteName;
 use Dontdrinkandroot\BridgeBundle\Model\Container\RoutePath;
@@ -24,6 +24,7 @@ class DdrBridgeLoader extends Loader
         private readonly bool $userEnabled,
         private readonly bool $loginLinkEnabled
     ) {
+        parent::__construct();
     }
 
     #[Override]
