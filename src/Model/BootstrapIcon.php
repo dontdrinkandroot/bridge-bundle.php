@@ -6,6 +6,7 @@ enum BootstrapIcon: string
 {
     case DOWNLOAD = 'bi-download';
     case PENCIL = 'bi-pencil';
+    case PLUS = 'bi-plus';
     case SEARCH = 'bi-search';
     case SHARE = 'bi-share';
     case THREE_DOTS_VERTICAL = 'bi-three-dots-vertical';

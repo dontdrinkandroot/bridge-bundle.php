@@ -40,10 +40,14 @@ return function (ContainerConfigurator $configurator): void {
         ])
         ->tag(
             'knp_menu.menu_builder',
-            ['method' => 'createEntityItemActions', 'alias' => 'ddr_crud_admin_entity_item_actions'],
+            ['method' => 'createListItemActions', 'alias' => 'ddr_crud_admin.list.actions.item'],
         )
         ->tag(
             'knp_menu.menu_builder',
-            ['method' => 'createEntityDetailActions', 'alias' => 'ddr_crud_admin_entity_detail_actions'],
+            ['method' => 'createReadHeaderActions', 'alias' => 'ddr_crud_admin.read.actions.header'],
+        )
+        ->tag(
+            'knp_menu.menu_builder',
+            ['method' => 'createListHeaderActions', 'alias' => 'ddr_crud_admin.list.actions.header'],
         );
 };
