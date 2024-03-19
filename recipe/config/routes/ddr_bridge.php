@@ -2,10 +2,9 @@
 
 namespace App\Config\Routes;
 
+use Dontdrinkandroot\BridgeBundle\Routing\DdrBridgeLoader;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return function (RoutingConfigurator $routes): void {
-    $routes->import('@DdrBridgeBundle/config/routes/health.php');
-//    $routes->import('@DdrBridgeBundle/config/routes/login.php');
-//    $routes->import('@DdrBridgeBundle/config/routes/reset_password.php');
+    $routes->import('.', DdrBridgeLoader::TYPE);
 };

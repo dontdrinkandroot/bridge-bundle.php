@@ -7,7 +7,7 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class DatabaseModificationService
 {
-    final const KEY_LAST_UPDATE = 'ddr_bridge_db_last_update';
+    final const string KEY_LAST_UPDATE = 'ddr_bridge_db_last_update';
 
     public function __construct(private readonly CacheItemPoolInterface $cache)
     {
@@ -23,8 +23,6 @@ class DatabaseModificationService
     /**
      * Get the timestamp of the last database modification or the timestamp when it was first called when no
      * modification has been made yet.
-     *
-     * @return int
      */
     public function getLastChange(): int
     {

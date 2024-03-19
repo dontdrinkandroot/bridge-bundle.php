@@ -7,7 +7,9 @@ use Dontdrinkandroot\BridgeBundle\Controller\HealthAction;
 use Dontdrinkandroot\BridgeBundle\Controller\ValueResolver\IdEntityArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Controller\ValueResolver\UuidEntityArgumentValueResolver;
 use Dontdrinkandroot\BridgeBundle\Form\Type\FlexDateType;
+use Dontdrinkandroot\BridgeBundle\Model\Container\ParamName;
 use Dontdrinkandroot\BridgeBundle\Model\Container\TagName;
+use Dontdrinkandroot\BridgeBundle\Routing\DdrBridgeLoader;
 use Dontdrinkandroot\BridgeBundle\Routing\NestedLoader;
 use Dontdrinkandroot\BridgeBundle\Service\EncryptionService;
 use Dontdrinkandroot\BridgeBundle\Service\Health\HttpHealthProvider;
@@ -17,6 +19,7 @@ use Dontdrinkandroot\BridgeBundle\Twig\TwigExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 
@@ -30,6 +33,11 @@ return function (ContainerConfigurator $configurator): void {
         ->args([
             service('file_locator')
         ])
+        ->tag('routing.loader');
+
+    $services->set(DdrBridgeLoader::class)#
+        ->arg('$userEnabled', param(ParamName::USER_ENABLED))
+        ->arg('$loginLinkEnabled', param(ParamName::USER_LOGIN_LINK_ENABLED))
         ->tag('routing.loader');
 
     $services->set(EncryptionService::class);

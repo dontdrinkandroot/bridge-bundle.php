@@ -11,8 +11,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginAction extends AbstractController
 {
     public function __construct(
-        private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly AuthenticationUtils $authenticationUtils
+        private readonly AuthenticationUtils $authenticationUtils,
+        private readonly bool $loginLinkEnabled
     ) {
     }
 
@@ -24,16 +24,10 @@ class LoginAction extends AbstractController
         /* last username entered by the user */
         $lastUsername = $this->authenticationUtils->getLastUsername();
 
-        try {
-            $pathPasswordReset = $this->urlGenerator->generate('ddr.bridge.security.reset_password');
-        } catch (RouteNotFoundException) {
-            $pathPasswordReset = null;
-        }
-
         return $this->render('@DdrBridge/Security/login.html.twig', [
             'last_username'     => $lastUsername,
             'error'             => $error,
-            'pathPasswordReset' => $pathPasswordReset
+            'loginLinkEnabled'  => $this->loginLinkEnabled,
         ]);
     }
 }

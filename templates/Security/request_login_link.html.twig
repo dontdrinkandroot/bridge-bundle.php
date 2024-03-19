@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'ddr_security' %}
+
+{% block ddr_main_container_content %}
+
+    <div class="ddr-page-header">
+        <h1>{{ 'login_link.request_login_link'|trans }}</h1>
+    </div>
+
+    {% if not success %}
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-primary">{{ 'login_link.request'|trans }}</button>
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock ddr_main_container_content %}

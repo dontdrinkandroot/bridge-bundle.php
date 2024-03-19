@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('class')->defaultValue('App\Entity\User')->end()
-                    ->booleanNode('reset_password')->defaultFalse()->end()
+                    ->booleanNode('login_link')->defaultFalse()->end()
                 ->end()
             ->end()
             ->arrayNode('mail')

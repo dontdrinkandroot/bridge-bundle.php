@@ -56,8 +56,9 @@
                     <div class="card-footer ddr-card-footer-plain d-grid gap-2">
                         {% block ddr_footer_content %}
                             <button type="submit" class="btn btn-primary">{{ 'login.submit'|trans({}, 'ddr_security') }}</button>
-                            {% if pathPasswordReset is not null %}
-                                <a href="{{ pathPasswordReset }}" class="btn btn-link">{{ 'login.forgot_password'|trans({}, 'ddr_security') }}</a>
+                            {% if loginLinkEnabled is same as true %}
+                                <a href="{{ path('ddr.bridge.security.login_link.request') }}"
+                                   class="btn btn-link">{{ 'login_link.request_login_link'|trans({}, 'ddr_security') }}</a>
                             {% endif %}
                         {% endblock ddr_footer_content %}
                     </div>

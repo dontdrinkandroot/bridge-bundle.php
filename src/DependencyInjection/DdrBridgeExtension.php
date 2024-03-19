@@ -73,9 +73,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function prepend(ContainerBuilder $container): void
     {
         $bundles = $container->getParameter('kernel.bundles');
@@ -133,7 +131,7 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @param array{class: string, reset_password: bool} $userConfig
+     * @param array{class: string, login_link: bool} $userConfig
      *
      * @throws Exception
      */
@@ -141,8 +139,10 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
     {
         $container->setParameter(ParamName::USER_CLASS, $userConfig['class']);
         $phpLoader->load('user.php');
-        if ($userConfig['reset_password']) {
-            $phpLoader->load('reset_password.php');
+        $loginLinkEnabled = $userConfig['login_link'];
+        $container->setParameter(ParamName::USER_LOGIN_LINK_ENABLED, $loginLinkEnabled);
+        if ($loginLinkEnabled) {
+            $phpLoader->load('login_link.php');
         }
     }
 }
