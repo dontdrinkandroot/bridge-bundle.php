@@ -2,3 +2,4 @@ api_platform:
     enable_swagger: false
     enable_swagger_ui: false
     enable_docs: false
+    use_symfony_listeners: false
