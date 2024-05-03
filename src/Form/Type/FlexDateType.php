@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class FlexDateType extends AbstractType
 {
@@ -23,6 +24,17 @@ class FlexDateType extends AbstractType
                     'label' => false,
                     'required' => false,
                     'attr' => ['class' => 'year', 'placeholder' => 'year', 'min' => 0],
+                    'constraints' => [
+                        new Assert\Range(['min' => 0]),
+                        new Assert\Length(['min' => 4, 'max' => 4]),
+                        new Assert\Expression(
+                            [
+                                'expression' => 'value == null && this.getParent().getViewData().getMonth() != null',
+                                'message' => 'ddr.flexdate.yearnotset',
+                                'negate' => false
+                            ]
+                        ),
+                    ]
                 ]
             )
             ->add(
@@ -34,7 +46,17 @@ class FlexDateType extends AbstractType
                     'choices' => $this->getMonthChoices(),
                     'placeholder' => 'month',
                     'attr' => ['class' => 'month'],
-                    'choice_translation_domain' => false
+                    'choice_translation_domain' => false,
+                    'constraints' => [
+                        new Assert\Range(['min' => 1, 'max' => 12]),
+                        new Assert\Expression(
+                            [
+                                'expression' => 'value == null && this.getParent().getViewData().getDay() != null',
+                                'message' => 'ddr.flexdate.monthnotset',
+                                'negate' => false
+                            ]
+                        ),
+                    ]
                 ]
             )
             ->add(
@@ -46,7 +68,17 @@ class FlexDateType extends AbstractType
                     'choices' => $this->getDayChoices(),
                     'placeholder' => 'day',
                     'attr' => ['class' => 'day'],
-                    'choice_translation_domain' => false
+                    'choice_translation_domain' => false,
+                    'constraints' => [
+                        new Assert\Range(['min' => 1, 'max' => 31]),
+                        new Assert\Expression(
+                            [
+                                'expression' => 'value != null && !this.getParent().getViewData().isValidDate()',
+                                'message' => 'ddr.flexdate.dateinvalid',
+                                'negate' => false
+                            ]
+                        ),
+                    ]
                 ]
             );
     }
@@ -54,7 +86,6 @@ class FlexDateType extends AbstractType
     #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
         $resolver->setDefault('translation_domain', 'FlexDate');
         $resolver->setDefault('data_class', FlexDate::class);
         $resolver->setDefault('attr', ['class' => 'flexdate']);

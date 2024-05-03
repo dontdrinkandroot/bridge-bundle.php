@@ -8,6 +8,9 @@ use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\FlexDate;
 use Override;
 
+/**
+ * @deprecated Objects are compared by reference so updates are not tracked, https://github.com/doctrine/orm/issues/5542
+ */
 class FlexDateType extends StringType
 {
     final public const NAME = 'ddr_flexdate';

@@ -3,4 +3,5 @@ ddr:
         yearnotset: The year is not set.
         monthnotset: The month is not set.
         dateinvalid: The date does not exist.
+        formatinvalid: The date has an invalid format.
 repeated_field_mismatch: 'The fields do not match.'

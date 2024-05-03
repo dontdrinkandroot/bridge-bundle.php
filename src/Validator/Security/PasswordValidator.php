@@ -2,14 +2,13 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Validator\Security;
 
+use Override;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class PasswordValidator extends ConstraintValidator
 {
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!is_string($value) || '' === $value) {
