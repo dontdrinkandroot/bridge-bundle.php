@@ -77,21 +77,19 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
     #[Override]
     public function prepend(ContainerBuilder $container): void
     {
-        $bundles = $container->getParameter('kernel.bundles');
-        assert(is_array($bundles));
-        if (array_key_exists('DoctrineBundle', $bundles)) {
-            /* Register flexdate type */
-            $container->prependExtensionConfig(
-                'doctrine',
-                [
-                    'dbal' => [
-                        'types' => [
-                            FlexDateType::NAME => FlexDateType::class,
-                        ],
-                    ],
-                ]
-            );
-        }
+//        $bundles = $container->getParameter('kernel.bundles');
+//        assert(is_array($bundles));
+//        if (array_key_exists('DoctrineBundle', $bundles)) {
+//            $container->prependExtensionConfig(
+//                'doctrine',
+//                [
+//                    'dbal' => [
+//                        'types' => [
+//                        ],
+//                    ],
+//                ]
+//            );
+//        }
     }
 
     /**
