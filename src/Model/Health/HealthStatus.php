@@ -3,17 +3,18 @@
 namespace Dontdrinkandroot\BridgeBundle\Model\Health;
 
 use JsonSerializable;
+use Override;
 
 class HealthStatus implements JsonSerializable
 {
     /**
-     * @param bool $ok
      * @param array<string,mixed> $info
      */
     public function __construct(public bool $ok, public array $info = [])
     {
     }
 
+    #[Override]
     public function jsonSerialize(): array
     {
         return [

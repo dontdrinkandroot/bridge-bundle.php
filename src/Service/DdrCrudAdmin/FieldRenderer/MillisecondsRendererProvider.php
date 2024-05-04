@@ -6,20 +6,17 @@ use Dontdrinkandroot\Common\DateUtils;
 use Dontdrinkandroot\CrudAdminBundle\Model\FieldDefinition;
 use Dontdrinkandroot\CrudAdminBundle\Service\FieldRenderer\FieldRenderer;
 use Dontdrinkandroot\CrudAdminBundle\Service\FieldRenderer\FieldRendererProviderInterface;
+use Override;
 
 class MillisecondsRendererProvider implements FieldRendererProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function supports(FieldDefinition $fieldDefinition, mixed $value): bool
     {
         return 'milliseconds' === $fieldDefinition->displayType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function render(FieldDefinition $fieldDefinition, mixed $value): string
     {
         return FieldRenderer::escapeHtml(DateUtils::fromMillis($value)->format('Y-m-d H:i:s'));

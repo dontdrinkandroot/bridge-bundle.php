@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Routing;
 
 use InvalidArgumentException;
+use Override;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
@@ -14,17 +15,13 @@ use function is_array;
 
 class NestedLoader extends YamlFileLoader
 {
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function supports($resource, string $type = null): bool
     {
         return 'ddr_nested' === $type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function load(mixed $file, string $type = null): RouteCollection
     {
         $path = $this->locator->locate($file);

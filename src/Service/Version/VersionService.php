@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\Version;
 
 use Dontdrinkandroot\Common\Asserted;
+use Override;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Process;
@@ -15,9 +16,7 @@ class VersionService implements VersionServiceInterface
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getVersion(): string
     {
         $version = $this->getVersionFromFile();

@@ -4,12 +4,11 @@ namespace Dontdrinkandroot\BridgeBundle\Service\DdrCrudAdmin;
 
 use Dontdrinkandroot\Common\CrudOperation;
 use Dontdrinkandroot\CrudAdminBundle\Service\Template\TemplateProviderInterface;
+use Override;
 
 class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function provideTemplate(string $entityClass, CrudOperation $crudOperation): string
     {
         $prefix = '@DdrBridge/DdrCrudAdmin/';

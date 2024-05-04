@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Command\Mail;
 
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
+use Override;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,9 +24,7 @@ class SendMailCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     protected function configure(): void
     {
         $this->addOption('to', null, InputOption::VALUE_REQUIRED, 'The to address of the message')
@@ -33,18 +32,14 @@ class SendMailCommand extends Command
             ->addOption('markdown', null, InputOption::VALUE_REQUIRED, 'The body of the message provided in markdown');
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
         $this->io->title('Send Email');
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->mailService->sendMailMarkdown(
@@ -58,10 +53,7 @@ class SendMailCommand extends Command
         return Command::SUCCESS;
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $options = ['to', 'subject', 'markdown'];

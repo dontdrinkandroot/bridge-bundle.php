@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Twig;
 
 use Dontdrinkandroot\BridgeBundle\Service\Version\VersionServiceInterface;
+use Override;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -13,9 +14,7 @@ class TwigExtension extends AbstractExtension
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getFunctions(): array
     {
         return [

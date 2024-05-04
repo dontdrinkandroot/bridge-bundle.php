@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\Health;
 
 use Dontdrinkandroot\BridgeBundle\Model\Health\HealthStatus;
+use Override;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class HttpHealthProvider implements HealthProviderInterface
@@ -11,17 +12,13 @@ class HttpHealthProvider implements HealthProviderInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getKey(): string
     {
         return 'http';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getStatus(): HealthStatus
     {
         $request = $this->requestStack->getMainRequest();

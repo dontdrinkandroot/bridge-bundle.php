@@ -10,6 +10,7 @@ use Dontdrinkandroot\CrudAdminBundle\Exception\EntityNotFoundException;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidInterface;
 use InvalidArgumentException;
+use Override;
 use Symfony\Component\Uid\Uuid;
 
 class UuidEntityItemProvider implements ItemProviderInterface
@@ -18,9 +19,7 @@ class UuidEntityItemProvider implements ItemProviderInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function provideItem(string $entityClass, CrudOperation $crudOperation, mixed $id): ?object
     {
         if (

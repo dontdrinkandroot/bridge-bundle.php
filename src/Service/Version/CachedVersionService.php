@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Service\Version;
 
+use Override;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -17,9 +18,7 @@ class CachedVersionService extends VersionService
         parent::__construct($kernel, $logger);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getVersion(): string
     {
         return $this->cache->get('ddr.version', function (ItemInterface $cacheItem): string {

@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\DoctrineBundle\Entity\EntityInterface;
+use Override;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -17,9 +18,7 @@ class IdEntityArgumentValueResolver implements ValueResolverInterface
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if (

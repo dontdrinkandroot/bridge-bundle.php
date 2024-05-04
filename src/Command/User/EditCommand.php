@@ -6,6 +6,7 @@ use Dontdrinkandroot\BridgeBundle\Entity\User;
 use Dontdrinkandroot\BridgeBundle\Repository\User\UserRepository;
 use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\DoctrineBundle\Service\TransactionManager\TransactionManagerRegistry;
+use Override;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -37,9 +38,7 @@ class EditCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         return $this->transactionManagerRegistry->getDefault()->transactional(

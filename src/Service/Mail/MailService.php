@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\BridgeBundle\Service\Mail;
 
 use League\CommonMark\GithubFlavoredMarkdownConverter;
+use Override;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -24,9 +25,7 @@ class MailService implements MailServiceInterface
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function sendMailMarkdown(
         Address|array $to,
         string $subject,
@@ -55,9 +54,7 @@ class MailService implements MailServiceInterface
         $this->mailer->send($message);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function sendMailMarkdownTemplate(
         Address|array $to,
         string $subject,

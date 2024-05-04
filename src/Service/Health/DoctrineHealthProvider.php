@@ -7,6 +7,7 @@ use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\BridgeBundle\Model\Health\HealthStatus;
 use Dontdrinkandroot\Common\Asserted;
+use Override;
 
 class DoctrineHealthProvider implements HealthProviderInterface
 {
@@ -14,17 +15,13 @@ class DoctrineHealthProvider implements HealthProviderInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getKey(): string
     {
         return 'database';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    #[Override]
     public function getStatus(): HealthStatus
     {
         $overallOk = true;
