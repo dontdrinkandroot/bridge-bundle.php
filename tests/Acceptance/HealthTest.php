@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Tests\Acceptance;
 
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class HealthTest extends WebTestCase
@@ -32,7 +33,7 @@ class HealthTest extends WebTestCase
                 'database' => [
                     'ok' => true,
                     'info' => [
-                        'default' => ['platform' => 'Doctrine\DBAL\Platforms\SqlitePlatform']
+                        'default' => ['platform' => SQLitePlatform::class]
                     ]
                 ]
             ]
