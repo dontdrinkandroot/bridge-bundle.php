@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+$updatePackages = array_map(
+    fn($package) => sprintf("%s:%s", $package['name'], $package['latest']),
+    array_filter(
+        json_decode(shell_exec('composer outdated -m --format=json'), true, 512, JSON_THROW_ON_ERROR)['installed'],
+        fn(array $package): bool => $package['latest-status'] === 'semver-safe-update'
+            && preg_match('/^v?\d+\.\d+\.\d+$/', $package['latest'])
+    )
+);
+
+if ($updatePackages) {
+    shell_exec('composer update ' . implode(' ', $updatePackages));
+} else {
+    echo "No packages need to be updated.\n";
+}
