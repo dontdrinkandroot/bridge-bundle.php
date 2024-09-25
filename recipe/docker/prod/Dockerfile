@@ -26,5 +26,5 @@ RUN set -xe \
 # Run Apache
 USER root
 #CMD su -s /bin/sh www-data -c "composer dump-env prod && bin/console doctrine:migrations:migrate --all-or-nothing -n" && httpd -D FOREGROUND
-CMD su -s /bin/sh www-data -c "composer dump-env prod && httpd -D FOREGROUND
+CMD su -s /bin/sh www-data -c "composer dump-env prod && httpd -D FOREGROUND"
 EXPOSE 80
