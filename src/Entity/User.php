@@ -12,14 +12,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\MappedSuperclass]
 abstract class User implements UserInterface, PasswordAuthenticatedUserInterface, Stringable
 {
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     public ?string $password = null;
 
     /**
-     * @param list<string> $roles
+     * @param string[] $roles
      */
     public function __construct(
-        #[ORM\Column(type: 'string', length: 255, unique: true)]
+        #[ORM\Column(Types::STRING, length: 255, unique: true)]
         public string $email,
 
         #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
