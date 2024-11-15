@@ -19,7 +19,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @param string[] $roles
      */
     public function __construct(
-        #[ORM\Column(Types::STRING, length: 255, unique: true)]
+        #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
         public string $email,
 
         #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
