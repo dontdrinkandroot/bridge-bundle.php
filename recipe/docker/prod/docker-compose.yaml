@@ -6,7 +6,7 @@ services:
         build:
             dockerfile: docker/prod/Dockerfile
             context: ../../
-        image: bandhub.org/website:prod
+        image: example.com/website:prod
         ports:
             - "8000:80"
 #        depends_on:
