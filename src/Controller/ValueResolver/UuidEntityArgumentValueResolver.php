@@ -5,7 +5,7 @@ namespace Dontdrinkandroot\BridgeBundle\Controller\ValueResolver;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Dontdrinkandroot\Common\Asserted;
-use Dontdrinkandroot\DoctrineBundle\Entity\UuidInterface;
+use Dontdrinkandroot\DoctrineBundle\Entity\UuidIdentifiedInterface;
 use Override;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
@@ -25,7 +25,7 @@ class UuidEntityArgumentValueResolver implements ValueResolverInterface
         if (
             !$request->attributes->has('uuid')
             || null === ($type = $argument->getType())
-            || !is_a($type, UuidInterface::class, true)
+            || !is_a($type, UuidIdentifiedInterface::class, true)
             || null === ($manager = $this->managerRegistry->getManagerForClass($type))
         ) {
             return [];

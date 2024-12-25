@@ -8,7 +8,7 @@ use Dontdrinkandroot\Common\Asserted;
 use Dontdrinkandroot\Common\CrudOperation;
 use Dontdrinkandroot\CrudAdminBundle\Exception\EntityNotFoundException;
 use Dontdrinkandroot\CrudAdminBundle\Service\Item\ItemProviderInterface;
-use Dontdrinkandroot\DoctrineBundle\Entity\UuidInterface;
+use Dontdrinkandroot\DoctrineBundle\Entity\UuidIdentifiedInterface;
 use InvalidArgumentException;
 use Override;
 use Symfony\Component\Uid\Uuid;
@@ -24,7 +24,7 @@ class UuidEntityItemProvider implements ItemProviderInterface
     {
         if (
             null === $id
-            || !is_a($entityClass, UuidInterface::class, true)
+            || !is_a($entityClass, UuidIdentifiedInterface::class, true)
         ) {
             return null;
         }
