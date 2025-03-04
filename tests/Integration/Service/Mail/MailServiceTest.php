@@ -17,12 +17,12 @@ class MailServiceTest extends WebTestCase
             markdown: 'Test *Markdown*'
         );
 
-        $this->assertEmailCount(1);
+        self::assertEmailCount(1);
 
-        $email = $this->getMailerMessage(0);
+        $email = self::getMailerMessage(0);
         self::assertNotNull($email);
 
-        $this->assertEmailSubjectContains( $email,'Test Subject');
-        $this->assertEmailHtmlBodyContains($email, 'Test <em>Markdown</em>');
+        self::assertEmailSubjectContains($email, 'Test Subject');
+        self::assertEmailHtmlBodyContains($email, 'Test <em>Markdown</em>');
     }
 }

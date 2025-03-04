@@ -27,7 +27,7 @@ class EditCommand extends Command
 {
     /**
      * @param UserRepository<T> $userRepository
-     * @param class-string<T>   $userClass
+     * @param class-string<T> $userClass
      */
     public function __construct(
         private readonly UserRepository $userRepository,
@@ -54,11 +54,10 @@ class EditCommand extends Command
         $user = $this->userRepository->findOneByEmail($email);
         if (null === $user) {
             $create = $questionHelper->ask($input, $output, new ConfirmationQuestion('User does not exist. Create?: '));
-            if (!$create) {
+            if (true !== $create) {
                 return 0;
             }
             $user = $this->userClass::fromEmail($email);
-            /** @psalm-suppress InvalidArgument */
             $this->userRepository->create($user, false);
         }
 

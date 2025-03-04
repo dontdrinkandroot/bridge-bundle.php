@@ -18,6 +18,9 @@ enum BootstrapIcon: string
     case TRASH = 'bi-trash';
     case X = 'bi-x';
 
+    /**
+     * @param string[] $additionalClasses
+     */
     public function toClassString(bool $fixedWith = false, array $additionalClasses = []): string
     {
         $classes = ['bi', $this->value];

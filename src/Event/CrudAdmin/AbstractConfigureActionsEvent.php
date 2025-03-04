@@ -13,6 +13,7 @@ class AbstractConfigureActionsEvent
 {
     /**
      * @param class-string<T> $entityClass
+     * @param array<string, mixed> $options
      */
     public function __construct(
         public readonly string $entityClass,

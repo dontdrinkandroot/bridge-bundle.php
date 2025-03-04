@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 abstract class WebTestCase extends BaseWebTestCase
 {
     /**
-     * @psalm-suppress InternalMethod
+     * @param class-string[] $classNames
      */
     protected static function loadFixtures(array $classNames = []): ReferenceRepository
     {

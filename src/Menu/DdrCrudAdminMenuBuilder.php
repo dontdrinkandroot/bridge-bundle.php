@@ -31,6 +31,9 @@ class DdrCrudAdminMenuBuilder
     ) {
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function createListItemActions(array $options): ItemInterface
     {
         $menu = $this->factory->createItem('root');
@@ -76,6 +79,9 @@ class DdrCrudAdminMenuBuilder
         return $menu;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function createReadHeaderActions(array $options): ItemInterface
     {
         $menu = $this->factory->createItem('root');
@@ -116,6 +122,9 @@ class DdrCrudAdminMenuBuilder
         return $menu;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function createListHeaderActions(array $options): ItemInterface
     {
         $menu = $this->factory->createItem('root');

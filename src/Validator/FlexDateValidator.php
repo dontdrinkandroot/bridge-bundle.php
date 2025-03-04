@@ -22,7 +22,7 @@ class FlexDateValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (!preg_match(self::PATTERN, $value)) {
+        if (1 !== preg_match(self::PATTERN, $value)) {
             $this->context->buildViolation('ddr.flexdate.formatinvalid')
                 ->addViolation();
             return;

@@ -10,8 +10,9 @@ class RouteTest extends WebTestCase
 {
     public function testRoutes(): void
     {
-        $this->markTestSkipped('Outputs the configured routes. Useful for development.');
+        self::markTestSkipped('Outputs the configured routes. Useful for development.');
 
+        /** @phpstan-ignore deadCode.unreachable */
         $router = self::getContainer()->get(RouterInterface::class);
         self::assertInstanceOf(RouterInterface::class, $router);
         /** @var array<string, Route> $routes */

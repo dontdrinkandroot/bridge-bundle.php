@@ -42,6 +42,11 @@
         "knplabs/knp-menu-bundle": "^3.2",
         "league/commonmark": "^2.4",
         "liip/test-fixtures-bundle": "^2.6",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-doctrine": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpstan/phpstan-symfony": "^2.0",
         "phpunit/phpunit": "^9.6",
         "symfony/browser-kit": "^6",
         "symfony/expression-language": "^6",
@@ -52,7 +57,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "dontdrinkandroot/symfony-version-enforcer": true
+            "dontdrinkandroot/symfony-version-enforcer": true,
+            "phpstan/extension-installer": true
         }
     },
     "extra": {

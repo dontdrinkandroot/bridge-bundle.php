@@ -27,7 +27,7 @@ interface MailServiceInterface
      * @param Address|Address[] $to
      * @param string $subject
      * @param string $template
-     * @param array $templateParameters
+     * @param array<string,mixed> $templateParameters
      * @param Address[] $cc
      * @param Address[] $bcc
      *

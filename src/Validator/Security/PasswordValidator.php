@@ -29,17 +29,17 @@ class PasswordValidator extends ConstraintValidator
         }
 
         $hasUppercaseLetter = preg_match('/[A-Z]/', $value);
-        if ($hasUppercaseLetter) {
+        if (1 === $hasUppercaseLetter) {
             $numConstraintsFulfilled++;
         }
 
         $hasLowercaseLetter = preg_match('/[a-z]/', $value);
-        if ($hasLowercaseLetter) {
+        if (1 === $hasLowercaseLetter) {
             $numConstraintsFulfilled++;
         }
 
         $hasNumber = preg_match('/\d/', $value);
-        if ($hasNumber) {
+        if (1 === $hasNumber) {
             $numConstraintsFulfilled++;
         }
 

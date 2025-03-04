@@ -18,6 +18,9 @@ class IdEntityArgumentValueResolver implements ValueResolverInterface
     ) {
     }
 
+    /**
+     * @return iterable<EntityInterface>
+     */
     #[Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {

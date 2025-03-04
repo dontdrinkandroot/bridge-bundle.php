@@ -2,7 +2,7 @@
 
 namespace Dontdrinkandroot\BridgeBundle\Controller\Security\LoginLink;
 
-use Dontdrinkandroot\BridgeBundle\Model\Container\RouteName;
+use Dontdrinkandroot\BridgeBundle\Entity\User;
 use Dontdrinkandroot\BridgeBundle\Repository\User\UserRepository;
 use Dontdrinkandroot\BridgeBundle\Service\Mail\MailServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,13 +10,15 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class RequestAction extends AbstractController
 {
+    /**
+     * @param UserRepository<User> $userRepository
+     */
     public function __construct(
         private readonly LoginLinkHandlerInterface $loginLinkHandler,
         private readonly TokenStorageInterface $tokenStorage,

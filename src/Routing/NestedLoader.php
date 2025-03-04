@@ -16,41 +16,41 @@ use function is_array;
 class NestedLoader extends YamlFileLoader
 {
     #[Override]
-    public function supports($resource, string $type = null): bool
+    public function supports($resource, ?string $type = null): bool
     {
         return 'ddr_nested' === $type;
     }
 
     #[Override]
-    public function load(mixed $file, string $type = null): RouteCollection
+    public function load(mixed $file, ?string $type = null): RouteCollection
     {
-        $path = $this->locator->locate($file);
+        $filePath = $this->locator->locate($file);
 
-        if (!stream_is_local($path)) {
-            throw new InvalidArgumentException(sprintf('This is not a local file "%s".', $path));
+        if (!stream_is_local($filePath)) {
+            throw new InvalidArgumentException(sprintf('This is not a local file "%s".', $filePath));
         }
 
-        if (!file_exists($path)) {
-            throw new InvalidArgumentException(sprintf('File "%s" not found.', $path));
+        if (!file_exists($filePath)) {
+            throw new InvalidArgumentException(sprintf('File "%s" not found.', $filePath));
         }
 
         try {
-            $parsedConfig = (new YamlParser())->parseFile($path, Yaml::PARSE_CONSTANT);
+            $parsedConfig = (new YamlParser())->parseFile($filePath, Yaml::PARSE_CONSTANT);
         } catch (ParseException $e) {
             throw new InvalidArgumentException(
-                sprintf('The file "%s" does not contain valid YAML: ', $path) . $e->getMessage(), 0, $e
+                sprintf('The file "%s" does not contain valid YAML: ', $filePath) . $e->getMessage(), 0, $e
             );
         }
 
         $collection = new RouteCollection();
-        $collection->addResource(new FileResource($path));
+        $collection->addResource(new FileResource($filePath));
 
         if (null === $parsedConfig) {
             return $collection;
         }
 
         if (!is_array($parsedConfig)) {
-            throw new InvalidArgumentException(sprintf('The file "%s" must contain a YAML array.', $path));
+            throw new InvalidArgumentException(sprintf('The file "%s" must contain a YAML array.', $filePath));
         }
 
         foreach ($parsedConfig as $path => $config) {
@@ -60,6 +60,9 @@ class NestedLoader extends YamlFileLoader
         return $collection;
     }
 
+    /**
+     * @param array<string,mixed> $config
+     */
     private function processConfig(RouteCollection $collection, string $path, array $config, mixed $file): void
     {
         if (null !== $name = $config['name'] ?? null) {
@@ -85,6 +88,10 @@ class NestedLoader extends YamlFileLoader
         }
     }
 
+    /**
+     * @param array<string,mixed> $config
+     * @return array<string,mixed>
+     */
     private function transformConfig(array $config, string $path): array
     {
         unset($config['name']);

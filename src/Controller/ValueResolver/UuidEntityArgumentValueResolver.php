@@ -19,6 +19,9 @@ class UuidEntityArgumentValueResolver implements ValueResolverInterface
     ) {
     }
 
+    /**
+     * @return iterable<UuidIdentifiedInterface>
+     */
     #[Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {

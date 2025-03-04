@@ -13,6 +13,7 @@ class AbstractConfigureEntityActionsEvent extends AbstractConfigureActionsEvent
     /**
      * @param class-string<T> $entityClass
      * @param T $entity
+     * @param array<string, mixed> $options
      */
     public function __construct(
         string $entityClass,
