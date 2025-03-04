@@ -38,6 +38,7 @@
         "dontdrinkandroot/bootstrap-bundle": "^0.4",
         "dontdrinkandroot/crud-admin-bundle": "^0.4",
         "dontdrinkandroot/doctrine-bundle": "^0.4",
+        "dontdrinkandroot/symfony-version-enforcer": "^0.1.0",
         "knplabs/knp-menu-bundle": "^3.2",
         "league/commonmark": "^2.4",
         "liip/test-fixtures-bundle": "^2.6",
@@ -49,7 +50,10 @@
         "symfony/validator": "^6"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dontdrinkandroot/symfony-version-enforcer": true
+        }
     },
     "extra": {
         "symfony": {
