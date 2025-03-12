@@ -6,7 +6,15 @@ git pull \
 && composer update dontdrinkandroot/* --prefer-source \
 && bin/dev/composer-update-patch-only
 
-if [ -n "$(git status --porcelain composer.lock)" ] || [ -n "$(git status --porcelain pnpm-lock.yarn)" ]; then
-    git add composer.lock pnpm-lock.yarn
+if [ -n "$(git status --porcelain composer.lock)" ] || [ -n "$(git status --porcelain pnpm-lock.yarn)" ] || [ -n "$(git status --porcelain package.json)" ]; then
+    if [ -n "$(git status --porcelain composer.lock)" ]; then
+        git add composer.lock
+    fi
+    if [ -n "$(git status --porcelain pnpm-lock.yarn)" ]; then
+        git add pnpm-lock.yarn
+    fi
+    if [ -n "$(git status --porcelain package.json)" ]; then
+        git add package.json
+    fi
     git commit -m "refactor: Updating dependencies"
 fi
