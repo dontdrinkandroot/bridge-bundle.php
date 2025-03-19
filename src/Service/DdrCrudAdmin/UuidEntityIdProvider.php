@@ -7,6 +7,9 @@ use Dontdrinkandroot\CrudAdminBundle\Service\Id\IdProviderInterface;
 use Dontdrinkandroot\DoctrineBundle\Entity\UuidIdentifiedInterface;
 use Override;
 
+/**
+ * @implements IdProviderInterface<UuidIdentifiedInterface>
+ */
 class UuidEntityIdProvider implements IdProviderInterface
 {
     #[Override]

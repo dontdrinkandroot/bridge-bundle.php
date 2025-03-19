@@ -13,6 +13,10 @@ use InvalidArgumentException;
 use Override;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * @template T of UuidIdentifiedInterface
+ * @implements ItemProviderInterface<T>
+ */
 class UuidEntityItemProvider implements ItemProviderInterface
 {
     public function __construct(private readonly ManagerRegistry $managerRegistry)
@@ -20,7 +24,7 @@ class UuidEntityItemProvider implements ItemProviderInterface
     }
 
     #[Override]
-    public function provideItem(string $entityClass, CrudOperation $crudOperation, mixed $id): ?object
+    public function provideItem(string $entityClass, CrudOperation $crudOperation, mixed $id): ?UuidIdentifiedInterface
     {
         if (
             null === $id
@@ -43,6 +47,7 @@ class UuidEntityItemProvider implements ItemProviderInterface
             return null;
         }
 
+        /** @var T $entity */
         $entity = $entityManager
             ->getUnitOfWork()
             ->getEntityPersister($entityClass)

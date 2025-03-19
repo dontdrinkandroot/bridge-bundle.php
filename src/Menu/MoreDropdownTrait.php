@@ -9,10 +9,13 @@ use Knp\Menu\ItemInterface;
 
 trait MoreDropdownTrait
 {
+    /**
+     * @param string[] $additionalClasses
+     */
     private function createMoreDropdown(ItemInterface $parent, array $additionalClasses = []): ItemInterface
     {
         $classString = 'ddr-btn-icon ddr-no-caret';
-        if (!empty($additionalClasses)) {
+        if (0 < count($additionalClasses)) {
             $classString .= ' ' . implode(' ', $additionalClasses);
         }
         return $parent

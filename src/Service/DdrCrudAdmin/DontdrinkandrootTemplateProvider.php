@@ -6,6 +6,9 @@ use Dontdrinkandroot\Common\CrudOperation;
 use Dontdrinkandroot\CrudAdminBundle\Service\Template\TemplateProviderInterface;
 use Override;
 
+/**
+ * @implements TemplateProviderInterface<object>
+ */
 class DontdrinkandrootTemplateProvider implements TemplateProviderInterface
 {
     #[Override]
