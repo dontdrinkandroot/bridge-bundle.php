@@ -28,14 +28,12 @@ class FlexDateType extends AbstractType
                     'required' => false,
                     'attr' => ['class' => 'year', 'placeholder' => 'year', 'min' => 0],
                     'constraints' => [
-                        new Assert\Range(['min' => 0]),
-                        new Assert\Length(['min' => 4, 'max' => 4]),
+                        new Assert\Range(min: 0),
+                        new Assert\Length(min: 4, max: 4),
                         new Assert\Expression(
-                            [
-                                'expression' => 'value == null && this.getParent().getViewData().getMonth() != null',
-                                'message' => 'ddr.flexdate.yearnotset',
-                                'negate' => false
-                            ]
+                            expression: 'value == null && this.getParent().getViewData().getMonth() != null',
+                            message: 'ddr.flexdate.yearnotset',
+                            negate: false
                         ),
                     ]
                 ]
@@ -51,13 +49,11 @@ class FlexDateType extends AbstractType
                     'attr' => ['class' => 'month'],
                     'choice_translation_domain' => false,
                     'constraints' => [
-                        new Assert\Range(['min' => 1, 'max' => 12]),
+                        new Assert\Range(min: 1, max: 12),
                         new Assert\Expression(
-                            [
-                                'expression' => 'value == null && this.getParent().getViewData().getDay() != null',
-                                'message' => 'ddr.flexdate.monthnotset',
-                                'negate' => false
-                            ]
+                            expression: 'value == null && this.getParent().getViewData().getDay() != null',
+                            message: 'ddr.flexdate.monthnotset',
+                            negate: false
                         ),
                     ]
                 ]
@@ -73,13 +69,11 @@ class FlexDateType extends AbstractType
                     'attr' => ['class' => 'day'],
                     'choice_translation_domain' => false,
                     'constraints' => [
-                        new Assert\Range(['min' => 1, 'max' => 31]),
+                        new Assert\Range(min: 1, max: 31),
                         new Assert\Expression(
-                            [
-                                'expression' => 'value != null && !this.getParent().getViewData().isValidDate()',
-                                'message' => 'ddr.flexdate.dateinvalid',
-                                'negate' => false
-                            ]
+                            expression: 'value != null && !this.getParent().getViewData().isValidDate()',
+                            message: 'ddr.flexdate.dateinvalid',
+                            negate: false
                         ),
                     ]
                 ]

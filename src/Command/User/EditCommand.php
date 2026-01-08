@@ -65,7 +65,7 @@ class EditCommand extends Command
         $roles = $questionHelper->ask($input, $output, $rolesQuestion);
         $user->roles = explode(',', (string)$roles);
 
-        $password = $questionHelper->ask($input, $output, (new Question('Password: '))->setHidden(true));
+        $password = $questionHelper->ask($input, $output, new Question('Password: ')->setHidden(true));
         if (null !== $password && '' !== trim((string)$password)) {
             $user->password = $this->userPasswordHasher->hashPassword($user, $password);
         }

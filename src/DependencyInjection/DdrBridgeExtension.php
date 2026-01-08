@@ -102,14 +102,14 @@ class DdrBridgeExtension extends Extension implements PrependExtensionInterface
         $addressReplyTo = $addressConfig['reply_to'] ?? null;
         $definitionAddressFrom = $container->setDefinition(
             'ddr.bridge.mail.address.from',
-            (new Definition(Address::class, [$addressFrom]))
+            new Definition(Address::class, [$addressFrom])
                 ->setFactory([Address::class, 'create'])
         );
         $definitionAddressReplyTo = null;
         if (null !== $addressReplyTo) {
             $definitionAddressReplyTo = $container->setDefinition(
                 'ddr.bridge.mail.address.reply_to',
-                (new Definition(Address::class, [$addressReplyTo]))
+                new Definition(Address::class, [$addressReplyTo])
                     ->setFactory([Address::class, 'create'])
             );
         }

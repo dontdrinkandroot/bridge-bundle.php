@@ -4,6 +4,7 @@ namespace Dontdrinkandroot\BridgeBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Dontdrinkandroot\Common\Asserted;
 use Override;
 use Stringable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -30,7 +31,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Override]
     public function getUserIdentifier(): string
     {
-        return $this->email;
+        return Asserted::nonEmptyString($this->email);
     }
 
     #[Override]

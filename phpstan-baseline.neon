@@ -11,3 +11,9 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: src/Request/RedirectToRefererTrait.php
+
+		-
+			message: '#^Call to function is_a\(\) with arguments class\-string\<T of Dontdrinkandroot\\DoctrineBundle\\Entity\\UuidIdentifiedInterface\>, ''Dontdrinkandroot\\\\DoctrineBundle\\\\Entity\\\\UuidIdentifiedInterface'' and true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Service/DdrCrudAdmin/UuidEntityItemProvider.php

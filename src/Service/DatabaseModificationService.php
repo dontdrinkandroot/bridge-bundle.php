@@ -16,7 +16,7 @@ class DatabaseModificationService
     public function updateLastChange(): void
     {
         $cacheItem = $this->cache->getItem(self::KEY_LAST_UPDATE);
-        $cacheItem->set((new DateTime())->getTimestamp());
+        $cacheItem->set(new DateTime()->getTimestamp());
         $this->cache->save($cacheItem);
     }
 
@@ -28,7 +28,7 @@ class DatabaseModificationService
     {
         $cacheItem = $this->cache->getItem(self::KEY_LAST_UPDATE);
         if (!$cacheItem->isHit()) {
-            $cacheItem->set((new DateTime())->getTimestamp());
+            $cacheItem->set(new DateTime()->getTimestamp());
             $this->cache->save($cacheItem);
         }
 

@@ -35,7 +35,7 @@ class NestedLoader extends YamlFileLoader
         }
 
         try {
-            $parsedConfig = (new YamlParser())->parseFile($filePath, Yaml::PARSE_CONSTANT);
+            $parsedConfig = new YamlParser()->parseFile($filePath, Yaml::PARSE_CONSTANT);
         } catch (ParseException $e) {
             throw new InvalidArgumentException(
                 sprintf('The file "%s" does not contain valid YAML: ', $filePath) . $e->getMessage(), 0, $e
