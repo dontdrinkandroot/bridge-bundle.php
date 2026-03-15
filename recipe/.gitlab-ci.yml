@@ -5,8 +5,9 @@ include:
 
 #test:phpunit:
 #    services:
-#        - postgres:14.5
+#        - postgres:18.3
 #    variables:
 #        POSTGRES_USER: 'user'
 #        POSTGRES_PASSWORD: 'password'
 #        POSTGRES_DB: 'database_test'
+#        DATABASE_URL: 'postgres://user:password@postgres:5432/database?serverVersion=18.3&charset=utf8'

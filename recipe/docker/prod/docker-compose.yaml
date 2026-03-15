@@ -1,19 +1,26 @@
-version: '3'
-
 services:
 
-    web:
+    app:
         build:
             dockerfile: docker/prod/Dockerfile
             context: ../../
-        image: example.com/website:prod
+        image: registry.gitlab.com/sorst/philip/sdrnr.net:production
+        env_file:
+            -   path: ../../.env
+                required: true
+            -   path: ../../.env.prod.local
+                required: false
+        environment:
+            APP_ENV: 'prod'
+        volumes:
+            - ../../var/log:/app/var/log
         ports:
             - "8000:80"
 #        depends_on:
 #            - postgres
 
 #    postgres:
-#        image: postgres:14.5
+#        image: postgres:18.3
 #        ports:
 #            - "5432:5432"
 #        environment:

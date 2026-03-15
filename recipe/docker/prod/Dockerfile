@@ -1,30 +1,16 @@
-FROM dontdrinkandroot/php:8-4-alpine-symfony-prod
+FROM dontdrinkandroot/php:symfony-prod-8.5
 
-# Change Workdir to Project
-WORKDIR /var/www/
+# Healthcheck to ensure the web server is responding
+HEALTHCHECK --start-period=60s CMD curl http://localhost/_health --silent --show-error --fail --output /dev/null || exit 1
 
-# User as www-data for following commands
-USER www-data
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
 
-# Copy source
-COPY --chown=www-data:www-data ./ /var/www/
+# Copy the application source code (excluding Docker-related files)
+COPY --chown=www-data:www-data . ./
 
-ENV COMPOSER_CACHE_DIR=composer-cache
+RUN set -eux; \
+    composer install -a --no-progress --no-dev; \
+    composer clear-cache;
 
-RUN set -xe \
-    && echo "APP_ENV=prod" >> .env.local \
-    && echo "APP_DEBUG=0" >> .env.local \
-    && DATABASE_URL=sqlite:///%kernel.project_dir%/var/default.db \
-        composer install -a --no-progress --no-dev \
-    && composer dump-autoload --no-dev --classmap-authoritative \
-    && rm -rf \
-        .dockerignore \
-        ./docker/ \
-    && composer clear-cache \
-    && ls -la /var/www/
-
-# Run Apache
-USER root
-#CMD su -s /bin/sh www-data -c "composer dump-env prod && bin/console doctrine:migrations:migrate --all-or-nothing -n" && httpd -D FOREGROUND
-CMD su -s /bin/sh www-data -c "composer dump-env prod && httpd -D FOREGROUND"
-EXPOSE 80
+# RUN caddy-add-messenger-consume async,scheduler_default

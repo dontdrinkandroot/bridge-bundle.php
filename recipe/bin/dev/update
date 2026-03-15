@@ -10,6 +10,9 @@ if [ -n "$(git status --porcelain composer.lock)" ] || [ -n "$(git status --porc
     if [ -n "$(git status --porcelain composer.lock)" ]; then
         git add composer.lock
     fi
+    if [ -n "$(git status --porcelain composer.json)" ]; then
+        git add composer.json
+    fi
     if [ -n "$(git status --porcelain pnpm-lock.yaml)" ]; then
         git add pnpm-lock.yaml
     fi

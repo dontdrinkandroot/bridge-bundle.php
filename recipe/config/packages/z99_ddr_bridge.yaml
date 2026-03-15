@@ -1,0 +1,19 @@
+ddr_bridge:
+#    user:
+#        enabled: true
+
+when@prod:
+    monolog:
+        handlers:
+            nested:
+                type: group
+                members: [ nested_stderr, nested_file ]
+            nested_stderr:
+                type: stream
+                path: php://stderr
+                level: debug
+                formatter: monolog.formatter.json
+            nested_file:
+                type: stream
+                path: "%kernel.logs_dir%/error.log"
+                level: debug

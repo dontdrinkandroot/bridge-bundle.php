@@ -1,0 +1,2 @@
+#!/bin/bash
+bin/docker/prod/compose exec -u www-data app /bin/bash

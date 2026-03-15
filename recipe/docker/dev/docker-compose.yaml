@@ -1,16 +1,19 @@
 services:
 
-    web:
-        image: 'dontdrinkandroot/php:8-3-alpine-symfony-dev'
+    app:
+        image: dontdrinkandroot/php:symfony-dev-8.5
+        extra_hosts:
+            - host.docker.internal:host-gateway
+        tty: true
         ports:
             - "8000:80"
+        volumes:
+            - ../../:/app
 #        depends_on:
 #            - postgres
-        volumes:
-            - ../../:/var/www/
 
 #    postgres:
-#        image: postgres:17.2
+#        image: postgres:18.3
 #        ports:
 #            - "5432:5432"
 #        environment:
