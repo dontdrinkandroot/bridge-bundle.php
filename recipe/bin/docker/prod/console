@@ -1,2 +1,2 @@
 #!/bin/bash
-bin/docker/prod/compose exec -u www-data app /app/console "$@"
+bin/docker/prod/compose exec -u www-data app /app/bin/console "$@"
