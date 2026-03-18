@@ -1,10 +1,13 @@
 #!/bin/sh
-git pull \
-&& pnpm install \
-&& pnpm upgrade \
-&& pnpm encore dev \
-&& composer update dontdrinkandroot/* --prefer-source \
-&& composer update --patch-only
+
+set -xeu
+
+git pull
+composer update dontdrinkandroot/* --prefer-source
+composer update --patch-only
+pnpm install
+pnpm upgrade
+pnpm encore dev
 
 if [ -n "$(git status --porcelain composer.lock)" ] || [ -n "$(git status --porcelain pnpm-lock.yaml)" ]; then
     if [ -n "$(git status --porcelain composer.lock)" ]; then

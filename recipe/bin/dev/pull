@@ -1,5 +1,8 @@
 #!/bin/sh
-git pull \
-&& pnpm install \
-&& pnpm encore dev \
-&& composer install
+
+set -xeu
+
+git pull
+composer install
+pnpm install
+pnpm encore dev
