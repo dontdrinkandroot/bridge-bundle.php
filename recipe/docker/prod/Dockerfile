@@ -11,6 +11,7 @@ COPY --chown=www-data:www-data . ./
 
 RUN set -eux; \
     composer install -a --no-progress --no-dev; \
-    composer clear-cache;
+    composer clear-cache; \
+    ls -la;
 
 # RUN caddy-add-messenger-consume async,scheduler_default
