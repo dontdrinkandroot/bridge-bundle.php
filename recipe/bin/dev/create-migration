@@ -1,7 +1,9 @@
 #!/bin/bash
 
-export DATABASE_URL="postgresql://user:password@127.0.0.1:5432/database_test?serverVersion=14.5&charset=utf8" \
-&& bin/console doctrine:schema:drop -f --full-database \
-&& bin/console doctrine:migrations:migrate -n --all-or-nothing \
-&& bin/console make:migration \
-&& bin/console doctrine:migrations:migrate -n --all-or-nothing
+set -xeu
+
+export DATABASE_URL="postgresql://user:password@127.0.0.1:5432/database_test?serverVersion=14.5&charset=utf8"
+bin/console doctrine:schema:drop -f --full-database
+bin/console doctrine:migrations:migrate -n --all-or-nothing
+bin/console make:migration
+bin/console doctrine:migrations:migrate -n --all-or-nothing
