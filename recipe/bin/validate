@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CRAP_THRESHOLD=${CRAP_THRESHOLD:-30}
+export CRAP_THRESHOLD=${CRAP_THRESHOLD:-30}
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 COVERAGE_DIR="$PROJECT_DIR/coverage"
 CRAP_FILE="$COVERAGE_DIR/crap4j.xml"
