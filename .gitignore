@@ -1,7 +1,6 @@
 /vendor/
 /.idea/
 /composer.lock
-/.phpunit.cache
-/coverage.clover.xml
-/log.junit.xml
 /symfony.lock
+/.phpunit.cache/
+/crap4j.xml
